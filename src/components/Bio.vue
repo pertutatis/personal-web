@@ -8,21 +8,23 @@ import Linkedin from '../ui/Linkedin.vue'
   <section class="section">
     <div class="bio section__wrapper">
       
-      <img class="portrait" src="" alt="">
+      <img class="portrait" src="../assets/foto.png" alt="Picture about me">
       <div class="bio__column">
 
         <Brand class="logo" />
         <h1 class="big-title">Hi! 👋🏻 I'm Diego Pertusa Irles</h1>
         <p>Engineering manager at Jeff</p>
 
-        <div class="link-collection">
+        <div class="link-collection" v-if="false">
           <a href="" class="link-collection__item">CV</a>
           <a href="" class="link-collection__item">About</a>
         </div>
 
         <div class="link-collection">
-          <Github class="link-collection__item--reduced" />
-          <Linkedin class="link-collection__item--reduced" />
+          <a href="https://github.com/pertutatis" target="_blank"  class="link-collection__item--reduced">
+            <Github /></a>
+          <a href="https://www.linkedin.com/in/diego-pertusa/" target="_blank"  class="link-collection__item--reduced">
+            <Linkedin /></a>
         </div>
 
       </div>
@@ -58,7 +60,7 @@ import Linkedin from '../ui/Linkedin.vue'
 
 .bio__column {
   @media (min-width: 768px) {
-    margin-left: calc(var(--base) * 2);
+    margin-left: calc(var(--base) * 4);
   }
 
   @media (min-width: 1024px) {
