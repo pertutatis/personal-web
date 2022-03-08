@@ -33,9 +33,18 @@ import Bio from './components/Bio.vue'
 
   /* Light scheme */
   --accent-color: var(--primary-color);
-  --background-color: var(--light-color);
-  --text-color: var(--dark-gray-color);
-  --title-color: var(--dark-color);
+  --background-color: var(--dark-color);
+  --text-color: var(--gray-color);
+  --title-color: var(--light-color);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --accent-color: var(--primary-color);
+    --background-color: var(--light-color);
+    --text-color: var(--dark-gray-color);
+    --title-color: var(--dark-color);
+  }
 }
 
 @media (prefers-color-scheme: dark) {
