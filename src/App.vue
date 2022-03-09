@@ -60,6 +60,10 @@ import Bio from './components/Bio.vue'
    Skeleton
    ==================================== */
 
+html, body, #app {
+  height: 100%;
+}
+
 body {
   background-color: var(--background-color);
   font-family: var(--secondary-font);
@@ -71,7 +75,6 @@ body {
 }
 
 #app {
-  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
