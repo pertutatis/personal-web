@@ -13,7 +13,7 @@ import Linkedin from '../ui/Linkedin.vue'
 
         <Brand class="logo" />
         <h1 class="big-title">Hi! 👋🏻 I'm Diego Pertusa Irles</h1>
-        <p>Engineering manager at Jeff</p>
+        <p>Engineering manager at Seedtag</p>
 
         <div class="link-collection" v-if="false">
           <a href="" class="link-collection__item">CV</a>
