@@ -17,13 +17,11 @@ import Bio from './components/Bio.vue'
 :root {
   --primary-font: "Montserrat", helvetica, arial, serif;
   --secondary-font: 'Roboto Mono', arial, serif;
-  --primary-color: #00EECE;
-  --secondary-color: #F8A85D;
-  --dark-color: #31303A;
-  --dark-secondary-color: #28282F;
-  --dark-gray-color: #363636;
-  --gray-color: #CECED3;
-  --light-color: #F1F1F1;
+  --primary-color: #ff331a;
+  --secondary-color: #ff8a14;
+  --dark-color: #252324;
+  --light-color: #f6e9c4;
+  --lighter-color: #FFFAF1;
 
   --base: 8px;
   --bold: 700;
@@ -32,26 +30,26 @@ import Bio from './components/Bio.vue'
   --light: 300;
 
   /* Light scheme */
-  --accent-color: var(--primary-color);
+  --accent-color: var(--secondary-color);
   --background-color: var(--dark-color);
-  --text-color: var(--gray-color);
+  --text-color: var(--light-color);
   --title-color: var(--light-color);
 }
 
 @media (prefers-color-scheme: light) {
   :root {
     --accent-color: var(--primary-color);
-    --background-color: var(--light-color);
-    --text-color: var(--dark-gray-color);
+    --background-color: var(--lighter-color);
+    --text-color: var(--dark-color);
     --title-color: var(--dark-color);
   }
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --accent-color: var(--primary-color);
+    --accent-color: var(--secondary-color);
     --background-color: var(--dark-color);
-    --text-color: var(--gray-color);
+    --text-color: var(--light-color);
     --title-color: var(--light-color);
   }
 }
