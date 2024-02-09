@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import Bio from './components/Bio.vue'
 </script>
 
 <template>
-  <Bio />
+  <router-view></router-view>
 </template>
 
 <style lang="postcss">
@@ -59,6 +58,7 @@ import Bio from './components/Bio.vue'
    ==================================== */
 
 html, body, #app {
+  min-height: 100%;
   height: 100%;
 }
 
@@ -70,12 +70,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--text-color);
-}
-
-#app {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .section {
@@ -124,14 +118,71 @@ body {
   color: var(--title-color);
 }
 
+p, h1, h2, h3, h4, h5, h6 {
+  margin-bottom: calc(var(--base) * 2);
+}
+
 a {
-  font-family: var(--primary-font);
-  font-weight: var(--medium);
+  /* font-family: var(--primary-font); */
+  /* font-weight: var(--medium); */
   color: var(--accent-color);
   text-decoration: underline;
 }
 
 p {
   margin-bottom: calc(var(--base) * 2);
+}
+
+
+
+
+h1 {
+  font-family: var(--primary-font);
+  font-style: normal;
+  font-weight: var(--bold);
+  font-size: 32px;
+  /* line-height: 46px; */
+
+  @media (min-width: 1024px) {
+    font-size: 38px;
+  }
+}
+
+h2 {
+  font-family: var(--primary-font);
+  font-style: normal;
+  font-weight: var(--bold);
+  font-size: 28px;
+  /* line-height: 39px; */
+
+  @media (min-width: 1024px) {
+    font-size: 32px;
+  }
+}
+
+h3 {
+  font-family: var(--primary-font);
+  font-style: normal;
+  font-weight: var(--bold);
+  font-size: 24px;
+  /* line-height: 29px; */
+}
+
+
+h4 {
+  font-family: var(--primary-font);
+  font-style: normal;
+  font-weight: var(--bold);
+  font-size: 20px;
+  /* line-height: 24px; */
+}
+
+
+h5 {
+  font-family: var(--primary-font);
+  font-style: normal;
+  font-weight: var(--bold);
+  font-size: 18px;
+  /* line-height: 22px; */
 }
 </style>
