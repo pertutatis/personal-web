@@ -5,6 +5,7 @@ import Linkedin from '../ui/Linkedin.vue'
 </script>
 
 <template>
+  <div class="home-wrapper">
   <section class="section">
     <div class="bio section__wrapper">
       
@@ -30,9 +31,17 @@ import Linkedin from '../ui/Linkedin.vue'
       </div>
     </div>
   </section>
+  </div>
 </template>
 
 <style lang="postcss" scoped>
+.home-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
 .bio {
   @media (min-width: 768px) {
     display: flex;
