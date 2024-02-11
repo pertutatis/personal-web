@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Brand from '../ui/Brand.vue'
+import Brand from './Brand.vue'
 </script>
 
 <template>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import Brand from '../ui/Brand.vue'
-import Github from '../ui/Github.vue'
-import Linkedin from '../ui/Linkedin.vue'
+import Brand from '../components/Brand.vue'
+import Github from '../components/Github.vue'
+import Linkedin from '../components/Linkedin.vue'
 </script>
 
 <template>
@@ -16,9 +16,8 @@ import Linkedin from '../ui/Linkedin.vue'
         <h1 class="big-title">Hi! 👋🏻 I'm Diego Pertusa Irles</h1>
         <p>Engineering manager at Seedtag</p>
 
-        <div class="link-collection" v-if="false">
-          <a href="" class="link-collection__item">CV</a>
-          <a href="" class="link-collection__item">About</a>
+        <div class="link-collection">
+          <router-link class="link-collection__item" to="/blog/">Blog</router-link>
         </div>
 
         <div class="link-collection">
@@ -91,6 +90,10 @@ import Linkedin from '../ui/Linkedin.vue'
   &:last-child {
     margin-bottom: 0;
   }
+}
+
+.link-collection__item {
+  color: var(--text-color);
 }
 
 .link-collection__item + .link-collection__item {

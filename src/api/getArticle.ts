@@ -1,5 +1,5 @@
-import serviceArticles from '../domain/content/services/serviceArticles'
-import { IArticle } from '../domain/content/models/Article';
+import serviceArticles from '../domain/services/serviceArticles'
+import { IArticle } from '../domain/models/Article';
 import retrieveArticles from '../articles/index';
 
 
