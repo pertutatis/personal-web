@@ -10,7 +10,7 @@
    Config
    ==================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto+Mono:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto+Mono:wght@300;700&display=swap');
 @import url("./assets/reset.css");
 
 :root {
@@ -111,13 +111,6 @@ body {
    Texts
    ==================================== */
 
-.big-title {
-  font-family: var(--primary-font);
-  font-weight: var(--bold);
-  font-size: calc(var(--base) * 5);
-  color: var(--title-color);
-}
-
 p, h1, h2, h3, h4, h5, h6 {
   margin-bottom: calc(var(--base) * 2);
 }
@@ -129,10 +122,41 @@ a {
   text-decoration: underline;
 }
 
-p {
+p, ul, ol, table {
   margin-bottom: calc(var(--base) * 2);
 }
 
+strong, b {
+  font-weight: var(--bold);
+}
+
+h1 {
+  margin-bottom: calc(var(--base) * 8);
+}
+
+p + h2, p + h3, p + h4, p + h5,
+aside + h2, aside + h3, aside + h4, aside + h5,
+table + h2, table + h3, table + h4, table + h5 {
+  margin-top: calc(var(--base) * 6);
+}
+
+ol {
+  list-style: decimal-leading-zero;
+  padding-left: calc(var(--base) * 6);
+}
+
+ul {
+  list-style: circle;
+  padding-left: 20px;
+}
+
+li {
+  margin: 8px 0;
+}
+
+ul li::marker {
+  color: var(--accent-color);
+}
 
 
 
@@ -184,5 +208,19 @@ h5 {
   font-weight: var(--bold);
   font-size: 18px;
   /* line-height: 22px; */
+}
+
+table {
+    border: 0.25px solid var(--text-color);
+}
+
+thead {
+    background: var(--text-color);
+    color: var(--background-color);
+}
+
+th, td {
+    border: 0.25px solid var(--text-color);
+    padding: var(--base);
 }
 </style>

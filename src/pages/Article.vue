@@ -1,31 +1,39 @@
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import Header from '../components/header.vue'
+import Markdown from 'vue3-markdown-it';
+import article from "../articles/post-1.js";
+
+const source = ref(article.content)
+
 </script>
 
 <template>
   <Header />
 
-  <section class="section blog">
+  <section class="section">
     <div class=" section__wrapper">
-      <header class="blog__header">
-        <h1>Esto es un post</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ut ultrices urna, vel aliquam neque. Nam condimentum leo risus, nec semper urna cursus sed. Etiam massa lorem, lobortis ut vehicula ut, viverra ut nulla. Sed bibendum mi non dictum laoreet. Nulla feugiat odio et consectetur tristique.</p>
-        <p>Pellentesque posuere sed sapien ac dapibus. Suspendisse scelerisque aliquet semper. Maecenas commodo auctor massa, ac vestibulum ligula tincidunt eu.</p>
+      <header class="article">
+        <Markdown :source="source" html="true" />
       </header>
     </div>
   </section>
 </template>
 
-<style lang="postcss" scoped>
-.blog__header {
-  margin-left: calc(8.33% * 1);
+<style lang="postcss">
+.article {
+  margin-left: calc(8.33% * 2);
   margin-right: calc(8.33% * 2);
   margin-bottom: calc(var(--base) * 8);
+  padding-bottom: 64px;
 }
 
-.blog__content {
-  margin-left: calc(8.33% * 1);
-  margin-right: calc(8.33% * 5);
+aside {
+  background: var(--text-color);
+  padding: 24px;
+  margin-bottom: 16px;
+  color: var(--background-color);
+  font-style: italic;
 }
 </style>

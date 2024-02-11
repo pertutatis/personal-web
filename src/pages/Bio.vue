@@ -35,6 +35,14 @@ import Linkedin from '../ui/Linkedin.vue'
 </template>
 
 <style lang="postcss" scoped>
+.big-title {
+  font-family: var(--primary-font);
+  font-weight: var(--bold);
+  font-size: calc(var(--base) * 5);
+  color: var(--title-color);
+  margin-bottom: 0;
+}
+
 .home-wrapper {
   display: flex;
   justify-content: center;
