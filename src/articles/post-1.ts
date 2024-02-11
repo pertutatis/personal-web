@@ -1,4 +1,10 @@
-const article = {
+import { IArticle } from './index';
+
+const article: IArticle = {
+  title: 'Empezando a gestionar un equipo',
+  slug: 'empezando-a-gestionar-un-equipo',
+  excerpt:
+    'Comenzar como Engineering Manager en una empresa puede ser emocionante y desafiante a partes iguales, especialmente cuando tu reto es liderar un equipo ya consolidado y con mucha más experiencia que tu.',
   content: `
 # Empezando a gestionar un equipo
 

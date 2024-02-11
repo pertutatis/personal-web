@@ -1,12 +1,25 @@
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import Header from '../components/header.vue'
 import Markdown from 'vue3-markdown-it';
-import article from "../articles/post-1.js";
+import getArticle from "../api/getArticle";
+import { useRoute, useRouter } from 'vue-router'
 
-const source = ref(article.content)
 
+const route = useRoute()
+const router = useRouter()
+const source = ref("")
+
+onMounted(async () => {
+  const article = await getArticle(route.params.slug);
+  
+  if (!article) {
+    router.push({ path: '/blog/' })
+  }
+
+  source.value = article.content
+})
 </script>
 
 <template>
@@ -15,7 +28,7 @@ const source = ref(article.content)
   <section class="section">
     <div class=" section__wrapper">
       <header class="article">
-        <Markdown :source="source" html="true" />
+        <Markdown :source="source" :html="true" />
       </header>
     </div>
   </section>

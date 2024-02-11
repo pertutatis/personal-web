@@ -9,9 +9,8 @@ import Brand from '../ui/Brand.vue'
         <Brand class="logo" />
       </div>
       <nav class="header__nav nav">
-        <a href="" class="nav__item">Home</a> · 
-        <a href="" class="nav__item">Blog</a> · 
-        <a href="" class="nav__item">Books</a>
+        <router-link class="nav__item" to="/">Home</router-link> ·
+        <router-link class="nav__item" to="/blog/">Blog</router-link>
       </nav>
     </div>
   </header>

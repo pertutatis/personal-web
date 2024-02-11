@@ -28,6 +28,8 @@
   --regular: 400;
   --light: 300;
 
+  --main-transition: .3s ease;
+
   /* Light scheme */
   --accent-color: var(--secondary-color);
   --background-color: var(--dark-color);

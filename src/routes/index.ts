@@ -15,7 +15,7 @@ const routeInfos = [
     component: Blog,
   },
   {
-    path: '/article',
+    path: '/blog/:slug',
     component: Article,
   },
 ];

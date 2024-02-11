@@ -1,5 +1,18 @@
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import Header from '../components/header.vue'
+import getArticles from "../api/getArticles";
+
+const articles = ref([])
+
+onMounted(async () => {
+  const recievedArticles = await getArticles();
+  
+  if (recievedArticles) {
+    articles.value =recievedArticles;
+  }
+})
+
 </script>
 
 <template>
@@ -14,19 +27,11 @@ import Header from '../components/header.vue'
       </header>
       
       <div class="blog__content">
-        <article class="excerpt">
-          <h3 class="excerpt__title">This is a post title</h3>
-          <p class="excerpt__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ut ultrices urna, vel aliquam neque. Nam condimentum leo risus, nec semper urna cursus sed. </p>
-        </article>
-
-        <article class="excerpt">
-          <h3 class="excerpt__title">This is a post title</h3>
-          <p class="excerpt__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ut ultrices urna, vel aliquam neque. Nam condimentum leo risus, nec semper urna cursus sed. </p>
-        </article>
-
-        <article class="excerpt">
-          <h3 class="excerpt__title">This is a post title</h3>
-          <p class="excerpt__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ut ultrices urna, vel aliquam neque. Nam condimentum leo risus, nec semper urna cursus sed. </p>
+        <article class="excerpt" v-for="article in articles">
+          <router-link :to="'/blog/' + article.slug">
+            <h3 class="excerpt__title">{{ article.title }}</h3>
+            <p class="excerpt__text">{{ article.excerpt }}</p>
+          </router-link>
         </article>
       </div>
     </div>
@@ -51,5 +56,16 @@ import Header from '../components/header.vue'
 
 .excerpt {
   margin-bottom: calc(var(--base) * 4);
+}
+
+.excerpt__link {
+  color: var(--text-color);
+  text-decoration: none;
+  transition: color var(--main-transition), text-decoration var(--main-transition);
+
+  &:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+  }
 }
 </style>
