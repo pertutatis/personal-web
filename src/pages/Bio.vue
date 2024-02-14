@@ -14,7 +14,7 @@ import Linkedin from '../components/Linkedin.vue'
 
         <Brand class="logo" />
         <h1 class="big-title">Hi! 👋🏻 I'm Diego Pertusa Irles</h1>
-        <p>Engineering manager at Seedtag</p>
+        <p class="subtitle">Engineering manager at Seedtag</p>
 
         <div class="link-collection">
           <router-link class="link-collection__item" to="/blog/">Blog</router-link>
@@ -40,6 +40,10 @@ import Linkedin from '../components/Linkedin.vue'
   font-size: calc(var(--base) * 5);
   color: var(--title-color);
   margin-bottom: 0;
+}
+
+.subtitle {
+  font-size: 20px;
 }
 
 .home-wrapper {

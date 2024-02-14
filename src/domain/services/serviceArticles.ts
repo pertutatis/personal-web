@@ -10,6 +10,10 @@ interface inArray {
 
 class serviceArticles {
   getArticles(articles: Array<inArray>): Array<IArticle> {
+    if (!articles) {
+      return []
+    }
+    
     const allArticles = articles.map((article) => {
       return new Article(article);
     });

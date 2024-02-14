@@ -67,7 +67,7 @@ html, body, #app {
 body {
   background-color: var(--background-color);
   font-family: var(--secondary-font);
-  font-size: calc(var(--base) * 2.5);
+  font-size: calc(var(--base) * 2.25);
   font-weight: var(--light);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

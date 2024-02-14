@@ -43,10 +43,10 @@ onMounted(async () => {
 }
 
 aside {
-  background: var(--text-color);
+  border: 1px solid var(--text-color);
   padding: 24px;
   margin-bottom: 16px;
-  color: var(--background-color);
+  /* color: var(--background-color); */
   font-style: italic;
 }
 </style>

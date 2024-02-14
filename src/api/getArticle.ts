@@ -8,8 +8,5 @@ export default function getArticles(slug: string): Promise<boolean | IArticle> {
       .then((response) => {
         return serviceArticles.getArticle(response, slug);
       })
-      .catch((error) => {
-        throw error;
-      });
     }
 

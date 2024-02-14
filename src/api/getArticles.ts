@@ -8,9 +8,6 @@ export default function getArticles(): Promise<boolean | IArticle[]> {
     .then((response) => {
       return serviceArticles.getArticles(response);
     })
-    .catch((error) => {
-      throw error;
-    });
 }
 
 

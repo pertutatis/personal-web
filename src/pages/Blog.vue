@@ -28,7 +28,7 @@ onMounted(async () => {
       
       <div class="blog__content">
         <article class="excerpt" v-for="article in articles">
-          <router-link :to="'/blog/' + article.slug">
+          <router-link class="excerpt__link" :to="'/blog/' + article.slug">
             <h3 class="excerpt__title">{{ article.title }}</h3>
             <p class="excerpt__text">{{ article.excerpt }}</p>
           </router-link>
