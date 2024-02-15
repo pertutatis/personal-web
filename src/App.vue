@@ -225,8 +225,22 @@ thead {
     color: var(--background-color);
 }
 
+tr {
+    border: 1px solid var(--text-color);
+
+    @media (min-width: 768px) {
+      border: none;
+    }
+}
+
 th, td {
+  display: block;
+  border: none;
+  padding: var(--base);
+
+  @media (min-width: 768px) {
+    display: table-cell;
     border: 0.25px solid var(--text-color);
-    padding: var(--base);
+  }
 }
 </style>

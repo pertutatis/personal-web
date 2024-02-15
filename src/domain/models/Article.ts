@@ -3,6 +3,8 @@ export interface IArticle {
   content: string;
   slug: string;
   excerpt: string;
+  // date: string;
+  // books: Array;
 }
 
 export default class Article implements IArticle {

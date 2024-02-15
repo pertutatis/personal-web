@@ -36,17 +36,45 @@ onMounted(async () => {
 
 <style lang="postcss">
 .article {
-  margin-left: calc(8.33% * 2);
-  margin-right: calc(8.33% * 2);
   margin-bottom: calc(var(--base) * 8);
   padding-bottom: 64px;
+
+  @media (min-width: 1024px) {
+    margin-left: calc(8.33% * 2);
+    margin-right: calc(8.33% * 2);
+  }
 }
 
 aside {
   border: 1px solid var(--text-color);
   padding: 24px;
   margin-bottom: 16px;
-  /* color: var(--background-color); */
   font-style: italic;
 }
+
+table legend {
+  background: #0000002b;
+  width: calc(100% + 16px);
+  margin-left: -8px;
+  margin-top: -8px;
+  padding: 5px;
+  margin-bottom: 8px;
+  
+  @media (min-width: 768px) {
+    display: none;
+  } 
+}
+
+thead {
+    display: none;
+
+  @media (min-width: 768px) {
+    display: table-header-group;
+  }
+}
+
+
+
+
+
 </style>
