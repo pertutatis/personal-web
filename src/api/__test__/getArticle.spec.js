@@ -1,6 +1,6 @@
 import getArticle from '../getArticle';
 import serviceArticles from '../../domain/services/serviceArticles';
-import * as articles from '../../articles/index';
+import * as articles from '../../content/index';
 
 serviceArticles.getArticle = jest.fn();
 
@@ -18,7 +18,7 @@ describe('api success', () => {
   it('gets a response', async () => {
     await getArticle();
     
-    expect(serviceArticles.getArticle).toHaveBeenCalled();
+    expect(articles.retrieveArticles).toHaveBeenCalled();
   })
 })
 

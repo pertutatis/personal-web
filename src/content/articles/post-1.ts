@@ -1,13 +1,14 @@
-import { IArticle } from './index';
+import { IArticleResponse } from '../../domain/models/Article';
 
-const article: IArticle = {
+const article: IArticleResponse = {
   title: 'Empezando a gestionar un equipo',
   slug: 'empezando-a-gestionar-un-equipo',
+  date: 'Publicada el 5 de enero en Categoría.',
+  books: [4, 2, 3],
+  category: "",
   excerpt:
     'Comenzar como Engineering Manager en una empresa puede ser emocionante y desafiante a partes iguales, especialmente cuando tu reto es liderar un equipo ya consolidado y con mucha más experiencia que tu.',
   content: `
-# Empezando a gestionar un equipo
-
 ## Introducción
 
 Comenzar como Engineering Manager en una empresa puede ser emocionante y desafiante a partes iguales, especialmente cuando tu reto es liderar un equipo ya consolidado y con mucha más experiencia que tu. Puede que tengas experiencia en el puesto, incluso puede que hayas gestionado multiples equipos, la realidad es que la dinámica de cada equipo siempre es única. Incluso el reto al que se enfrenta puede no tener nada que ver con lo que hayas vivido nunca. Necesitas desplegar todas las habilidades de adaptación de las que dispongas. En este artículo, os quiero contar mi experiencia empezando a gestionar el que es mi actual equipo.
@@ -71,7 +72,7 @@ Este plan lo fui compartiendo con el equipo, utilizando tanto los 1:1 como sesio
 
 El avance durante los primeros meses fue muy positivo, no solo en cada una de las areas de trabajo, como se puede observar en el gráfico a continuación, si no en el equipo. Las mejoras en NPS y feedbacks del equipo fueron muy positivos. Por otro lado ese mismo año añadimos dos ingenieros más al grupo. A día de hoy hemos crecido tanto como para montar una tribu con dos equipos.
 
-![Untitled](Empezando%20a%20gestionar%20un%20equipo%20dab42377637947359cd7c13df4ef517f/Untitled.png)
+![Untitled](/imgs/team-commitment-evolution.png)
 
 A lo largo de los siguientes artículos iremos viendo en detalle como profundizamos en cada una de las areas descritas al principio y viendo que acciones concretas llevamos a cabo.
 

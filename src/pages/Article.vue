@@ -10,6 +10,8 @@ import { useRoute, useRouter } from 'vue-router'
 const route = useRoute()
 const router = useRouter()
 const source = ref("")
+const title = ref("")
+const date = ref("")
 
 onMounted(async () => {
   const article = await getArticle(route.params.slug);
@@ -19,6 +21,8 @@ onMounted(async () => {
   }
 
   source.value = article.content
+  title.value = article.title
+  date.value = article.date
 })
 </script>
 
@@ -28,6 +32,8 @@ onMounted(async () => {
   <section class="section">
     <div class=" section__wrapper">
       <header class="article">
+        <h1 class="article__title">{{ title }}</h1>
+        <p class="article__meta">{{ date }}</p>
         <Markdown :source="source" :html="true" />
       </header>
     </div>
@@ -43,6 +49,14 @@ onMounted(async () => {
     margin-left: calc(8.33% * 2);
     margin-right: calc(8.33% * 2);
   }
+}
+
+.article__title {
+  margin-bottom: calc(var(--base) * 1);
+}
+
+.article__meta {
+  margin-bottom: calc(var(--base) * 8);
 }
 
 aside {

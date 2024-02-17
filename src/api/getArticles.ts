@@ -1,12 +1,14 @@
 import serviceArticles from '../domain/services/serviceArticles'
 import { IArticle } from '../domain/models/Article';
-import retrieveArticles from '../articles/index';
+import { retrieveArticles, retrieveBooks } from '../content/index';
+import getBooks from './getBooks';
 
+export default async function getArticles(): Promise<boolean | IArticle[]> {
+  const books = await getBooks();
 
-export default function getArticles(): Promise<boolean | IArticle[]> {
   return retrieveArticles()
     .then((response) => {
-      return serviceArticles.getArticles(response);
+      return serviceArticles.getArticles(response, books);
     })
 }
 

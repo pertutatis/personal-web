@@ -1,6 +1,6 @@
 import getArticles from '../getArticles';
 import serviceArticles from '../../domain/services/serviceArticles';
-import * as articles from '../../articles/index';
+import * as articles from '../../content/index';
 
 serviceArticles.getArticles = jest.fn();
 
