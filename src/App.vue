@@ -32,6 +32,7 @@
 
   /* Light scheme */
   --accent-color: var(--secondary-color);
+  --accent-2-color: var(--primary-color);
   --background-color: var(--dark-color);
   --text-color: var(--light-color);
   --title-color: var(--light-color);
@@ -40,6 +41,7 @@
 @media (prefers-color-scheme: light) {
   :root {
     --accent-color: var(--primary-color);
+    --accent-2-color: var(--secondary-color);
     --background-color: var(--lighter-color);
     --text-color: var(--dark-color);
     --title-color: var(--dark-color);
@@ -49,6 +51,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --accent-color: var(--secondary-color);
+    --accent-2-color: var(--primary-color);
     --background-color: var(--dark-color);
     --text-color: var(--light-color);
     --title-color: var(--light-color);
@@ -122,6 +125,11 @@ a {
   /* font-weight: var(--medium); */
   color: var(--accent-color);
   text-decoration: underline;
+  transition: color var(--main-transition);
+
+  &:hover {
+    color: var(--accent-2-color);
+  }
 }
 
 p, ul, ol, table {

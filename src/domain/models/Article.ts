@@ -8,6 +8,7 @@ export interface IArticle {
   date: string;
   books: Array<IBook>;
   category: String;
+  relatedLinks: { text: string; link: string }[];
 }
 
 export interface IArticleResponse {
@@ -18,6 +19,7 @@ export interface IArticleResponse {
   date: string;
   books: Array<number>;
   category: String;
+  relatedLinks: { text: string; link: string }[];
 }
 
 export default class Article implements IArticle {
@@ -28,6 +30,7 @@ export default class Article implements IArticle {
   date: string;
   books: Array<IBook>;
   category: String;
+  relatedLinks: { text: string; link: string }[];
   constructor(content: IArticle) {
     this.title = content.title;
     this.content = content.content;
@@ -36,5 +39,6 @@ export default class Article implements IArticle {
     this.date = content.date;
     this.books = content.books;
     this.category = content.category;
+    this.relatedLinks = content.relatedLinks;
   }
 }

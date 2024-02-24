@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import Header from '../components/header.vue'
+import Footer from '../components/footer.vue'
 import getArticles from "../api/getArticles";
 
 const articles = ref([])
@@ -22,8 +23,8 @@ onMounted(async () => {
     <div class=" section__wrapper">
       <header class="blog__header">
         <h1 class="blog__title">Hola! 👋🏻 Bienvenido a mi blog</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ut ultrices urna, vel aliquam neque. Nam condimentum leo risus, nec semper urna cursus sed. Etiam massa lorem, lobortis ut vehicula ut, viverra ut nulla. Sed bibendum mi non dictum laoreet. Nulla feugiat odio et consectetur tristique.</p>
-        <p>Pellentesque posuere sed sapien ac dapibus. Suspendisse scelerisque aliquet semper. Maecenas commodo auctor massa, ac vestibulum ligula tincidunt eu.</p>
+        <p>Quiero agradecer que le dediques unos minutos este es un espacio, donde quiero compartir con vosotros mis retos y como los soluciono. No esperéis una periodicidad marcada por el calendario. El objetivo último es poder reflexionar públicamente sobre cómo afronto mi día a día y así poder aprender de mis errores y asentar mis aciertos. </p>
+        <p>Publico mis ideas no con la esperanza de ser leído por los demás pero espero poder ayudarte por el camino. Todo feedback es un regalo, así que si tienes algo que decirme, no dudes en contactarme por <a href="https://www.linkedin.com/in/diego-pertusa/" target="_blank">Linkedin</a>.</p>
       </header>
       
       <div class="blog__content">
@@ -36,6 +37,8 @@ onMounted(async () => {
       </div>
     </div>
   </section>
+
+  <Footer/>
 </template>
 
 <style lang="postcss" scoped>

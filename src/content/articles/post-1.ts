@@ -1,17 +1,20 @@
 import { IArticleResponse } from '../../domain/models/Article';
 
 const article: IArticleResponse = {
-  title: 'Empezando a gestionar un equipo',
-  slug: 'empezando-a-gestionar-un-equipo',
-  date: 'Publicada el 5 de enero en Categoría.',
-  books: [4, 2, 3],
-  category: "",
+  title: 'Empezando a gestionar un equipo de alto rendimiento',
+  slug: 'empezando-a-gestionar-un-equipo-de-alto-rendimiento',
+  date: 'Publicada el 5 de enero',
+  books: [2, 1],
+  category: '',
+  relatedLinks: [],
   excerpt:
     'Comenzar como Engineering Manager en una empresa puede ser emocionante y desafiante a partes iguales, especialmente cuando tu reto es liderar un equipo ya consolidado y con mucha más experiencia que tu.',
   content: `
-## Introducción
+  ![Empezando a gestionar un equipo de alto rendimiento](/imgs/gestionando-equipos-de-alto-rendimiento.jpeg)
 
 Comenzar como Engineering Manager en una empresa puede ser emocionante y desafiante a partes iguales, especialmente cuando tu reto es liderar un equipo ya consolidado y con mucha más experiencia que tu. Puede que tengas experiencia en el puesto, incluso puede que hayas gestionado multiples equipos, la realidad es que la dinámica de cada equipo siempre es única. Incluso el reto al que se enfrenta puede no tener nada que ver con lo que hayas vivido nunca. Necesitas desplegar todas las habilidades de adaptación de las que dispongas. En este artículo, os quiero contar mi experiencia empezando a gestionar el que es mi actual equipo.
+
+[toc]
 
 ## **El detonante**
 
@@ -80,37 +83,32 @@ A lo largo de los siguientes artículos iremos viendo en detalle como profundiza
 
 Como resumen final os dejo unos consejos que he extraído de mi experiencia que quizás os sirvan:
 
-**1. Conoce a tu equipo:**
+### **1. Conoce a tu equipo:**
 
 Antes de sumergirte en proyectos y tareas, el día a día al fin y al cabo, dedica tiempo a conocer a los miembros de tu equipo. Organiza 1:1 para entender sus fortalezas, áreas de desarrollo, metas profesionales y sus expectativas para el equipo. Esto no solo te brindará una visión más profunda de sus habilidades, sino que también ayudará a construir relaciones sólidas y a establecer una base de confianza. Créeme que tu éxito depende de estas relaciones y la confianza que sembréis los unos de los otros.
 
----
 
-**2. Escucha activamente:**
+### **2. Escucha activamente:**
 
 Permítete un periodo de escucha activa del equipo. No pretendas aportar desde el minuto cero, solo pregunta. En mi caso me di un mes. La comunicación efectiva es clave en cualquier equipo. Escucha las ideas, preocupaciones y perspectivas de los miembros del equipo. Anima a la participación abierta y fomenta un entorno donde todos se sientan valorados y escuchados. La información que obtengas te ayudará a comprender mejor la cultura del equipo y a tomar decisiones informadas.
 
----
 
-**3. Comprende la cultura y procesos existentes:**
+### **3. Comprende la cultura y procesos existentes:**
 
 No busques cambiarlo todo, entiende como trabaja el equipo, adáptate, encuentra los problemas y propón soluciones a esos problemas. No vendas tu libro. Cada equipo tiene su propia cultura y procesos de trabajo. Observa cómo funcionan las cosas, identifica los flujos de trabajo existentes y comprende las normas no escritas. Adaptarte a estos elementos te permitirá integrarte de manera más fluida y evitar posibles fricciones en la transición.
 
----
 
-**4. Establece expectativas claras:**
+### **4. Establece expectativas claras:**
 
 Desde el principio, comunica de manera clara y transparente las expectativas que tienes para el equipo y lo que el equipo puede esperar de ti. Esto incluye la visión, metas a corto y largo plazo, así como las responsabilidades individuales. La claridad en las expectativas fomenta la alineación y reduce la ambigüedad.
 
----
 
-**5. Identifica oportunidades de mejora:**
+### **5. Identifica oportunidades de mejora:**
 
 Aprovecha tu experiencia para identificar oportunidades de mejora en los procesos existentes o en la eficiencia del equipo. Aborda estas áreas de manera colaborativa, involucrando a los miembros del equipo en la identificación de soluciones. Esto no solo demuestra tu compromiso con la mejora continua, sino que también fortalece la cohesión del equipo.
 
 <aside>
 💡 Briconsejo del día: Busca un win en los primeros meses con el team. Hacer cambios en la cultura y en los procesos es un camino largo. Encuentra un problema lo suficientemente importante para el equipo con una solución “sencilla” para demostrarle pronto al equipo que puedes aportarles valor y que sus preocupaciones son compartidas por ti.
-
 </aside>
 
 ## Siempre hay un pero

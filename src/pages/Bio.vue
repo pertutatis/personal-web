@@ -96,10 +96,6 @@ import Linkedin from '../components/Linkedin.vue'
   }
 }
 
-.link-collection__item {
-  color: var(--text-color);
-}
-
 .link-collection__item + .link-collection__item {
   margin-left: calc(var(--base) * 3);
 }

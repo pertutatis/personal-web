@@ -6,7 +6,9 @@ import Brand from './Brand.vue'
   <header class="section header">
     <div class="section__wrapper header__wrapper">
       <div class="header__logo">
-        <Brand class="logo" />
+        <router-link class="nav__item" to="/">
+          <Brand class="logo" />
+        </router-link>
       </div>
       <nav class="header__nav nav">
         <router-link class="nav__item" to="/">Home</router-link> ·

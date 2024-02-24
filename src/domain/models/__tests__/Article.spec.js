@@ -30,6 +30,7 @@ describe("Article model", () => {
         "content": "Hey, I am an article",
         "date": "5 de febrero",
         "excerpt": "Story of an article",
+        "relatedLinks": undefined,
         "slug": "this-is-an-article",
         "title": "This is an article",
       }
