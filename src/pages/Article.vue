@@ -8,19 +8,23 @@ import Markdown from 'vue3-markdown-it';
 import getArticle from "../api/getArticle";
 import { useRoute, useRouter } from 'vue-router'
 
+import type { Ref } from 'vue'
+import type { IBook } from '../domain/models/Book';
+
 const route = useRoute()
 const router = useRouter()
 const source = ref("")
 const title = ref("")
 const date = ref("")
-const books = ref("")
-const relatedLinks = ref("")
+const books: Ref<IBook[]> = ref([])
+const relatedLinks: Ref<{ text: string; link: string }[]> = ref([])
 
 onMounted(async () => {
-  const article = await getArticle(route.params.slug);
+  const article = await getArticle(route.params.slug as string);
   
-  if (!article) {
+  if (!article || article == true) {
     router.push({ path: '/blog/' })
+    return
   }
 
   source.value = article.content

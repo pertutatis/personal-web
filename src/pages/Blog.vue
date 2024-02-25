@@ -4,7 +4,21 @@ import Header from '../components/header.vue'
 import Footer from '../components/footer.vue'
 import getArticles from "../api/getArticles";
 
-const articles = ref([])
+import type { Ref } from 'vue'
+import type { IArticle } from '../domain/models/Article';
+// import { IBook } from '../domain/models/Book';
+// interface IArticle {
+//   title: string;
+//   content: string;
+//   slug: string;
+//   excerpt: string;
+//   date: string;
+//   books: Array<IBook>;
+//   category: String;
+//   relatedLinks: { text: string; link: string }[];
+// }
+
+const articles: Ref<true | IArticle[]> = ref([])
 
 onMounted(async () => {
   const recievedArticles = await getArticles();
@@ -13,6 +27,11 @@ onMounted(async () => {
     articles.value =recievedArticles;
   }
 })
+
+function hasArticles () {
+
+  return Array.isArray(articles.value)
+}
 
 </script>
 
@@ -27,8 +46,8 @@ onMounted(async () => {
         <p>Publico mis ideas no con la esperanza de ser leído por los demás pero espero poder ayudarte por el camino. Todo feedback es un regalo, así que si tienes algo que decirme, no dudes en contactarme por <a href="https://www.linkedin.com/in/diego-pertusa/" target="_blank">Linkedin</a>.</p>
       </header>
       
-      <div class="blog__content">
-        <article class="excerpt" v-for="article in articles">
+      <div class="blog__content" v-if="hasArticles()">
+        <article class="excerpt"  v-for="article in articles as IArticle[]">
           <router-link class="excerpt__link" :to="'/blog/' + article.slug">
             <h3 class="excerpt__title">{{ article.title }}</h3>
             <p class="excerpt__text">{{ article.excerpt }}</p>
