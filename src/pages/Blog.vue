@@ -5,18 +5,7 @@ import Footer from '../components/footer.vue'
 import getArticles from "../api/getArticles";
 
 import type { Ref } from 'vue'
-import type { IArticle } from '../domain/models/Article';
-// import { IBook } from '../domain/models/Book';
-// interface IArticle {
-//   title: string;
-//   content: string;
-//   slug: string;
-//   excerpt: string;
-//   date: string;
-//   books: Array<IBook>;
-//   category: String;
-//   relatedLinks: { text: string; link: string }[];
-// }
+import type { IArticle } from '../domain/models/Article'
 
 const articles: Ref<true | IArticle[]> = ref([])
 
@@ -62,14 +51,19 @@ function hasArticles () {
 
 <style lang="postcss" scoped>
 .blog__header {
-  margin-left: calc(8.33% * 1);
-  margin-right: calc(8.33% * 2);
   margin-bottom: calc(var(--base) * 8);
+
+  @media (min-width: 1024px) {
+    margin-left: calc(8.33% * 1);
+  margin-right: calc(8.33% * 2);
+  }
 }
 
 .blog__content {
-  margin-left: calc(8.33% * 1);
-  margin-right: calc(8.33% * 5);
+  @media (min-width: 1024px) {
+    margin-left: calc(8.33% * 1);
+    margin-right: calc(8.33% * 5);
+  }
 }
 
 .blog__title {
