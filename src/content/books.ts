@@ -1,6 +1,6 @@
-import { IBook } from '../domain/models/Book';
+import { IBook } from '../module/domain/Book';
 
-const books = [
+export default [
   {
     id: 1,
     title: 'Radical Candor',
@@ -28,9 +28,3 @@ const books = [
     url: 'to-buy.com',
   },
 ];
-
-export default function retrieveBooks(): Promise<IBook[]> {
-  return new Promise((resolve) => {
-    resolve(books);
-  });
-}

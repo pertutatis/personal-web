@@ -1,15 +1,19 @@
 
 <script setup lang="ts">
+import type { Ref } from 'vue'
+import type { IBook } from '../module/domain/Book';
+
 import { ref, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import Markdown from 'vue3-markdown-it';
+
 import Header from '../components/header.vue'
 import Footer from '../components/footer.vue'
 import Book from '../components/book.vue'
-import Markdown from 'vue3-markdown-it';
-import getArticle from "../api/getArticle";
-import { useRoute, useRouter } from 'vue-router'
 
-import type { Ref } from 'vue'
-import type { IBook } from '../domain/models/Book';
+import articleRepository from '../module/infrastructure/inMemoryArticlesRepository'
+import getArticle from "../module/application/getArticle";
+
 
 const route = useRoute()
 const router = useRouter()
@@ -20,9 +24,9 @@ const books: Ref<IBook[]> = ref([])
 const relatedLinks: Ref<{ text: string; link: string }[]> = ref([])
 
 onMounted(async () => {
-  const article = await getArticle(route.params.slug as string);
+  const article = await getArticle(new articleRepository(), route.params.slug as string);
   
-  if (!article || article == true) {
+  if (!article) {
     router.push({ path: '/blog/' })
     return
   }
@@ -144,3 +148,5 @@ figcaption {
 
 
 </style>
+../domain/domain/Book
+../module/application/getArticle../module/models/Book

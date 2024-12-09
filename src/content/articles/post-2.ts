@@ -1,4 +1,4 @@
-import { IArticleResponse } from '../../domain/models/Article';
+import { IArticleResponse } from '../../module/domain/Article';
 
 const article: IArticleResponse = {
   title: 'Career conversations',

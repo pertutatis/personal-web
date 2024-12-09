@@ -1,16 +1,19 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import Header from '../components/header.vue'
-import Footer from '../components/footer.vue'
-import getArticles from "../api/getArticles";
-
 import type { Ref } from 'vue'
 import type { IArticle } from '../domain/models/Article'
 
-const articles: Ref<true | IArticle[]> = ref([])
+import { ref, onMounted } from 'vue'
+import Header from '../components/header.vue'
+import Footer from '../components/footer.vue'
+
+import articleRepository from '../module/infrastructure/inMemoryArticlesRepository'
+import getArticles from "../module/application/getArticles";
+
+
+const articles: Ref<IArticle[] | null> = ref([])
 
 onMounted(async () => {
-  const recievedArticles = await getArticles();
+  const recievedArticles = await getArticles(new articleRepository());
   
   if (recievedArticles) {
     articles.value =recievedArticles;
@@ -18,7 +21,6 @@ onMounted(async () => {
 })
 
 function hasArticles () {
-
   return Array.isArray(articles.value)
 }
 
@@ -85,3 +87,5 @@ function hasArticles () {
   }
 }
 </style>
+../domain/domain/Article
+../module/application/getArticles../module/models/Article

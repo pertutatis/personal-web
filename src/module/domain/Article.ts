@@ -11,17 +11,6 @@ export interface IArticle {
   relatedLinks: { text: string; link: string }[];
 }
 
-export interface IArticleResponse {
-  title: string;
-  content: string;
-  slug: string;
-  excerpt: string;
-  date: string;
-  books: Array<number>;
-  category: String;
-  relatedLinks: { text: string; link: string }[];
-}
-
 export default class Article implements IArticle {
   title: string;
   content: string;

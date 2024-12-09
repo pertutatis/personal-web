@@ -16,11 +16,11 @@
 :root {
   --primary-font: "Montserrat", helvetica, arial, serif;
   --secondary-font: 'Roboto Mono', arial, serif;
-  --primary-color: #ff331a;
-  --secondary-color: #ff8a14;
-  --dark-color: #252324;
-  --light-color: #f6e9c4;
-  --lighter-color: #FFFAF1;
+  --primary-color: #FF7F47;
+  --secondary-color: #FF8C42;
+  --dark-color: #0A1E2C;
+  --light-color: #D1D1D1;
+  --lighter-color: #F0F0F0;
 
   --base: 8px;
   --bold: 700;
