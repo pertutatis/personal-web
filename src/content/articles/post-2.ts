@@ -1,6 +1,6 @@
-import { IArticleResponse } from '../../module/domain/Article';
+import { IArticle } from '../../module/domain/Article';
 
-const article: IArticleResponse = {
+const article = {
   title: 'Career conversations',
   slug: 'career-conversations',
   date: 'Publicada el 10 de enero',

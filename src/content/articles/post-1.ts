@@ -1,6 +1,6 @@
-import { IArticleResponse } from '../../module/domain/Article';
+import { IArticle } from '../../module/domain/Article';
 
-const article: IArticleResponse = {
+const article = {
   title: 'Empezando a gestionar un equipo de alto rendimiento',
   slug: 'empezando-a-gestionar-un-equipo-de-alto-rendimiento',
   date: 'Publicada el 5 de enero',

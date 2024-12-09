@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Ref } from 'vue'
-import type { IArticle } from '../domain/models/Article'
+import type { IArticle } from '../module/domain/Article'
 
 import { ref, onMounted } from 'vue'
 import Header from '../components/header.vue'
