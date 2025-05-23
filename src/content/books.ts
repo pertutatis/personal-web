@@ -1,5 +1,3 @@
-import { IBook } from '../module/domain/Book';
-
 export default [
   {
     id: 1,

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Ref } from 'vue'
-import type { IArticle } from '../module/domain/Article'
+import type Article from '../module/domain/Article'
 
 import { ref, onMounted } from 'vue'
 import Header from '../components/header.vue'
@@ -10,7 +10,7 @@ import articleRepository from '../module/infrastructure/inMemoryArticlesReposito
 import getArticles from "../module/application/getArticles";
 
 
-const articles: Ref<IArticle[] | null> = ref([])
+const articles: Ref<Article[] | null> = ref([])
 
 onMounted(async () => {
   const recievedArticles = await getArticles(new articleRepository());
@@ -38,7 +38,7 @@ function hasArticles () {
       </header>
       
       <div class="blog__content" v-if="hasArticles()">
-        <article class="excerpt"  v-for="article in articles as IArticle[]">
+        <article class="excerpt"  v-for="article in articles as Article[]">
           <router-link class="excerpt__link" :to="'/blog/' + article.slug">
             <h3 class="excerpt__title">{{ article.title }}</h3>
             <p class="excerpt__text">{{ article.excerpt }}</p>
@@ -87,5 +87,3 @@ function hasArticles () {
   }
 }
 </style>
-../domain/domain/Article
-../module/application/getArticles../module/models/Article

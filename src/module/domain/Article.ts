@@ -1,26 +1,27 @@
-import { IBook } from './Book';
+import Book from './Book';
 
-export interface IArticle {
+type CreateArticleParams = {
   title: string;
   content: string;
   slug: string;
   excerpt: string;
   date: string;
-  books: Array<IBook>;
+  books: Array<Book>;
   category: String;
   relatedLinks: { text: string; link: string }[];
-}
+};
 
-export default class Article implements IArticle {
+export default class Article {
   title: string;
   content: string;
   slug: string;
   excerpt: string;
   date: string;
-  books: Array<IBook>;
+  books: Array<Book>;
   category: String;
   relatedLinks: { text: string; link: string }[];
-  constructor(content: IArticle) {
+  
+  constructor(content: CreateArticleParams) {
     this.title = content.title;
     this.content = content.content;
     this.slug = content.slug;

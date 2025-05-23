@@ -1,5 +1,3 @@
-import { IArticle } from '../../module/domain/Article';
-
 const article = {
   title: 'Empezando a gestionar un equipo de alto rendimiento',
   slug: 'empezando-a-gestionar-un-equipo-de-alto-rendimiento',

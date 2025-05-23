@@ -1,7 +1,7 @@
 
 <script setup lang="ts">
 import type { Ref } from 'vue'
-import type { IBook } from '../module/domain/Book';
+import type Book from '../module/domain/Book';
 
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -20,7 +20,7 @@ const router = useRouter()
 const source = ref("")
 const title = ref("")
 const date = ref("")
-const books: Ref<IBook[]> = ref([])
+const books: Ref<Book[]> = ref([])
 const relatedLinks: Ref<{ text: string; link: string }[]> = ref([])
 
 onMounted(async () => {
@@ -148,5 +148,3 @@ figcaption {
 
 
 </style>
-../domain/domain/Book
-../module/application/getArticle../module/models/Book

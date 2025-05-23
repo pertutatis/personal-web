@@ -1,5 +1,3 @@
-import { IArticle } from '../../module/domain/Article';
-
 const article = {
   title: 'Career conversations',
   slug: 'career-conversations',
