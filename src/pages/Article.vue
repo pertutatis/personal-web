@@ -9,7 +9,7 @@ import Markdown from 'vue3-markdown-it';
 
 import Header from '../components/header.vue'
 import Footer from '../components/footer.vue'
-import Book from '../components/book.vue'
+import BookComponent from '../components/book.vue'
 
 import articleRepository from '../module/infrastructure/inMemoryArticlesRepository'
 import getArticle from "../module/application/getArticle";
@@ -53,7 +53,7 @@ onMounted(async () => {
 
         <h3>Profundiza en el tema</h3>
         <p>¿Te ha interesado el tema? A continuación te dejo algunos libros donde seguir profundizando en el tema que te cuento más arriba. Algunos de ellos son la inspiración a mi enfoque del problema.</p>
-        <Book v-for="book in books" :book="book" />
+        <BookComponent v-for="book in books" :book="book" />
 
         <template v-if="relatedLinks.length">
           <h4>Más artículos de interés</h4>
