@@ -64,4 +64,11 @@ export default class mockRepo {
 
     return Promise.resolve(responseArticles);
   }
+  getArticle(slug) {
+    if (this.type == 'empty') {
+      return Promise.resolve();
+    }
+
+    return Promise.resolve(responseArticles.find(article => article.slug === slug));
+  }
 }

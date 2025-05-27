@@ -1,19 +1,11 @@
 import articleRepository from '../domain/ArticleRepository';
 
 export default async function getArticle(repository: articleRepository, slug: string) {
-  const allArticles = await repository.getArticles();
+  const article = await repository.getArticle(slug);
 
-  if (!allArticles) {
+  if (!article) {
     return null
   }
 
-  const selectedArticle = allArticles.find(
-    (contentItem) => contentItem.slug === slug
-  );
-
-  if (!selectedArticle) {
-    return null
-  }
-
-  return selectedArticle;
+  return article;
 }

@@ -6,7 +6,7 @@ const props = defineProps({
 
 <template>
   <div class="book" v-if="book">
-    <img class="book__image" :src="book.image" :alt="book.title">
+    <img class="book__image" :src="'/imgs/' + book.image + '.jpg'" :alt="book.title">
     <div class="book__content">
       <h5 class="book__title">{{ book.title }}</h5>
       <p class="book__description">{{ book.description }}</p>

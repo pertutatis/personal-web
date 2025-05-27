@@ -1,9 +1,16 @@
 export const HTTP = (url:string, body:string, method:string) => {
-  return fetch(url, {
+  // Para métodos GET y HEAD, no incluimos el body en la petición
+  const options: RequestInit = {
     method,
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body
-  })
+    headers: { "Content-Type": "application/x-www-form-urlencoded" }
+  };
+
+  // Solo añadir el body si no es GET o HEAD
+  if (method !== 'GET' && method !== 'HEAD' && body) {
+    options.body = body;
+  }
+
+  return fetch(url, options)
   .then(response => {
     return response.body
   })
