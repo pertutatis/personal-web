@@ -10,8 +10,9 @@ import Markdown from 'vue3-markdown-it';
 import Header from '../components/header.vue'
 import Footer from '../components/footer.vue'
 import BookComponent from '../components/book.vue'
+import ArticlePlaceholder from "../components/article-placeholder.vue";
 
-import articleRepository from '../module/infrastructure/inMemoryArticlesRepository'
+import articleRepository from '../module/infrastructure/backendRepository'
 import getArticle from "../module/application/getArticle";
 
 
@@ -22,14 +23,18 @@ const title = ref("")
 const date = ref("")
 const books: Ref<Book[]> = ref([])
 const relatedLinks: Ref<{ text: string; link: string }[]> = ref([])
+const isLoading = ref(true)
 
 onMounted(async () => {
+  isLoading.value = true;
   const article = await getArticle(new articleRepository(), route.params.slug as string);
   
   if (!article) {
     router.push({ path: '/blog/' })
     return
   }
+
+  isLoading.value = false
 
   source.value = article.content
   title.value = article.title
@@ -40,25 +45,30 @@ onMounted(async () => {
 </script>
 
 <template>
+  
   <Header />
 
   <section class="section">
     <div class=" section__wrapper">
       <div class="article">
-        <h1 class="article__title">{{ title }}</h1>
-        <p class="article__meta">{{ date }}</p>
-        <Markdown :source="source" :html="true" />
+        <articlePlaceholder v-if="isLoading" :count="1" :long="10"/>
 
-        <hr class="article__division">
+        <template v-else>
+          <h1 class="article__title">{{ title }}</h1>
+          <p class="article__meta">{{ date }}</p>
+          <Markdown :source="source" :html="true" />
 
-        <h3>Profundiza en el tema</h3>
-        <p>¿Te ha interesado el tema? A continuación te dejo algunos libros donde seguir profundizando en el tema que te cuento más arriba. Algunos de ellos son la inspiración a mi enfoque del problema.</p>
-        <BookComponent v-for="book in books" :book="book" />
+          <hr class="article__division">
 
-        <template v-if="relatedLinks.length">
-          <h4>Más artículos de interés</h4>
-          <p>Puede que profundizar en el tema con un libro no sea la forma más rápida para avanzar. Si quieres expandir tu conocimiento antes, o simplemente complementar los libros de arriba, te dejo estos enlaces.</p>
-          <p v-for="relatedLink in relatedLinks"><a :href="relatedLink.link">{{ relatedLink.text }}</a></p>
+          <h3>Profundiza en el tema</h3>
+          <p>¿Te ha interesado el tema? A continuación te dejo algunos libros donde seguir profundizando en el tema que te cuento más arriba. Algunos de ellos son la inspiración a mi enfoque del problema.</p>
+          <BookComponent v-for="book in books" :book="book" />
+
+          <template v-if="relatedLinks.length">
+            <h4>Más artículos de interés</h4>
+            <p>Puede que profundizar en el tema con un libro no sea la forma más rápida para avanzar. Si quieres expandir tu conocimiento antes, o simplemente complementar los libros de arriba, te dejo estos enlaces.</p>
+            <p v-for="relatedLink in relatedLinks"><a :href="relatedLink.link">{{ relatedLink.text }}</a></p>
+          </template>
         </template>
       </div>
     </div>
