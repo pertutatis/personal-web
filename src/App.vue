@@ -38,7 +38,7 @@
   --title-color: var(--light-color);
 }
 
-@media (prefers-color-scheme: light) {
+/* @media (prefers-color-scheme: light) {
   :root {
     --accent-color: var(--primary-color);
     --accent-2-color: var(--secondary-color);
@@ -46,9 +46,10 @@
     --text-color: var(--dark-color);
     --title-color: var(--dark-color);
   }
-}
+} */
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: dark),
+       (prefers-color-scheme: light) {
   :root {
     --accent-color: var(--secondary-color);
     --accent-2-color: var(--primary-color);
