@@ -1,0 +1,539 @@
+<script setup lang="ts">
+import { defineProps, defineAsyncComponent, computed } from 'vue'
+
+const props = defineProps({
+  title: {
+    type: String,
+    required: true
+  },
+  excerpt: {
+    type: String
+  }
+})
+</script>
+
+<template>
+<div class="body">
+  <div class="container">
+        <!-- Estrellas como nodos -->
+        <div class="stars">
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+        </div>
+
+        <!-- Nebulosas como cultura invisible -->
+        <div class="nebula"></div>
+        <div class="nebula2"></div>
+        <div class="nebula3"></div>
+
+        <!-- Red de conexiones distribuidas -->
+        <div class="network">
+            <div class="connection connection1"></div>
+            <div class="connection connection2"></div>
+            <div class="connection connection3"></div>
+            <div class="connection connection4"></div>
+            <div class="connection connection5"></div>
+        </div>
+
+        <!-- Satélites distribuidos -->
+        <div class="satellites">
+            <div class="satellite"></div>
+            <div class="satellite"></div>
+            <div class="satellite"></div>
+            <div class="satellite"></div>
+        </div>
+
+        <!-- Ondas de comunicación -->
+        <div class="communication-waves">
+            <div class="wave wave1"></div>
+            <div class="wave wave2"></div>
+            <div class="wave wave3"></div>
+        </div>
+
+        <!-- Flujo de datos -->
+        <div class="data-stream">
+            <div class="data-bit"></div>
+            <div class="data-bit"></div>
+            <div class="data-bit"></div>
+            <div class="data-bit"></div>
+            <div class="data-bit"></div>
+            <div class="data-bit"></div>
+        </div>
+
+        <!-- Hologramas de colaboración -->
+        <div class="hologram hologram1"></div>
+        <div class="hologram hologram2"></div>
+        <div class="hologram hologram3"></div>
+
+        <!-- Contenido principal -->
+        <div class="content">
+            <h1 class="title">{{ props.title }}</h1>
+            <h2 class="subtitle">Lo que no se ve, pero sostiene todo</h2>
+            <p class="description">
+                {{ props.excerpt }}
+            </p>
+        </div>
+    </div>
+</div>
+</template>
+
+<style lang="postcss" scoped>
+
+
+        .body {
+            overflow: hidden;
+            background: radial-gradient(ellipse at bottom, #0d1b2a 0%, var(--dark-color) 100%);
+            /* background: radial-gradient(ellipse at center, #0c0c1e 0%, #1a1a3a 40%, var(--dark-color) 100%); */
+            height: 100vh;
+            position: relative;
+        }
+
+        .body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: linear-gradient(180deg, var(--dark-color), #0a1e2c00);
+            pointer-events: none;
+            z-index: 99;
+        }
+
+        .body::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: linear-gradient(0deg, var(--dark-color), #0a1e2c00);
+            pointer-events: none;
+            z-index: 99;
+        }
+
+        .container {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Estrellas como nodos distribuidos */
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 5s infinite alternate;
+        }
+
+        .star:nth-child(1) { width: 4px; height: 4px; top: 20%; left: 15%; animation-delay: 0s; }
+        .star:nth-child(2) { width: 3px; height: 3px; top: 30%; left: 80%; animation-delay: 1s; }
+        .star:nth-child(3) { width: 5px; height: 5px; top: 50%; left: 25%; animation-delay: 2s; }
+        .star:nth-child(4) { width: 3px; height: 3px; top: 70%; left: 90%; animation-delay: 0.5s; }
+        .star:nth-child(5) { width: 4px; height: 4px; top: 15%; left: 65%; animation-delay: 1.5s; }
+        .star:nth-child(6) { width: 3px; height: 3px; top: 60%; left: 10%; animation-delay: 2.5s; }
+        .star:nth-child(7) { width: 5px; height: 5px; top: 80%; left: 60%; animation-delay: 0.8s; }
+        .star:nth-child(8) { width: 4px; height: 4px; top: 25%; left: 40%; animation-delay: 1.8s; }
+        .star:nth-child(9) { width: 3px; height: 3px; top: 45%; left: 75%; animation-delay: 3s; }
+        .star:nth-child(10) { width: 4px; height: 4px; top: 35%; left: 5%; animation-delay: 2.2s; }
+
+        @keyframes twinkle {
+            0% { opacity: 0.4; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.3); }
+        }
+
+        /* Nebulosas como cultura invisible */
+        .nebula {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(138, 43, 226, 0.15) 0%, rgba(155, 89, 182, 0.1) 30%, transparent 70%);
+            border-radius: 50%;
+            top: -200px;
+            right: -200px;
+            animation: nebulaPulse 20s infinite ease-in-out;
+        }
+
+        .nebula2 {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(52, 152, 219, 0.12) 0%, rgba(116, 185, 255, 0.08) 40%, transparent 80%);
+            border-radius: 50%;
+            bottom: -150px;
+            left: -150px;
+            animation: nebulaPulse 25s infinite ease-in-out alternate;
+        }
+
+        .nebula3 {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(46, 204, 113, 0.1) 0%, rgba(26, 188, 156, 0.06) 50%, transparent 80%);
+            border-radius: 50%;
+            top: 30%;
+            left: 60%;
+            animation: nebulaPulse 18s infinite ease-in-out;
+            animation-delay: -8s;
+        }
+
+        @keyframes nebulaPulse {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.3; }
+            50% { transform: scale(1.4) rotate(90deg); opacity: 0.6; }
+        }
+
+        /* Red de conexiones distribuidas */
+        .network {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.6;
+        }
+
+        .connection {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(116, 185, 255, 0.8), rgba(155, 89, 182, 0.6), transparent);
+            animation: dataFlow 8s infinite ease-in-out;
+        }
+
+        .connection1 {
+            width: 220px;
+            top: 22%;
+            left: 15%;
+            transform: rotate(25deg);
+        }
+
+        .connection2 {
+            width: 180px;
+            top: 35%;
+            right: 10%;
+            transform: rotate(-30deg);
+            animation-delay: -2s;
+        }
+
+        .connection3 {
+            width: 160px;
+            bottom: 30%;
+            left: 25%;
+            transform: rotate(45deg);
+            animation-delay: -4s;
+        }
+
+        .connection4 {
+            width: 200px;
+            top: 65%;
+            right: 25%;
+            transform: rotate(-15deg);
+            animation-delay: -6s;
+        }
+
+        .connection5 {
+            width: 140px;
+            top: 50%;
+            left: 45%;
+            transform: rotate(60deg);
+            animation-delay: -1s;
+        }
+
+        @keyframes dataFlow {
+            0%, 100% { 
+                opacity: 0; 
+                transform-origin: left; 
+                transform: scaleX(0) rotate(var(--rotation, 0deg)); 
+            }
+            50% { 
+                opacity: 0.9; 
+                transform: scaleX(1) rotate(var(--rotation, 0deg)); 
+            }
+        }
+
+        .connection1 { --rotation: 25deg; }
+        .connection2 { --rotation: -30deg; }
+        .connection3 { --rotation: 45deg; }
+        .connection4 { --rotation: -15deg; }
+        .connection5 { --rotation: 60deg; }
+
+        /* Satélites distribuidos */
+        .satellites {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .satellite {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(116, 185, 255, 0.8);
+            animation: orbit 30s infinite linear;
+        }
+
+        .satellite::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(116, 185, 255, 0.6), transparent);
+            top: 50%;
+            left: -4px;
+            transform: translateY(-50%);
+        }
+
+        .satellite:nth-child(1) {
+            top: 25%;
+            left: 20%;
+            animation-duration: 25s;
+        }
+
+        .satellite:nth-child(2) {
+            top: 40%;
+            right: 15%;
+            animation-duration: 35s;
+            animation-delay: -10s;
+        }
+
+        .satellite:nth-child(3) {
+            bottom: 35%;
+            left: 30%;
+            animation-duration: 28s;
+            animation-delay: -15s;
+        }
+
+        .satellite:nth-child(4) {
+            top: 60%;
+            right: 30%;
+            animation-duration: 32s;
+            animation-delay: -5s;
+        }
+
+        @keyframes orbit {
+            0% { transform: rotate(0deg) translateX(30px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(30px) rotate(-360deg); }
+        }
+
+        /* Contenido principal */
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+            color: white;
+            max-width: 1000px;
+            padding: 50px;
+        }
+
+        .title {
+            font-size: 3.2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #74b9ff 0%, #a29bfe 50%, #fd79a8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 50px rgba(116, 185, 255, 0.4);
+            animation: titleGlow 5s infinite alternate;
+            line-height: 1.1;
+        }
+
+        @keyframes titleGlow {
+            0% { filter: brightness(1) saturate(1); }
+            100% { filter: brightness(1.4) saturate(1.3); }
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0.85;
+            max-width: 850px;
+            margin: 0 auto 40px;
+        }
+
+        /* Ondas de comunicación */
+        .communication-waves {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .wave {
+            position: absolute;
+            border: 1px solid rgba(116, 185, 255, 0.3);
+            border-radius: 50%;
+            animation: waveExpand 6s infinite ease-out;
+        }
+
+        .wave1 {
+            width: 60px;
+            height: 60px;
+            top: 20%;
+            left: 15%;
+            animation-delay: 0s;
+        }
+
+        .wave2 {
+            width: 80px;
+            height: 80px;
+            bottom: 25%;
+            right: 20%;
+            animation-delay: -2s;
+        }
+
+        .wave3 {
+            width: 70px;
+            height: 70px;
+            top: 55%;
+            left: 70%;
+            animation-delay: -4s;
+        }
+
+        @keyframes waveExpand {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        /* Datos flotantes */
+        .data-stream {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .data-bit {
+            position: absolute;
+            width: 2px;
+            height: 8px;
+            background: linear-gradient(180deg, rgba(116, 185, 255, 1), rgba(116, 185, 255, 0));
+            animation: dataMove 12s infinite linear;
+        }
+
+        .data-bit:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .data-bit:nth-child(2) { left: 25%; animation-delay: -2s; }
+        .data-bit:nth-child(3) { left: 40%; animation-delay: -4s; }
+        .data-bit:nth-child(4) { left: 55%; animation-delay: -6s; }
+        .data-bit:nth-child(5) { left: 70%; animation-delay: -8s; }
+        .data-bit:nth-child(6) { left: 85%; animation-delay: -10s; }
+
+        @keyframes dataMove {
+            0% { 
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% { 
+                transform: translateY(-50px) rotate(180deg);
+                opacity: 0;
+            }
+        }
+
+        /* Hologramas de colaboración */
+        .hologram {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(155, 89, 182, 0.6);
+            border-radius: 50%;
+            animation: hologramPulse 4s infinite ease-in-out;
+        }
+
+        .hologram::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: rgba(155, 89, 182, 0.3);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .hologram1 {
+            top: 30%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .hologram2 {
+            bottom: 40%;
+            right: 15%;
+            animation-delay: -1s;
+        }
+
+        .hologram3 {
+            top: 65%;
+            left: 75%;
+            animation-delay: -2s;
+        }
+
+        @keyframes hologramPulse {
+            0%, 100% { 
+                transform: scale(1);
+                opacity: 0.6;
+            }
+            50% { 
+                transform: scale(1.2);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.4rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .description {
+                font-size: 1rem;
+            }
+            
+            .content {
+                padding: 30px 20px;
+            }
+        }
+
+</style>
