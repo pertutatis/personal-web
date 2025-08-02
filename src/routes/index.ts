@@ -4,6 +4,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Bio from '../pages/Bio.vue';
 import Blog from '../pages/Blog.vue';
 import Article from '../pages/Article.vue';
+import Cv from '../pages/cv.vue';
 
 const routeInfos = [
   {
@@ -17,6 +18,10 @@ const routeInfos = [
   {
     path: '/blog/:slug',
     component: Article,
+  },
+  {
+    path: '/cv',
+    component: Cv,
   },
 ];
 

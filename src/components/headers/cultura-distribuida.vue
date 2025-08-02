@@ -90,13 +90,13 @@ const props = defineProps({
 
         .body {
             overflow: hidden;
-            background: radial-gradient(ellipse at bottom, #0d1b2a 0%, var(--dark-color) 100%);
+            /* background: radial-gradient(ellipse at bottom, #0d1b2a 0%, var(--dark-color) 100%); */
             /* background: radial-gradient(ellipse at center, #0c0c1e 0%, #1a1a3a 40%, var(--dark-color) 100%); */
             height: 100vh;
             position: relative;
         }
 
-        .body::before {
+        /* .body::before {
             content: '';
             position: absolute;
             top: 0;
@@ -118,7 +118,7 @@ const props = defineProps({
             background: linear-gradient(0deg, var(--dark-color), #0a1e2c00);
             pointer-events: none;
             z-index: 99;
-        }
+        } */
 
         .container {
             width: 100%;

@@ -1,7 +1,10 @@
 <script setup lang="ts">
+import BackgroundStars from './components/background-stars.vue';
 </script>
 
 <template>
+  <BackgroundStars />
+
   <router-view></router-view>
 </template>
 
@@ -10,7 +13,7 @@
    Config
    ==================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto+Mono:wght@300;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto+Mono:wght@300;400;700&display=swap');
 @import url("./assets/reset.css");
 
 :root {
@@ -21,6 +24,9 @@
   --dark-color: #0A1E2C;
   --light-color: #D1D1D1;
   --lighter-color: #F0F0F0;
+  --cv-accent-color: #74b9ff;
+  --cv-accent-2-color: #a29bfe;
+  --cv-accent-3-color: #fd79a8;
 
   --base: 8px;
   --bold: 700;
@@ -65,7 +71,8 @@
 
 html, body, #app {
   min-height: 100%;
-  height: 100%;
+  min-height: 100vh;
+  /* height: 100%; */
 }
 
 body {
@@ -76,6 +83,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--text-color);
+}
+
+body {
+  background: radial-gradient(ellipse at center, #0c0c1e 0%, #1a1a3a 40%, #0a0a0f 100%);
+  overflow-x: hidden;
+  min-height: 100vh;
 }
 
 .section {
