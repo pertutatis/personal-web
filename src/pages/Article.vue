@@ -50,7 +50,7 @@ onMounted(async () => {
 <template>
   <Header />
 
-  <articleHeader v-if="!isLoading" :title="title" :slug="slug" :excerpt="excerpt" />
+  <articleHeader v-show="!isLoading" :title="title" :slug="slug" :excerpt="excerpt" />
 
   <section class="section">
     <div class="section__wrapper">
