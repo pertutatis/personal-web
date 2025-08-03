@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Brand from './Brand.vue'
+import Brand from "./Brand.vue";
 </script>
 
 <template>
@@ -13,7 +13,10 @@ import Brand from './Brand.vue'
       </div>
       <nav class="header__nav nav">
         <router-link class="nav__item" to="/" active-class="active">Home</router-link> ·
-        <router-link class="nav__item" to="/blog/" active-class="active">Blog</router-link> ·
+        <router-link class="nav__item" to="/blog/" active-class="active"
+          >Blog</router-link
+        >
+        ·
         <router-link class="nav__item" to="/cv/" active-class="active">CV</router-link>
       </nav>
     </div>
@@ -21,11 +24,10 @@ import Brand from './Brand.vue'
 </template>
 
 <style lang="postcss" scoped>
-
 .header {
   width: 100%;
   margin-top: 0;
-  margin-bottom: 0;;
+  margin-bottom: 0;
   padding-top: calc(var(--base) * 2);
 }
 
@@ -37,11 +39,10 @@ import Brand from './Brand.vue'
   z-index: 100;
   backdrop-filter: blur(12px);
   background: rgba(var(background-color), 0.7);
-  box-shadow: 0 2px 16px 0 rgba(0,0,0,0.04);
+  box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.04);
 }
 
 .header__spacer {
-  padding-top: 80px;
   margin-bottom: calc(var(--base) * 2);
 }
 
@@ -52,9 +53,9 @@ import Brand from './Brand.vue'
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  
+
   &:after {
-    content: '';
+    content: "";
     /* position: absolute; */
     width: 100%;
     margin-top: calc(var(--base) * 2);
@@ -71,9 +72,6 @@ import Brand from './Brand.vue'
   color: var(--text-color);
 }
 
-
-
-
 .nav__item {
   font-family: var(--primary-font);
   color: var(--text-color);
@@ -88,7 +86,7 @@ import Brand from './Brand.vue'
 }
 
 .nav__item::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -5px;
   left: 0;

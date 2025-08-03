@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import BackgroundStars from './components/background-stars.vue';
+import BackgroundStars from "./components/background-stars.vue";
 </script>
 
 <template>
@@ -9,39 +9,75 @@ import BackgroundStars from './components/background-stars.vue';
 </template>
 
 <style lang="postcss">
-/* ==================================== 
+/* ====================================
    Config
    ==================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto+Mono:wght@300;400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto+Mono:wght@300;400;700&display=swap");
 @import url("./assets/reset.css");
 
 :root {
+  /* Palette */
   --primary-font: "Montserrat", helvetica, arial, serif;
-  --secondary-font: 'Roboto Mono', arial, serif;
-  --primary-color: #FF7F47;
-  --secondary-color: #FF8C42;
-  --dark-color: #0A1E2C;
-  --light-color: #D1D1D1;
-  --lighter-color: #F0F0F0;
-  --cv-accent-color: #74b9ff;
-  --cv-accent-2-color: #a29bfe;
-  --cv-accent-3-color: #fd79a8;
+  --secondary-font: "Roboto Mono", arial, serif;
+  --primary-color: rgb(255, 127, 71);
+  --secondary-color: rgb(255, 140, 66);
+  --dark-color: #0a1e2c;
+  --light-color: #d1d1d1;
+  --lighter-color: #f0f0f0;
 
+  /* scheme */
   --base: 8px;
   --bold: 700;
   --medium: 500;
   --regular: 400;
   --light: 300;
 
-  --main-transition: .3s ease;
+  --main-transition: 0.3s ease;
 
-  /* Light scheme */
   --accent-color: var(--secondary-color);
   --accent-2-color: var(--primary-color);
   --background-color: var(--dark-color);
   --text-color: var(--light-color);
   --title-color: var(--light-color);
+
+  --secondary-accent-1-color: rgb(116, 185, 255);
+  --secondary-accent-2-color: rgb(102, 126, 234);
+  --secondary-accent-3-color: rgb(162, 155, 254);
+  --secondary-accent-4-color: rgb(118, 75, 162);
+  --secondary-accent-5-color: rgb(255, 118, 117);
+  --secondary-accent-6-color: rgb(253, 121, 168);
+  --secondary-accent-7-color: rgb(253, 203, 110);
+
+  /* Titles gradients */
+  --title-1: linear-gradient(
+    135deg,
+    var(--secondary-accent-2-color) 0%,
+    var(--secondary-accent-4-color) 100%
+  );
+  --title-1-shadow: 0 0 30px
+    color-mix(in srgb, var(--secondary-accent-2-color), transparent 50%);
+
+  --title-2: linear-gradient(
+    135deg,
+    var(--secondary-accent-1-color) 0%,
+    var(--secondary-accent-3-color) 50%,
+    var(--secondary-accent-6-color) 100%
+  );
+  --title-2-shadow: 0 0 50px
+    color-mix(in srgb, var(--secondary-accent-1-color), transparent 40%);
+
+  --title-3: linear-gradient(
+    135deg,
+    var(--secondary-accent-5-color) 0%,
+    var(--secondary-accent-6-color) 50%,
+    var(--secondary-accent-7-color) 100%
+  );
+  --title-3-shadow: 0 0 40px
+    color-mix(in srgb, var(--secondary-accent-5-color), transparent 50%);
+
+  --title: var(--title-3);
+  --title-shadow: var(--title-3-shadow);
 }
 
 /* @media (prefers-color-scheme: light) {
@@ -52,10 +88,9 @@ import BackgroundStars from './components/background-stars.vue';
     --text-color: var(--dark-color);
     --title-color: var(--dark-color);
   }
-} */
+}
 
-@media (prefers-color-scheme: dark),
-       (prefers-color-scheme: light) {
+@media (prefers-color-scheme: dark) {
   :root {
     --accent-color: var(--secondary-color);
     --accent-2-color: var(--primary-color);
@@ -63,16 +98,17 @@ import BackgroundStars from './components/background-stars.vue';
     --text-color: var(--light-color);
     --title-color: var(--light-color);
   }
-}
+} */
 
-/* ==================================== 
+/* ====================================
    Skeleton
    ==================================== */
 
-html, body, #app {
+html,
+body,
+#app {
   min-height: 100%;
   min-height: 100vh;
-  /* height: 100%; */
 }
 
 body {
@@ -113,7 +149,6 @@ body {
   margin: auto;
   padding-left: calc(var(--base) * 3);
   padding-right: calc(var(--base) * 3);
-  
 
   @media (min-width: 768px) {
     padding-left: calc(var(--base) * 4);
@@ -126,11 +161,17 @@ body {
   }
 }
 
-/* ==================================== 
+/* ====================================
    Texts
    ==================================== */
 
-p, h1, h2, h3, h4, h5, h6 {
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin-bottom: calc(var(--base) * 2);
 }
 
@@ -146,11 +187,17 @@ a {
   }
 }
 
-p, ul, ol, table {
-  margin-bottom: calc(var(--base) * 2);
+p,
+ul,
+ol,
+table {
+  margin-bottom: calc(var(--base) * 4);
+  font-size: 1.1rem;
+  line-height: 1.6;
 }
 
-strong, b {
+strong,
+b {
   font-weight: var(--bold);
 }
 
@@ -158,9 +205,18 @@ h1 {
   margin-bottom: calc(var(--base) * 8);
 }
 
-p + h2, p + h3, p + h4, p + h5,
-aside + h2, aside + h3, aside + h4, aside + h5,
-table + h2, table + h3, table + h4, table + h5 {
+p + h2,
+p + h3,
+p + h4,
+p + h5,
+aside + h2,
+aside + h3,
+aside + h4,
+aside + h5,
+table + h2,
+table + h3,
+table + h4,
+table + h5 {
   margin-top: calc(var(--base) * 6);
 }
 
@@ -181,8 +237,6 @@ li {
 ul li::marker {
   color: var(--accent-color);
 }
-
-
 
 h1 {
   font-family: var(--primary-font);
@@ -216,7 +270,6 @@ h3 {
   /* line-height: 29px; */
 }
 
-
 h4 {
   font-family: var(--primary-font);
   font-style: normal;
@@ -225,44 +278,54 @@ h4 {
   /* line-height: 24px; */
 }
 
-
 h5 {
   font-family: var(--primary-font);
   font-style: normal;
   font-weight: var(--bold);
   font-size: 18px;
-  /* line-height: 22px; */
 }
 
-/* ==================================== 
+/* ====================================
    Tables
    ==================================== */
 
 table {
-    border: 0.25px solid var(--text-color);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border-spacing: 0;
+  border-collapse: separate;
+  overflow: hidden;
 }
 
 thead {
-    background: var(--text-color);
-    color: var(--background-color);
+  background: rgba(116, 185, 255, 0.3);
+  border-radius: 20px 0 0 0 20px;
+  border-spacing: 0;
+  border-collapse: separate;
 }
 
 tr {
-    border: 1px solid var(--text-color);
+  background: rgba(162, 155, 254, 0.05);
+  border-bottom: 1px solid rgba(116, 185, 255, 0.2);
 
-    @media (min-width: 768px) {
-      border: none;
-    }
+  &:nth-child(odd) {
+    background: rgba(118, 75, 162, 0.05);
+  }
 }
 
-th, td {
+th,
+td {
   display: block;
   border: none;
-  padding: var(--base);
+  padding: calc(var(--base) * 2);
 
   @media (min-width: 768px) {
     display: table-cell;
-    border: 0.25px solid var(--text-color);
+    border-bottom: 0.25px solid rgba(116, 185, 255, 0.2);
+  }
+
+  tr:last-child & {
+    border-bottom: none;
   }
 }
 </style>
