@@ -441,7 +441,7 @@ document.head.appendChild(style);
   content: "";
   position: absolute;
   left: 50%;
-  left: 2rem;
+  left: 1rem;
   top: 0;
   bottom: 0;
   width: 2px;

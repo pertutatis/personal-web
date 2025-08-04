@@ -111,6 +111,22 @@ onMounted(async () => {
     margin-left: calc(8.33% * 2);
     margin-right: calc(8.33% * 2);
   }
+
+  .is-mobile {
+    display: block;
+
+    @media (min-width: 1024px) {
+      display: none;
+    }
+  }
+
+  .is-desktop {
+    display: none;
+
+    @media (min-width: 1024px) {
+      display: block;
+    }
+  }
 }
 
 .article__title {
@@ -132,6 +148,51 @@ aside {
   background: rgba(162, 155, 254, 0.1);
   border-left: 4px solid rgba(116, 185, 255, 0.2);
   backdrop-filter: blur(2px);
+}
+
+aside ul:last-child,
+aside p:last-child {
+  margin-bottom: 0;
+}
+
+blockquote {
+  position: relative;
+  padding: calc(var(--base) * 3);
+  margin-bottom: calc(var(--base) * 2);
+  font-style: italic;
+  background: rgba(255, 118, 117, 0.1);
+  border-left: 4px solid rgba(255, 118, 117, 0.2);
+  backdrop-filter: blur(2px);
+
+  strong {
+    font-weight: var(--light);
+  }
+
+  strong:before {
+    content: "“";
+    /* font-size: 4rem;
+    line-height: 4rem; */
+    color: var(--accent-color);
+  }
+
+  strong:after {
+    content: "”";
+    /* font-size: 4rem;
+    line-height: 4rem; */
+    color: var(--accent-color);
+  }
+
+  em {
+    display: block;
+    font-style: normal;
+    font-family: var(--primary-font);
+    margin-top: var(--base);
+  }
+
+  ul:last-child,
+  p:last-child {
+    margin-bottom: 0;
+  }
 }
 
 table legend {

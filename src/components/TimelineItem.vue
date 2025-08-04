@@ -45,7 +45,7 @@ const props = defineProps<{ period: string; title: string; company: string }>();
 
 .timeline__content {
   width: 45%;
-  padding: 2rem;
+  padding: 1rem;
   background: rgba(13, 27, 42, 0.7);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(116, 185, 255, 0.2);
@@ -187,12 +187,12 @@ const props = defineProps<{ period: string; title: string; company: string }>();
 
 @media (max-width: 1200px) {
   .timeline__node {
-    left: 2rem;
+    left: 1rem;
   }
 
   .timeline__content {
-    width: calc(100% - 6rem);
-    margin-left: 6rem !important;
+    width: calc(100% - 4rem);
+    margin-left: 4rem !important;
   }
 
   .timeline__content::before {
