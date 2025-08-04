@@ -111,6 +111,10 @@ body,
   min-height: 100vh;
 }
 
+#app {
+  overflow: hidden;
+}
+
 body {
   background-color: var(--background-color);
   font-family: var(--secondary-font);

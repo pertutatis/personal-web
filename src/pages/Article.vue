@@ -58,8 +58,6 @@ onMounted(async () => {
         <articlePlaceholder v-if="isLoading" :count="1" :long="10" />
 
         <template v-else>
-          <!-- <h1 class="article__title">{{ title }}</h1> -->
-          <!-- <p class="article__meta">{{ date }}</p> -->
           <Markdown :source="source" :html="true" />
 
           <hr class="article__division" />
@@ -107,6 +105,7 @@ onMounted(async () => {
 .article {
   margin-bottom: calc(var(--base) * 8);
   padding-bottom: 64px;
+  overflow: hidden;
 
   @media (min-width: 1024px) {
     margin-left: calc(8.33% * 2);
