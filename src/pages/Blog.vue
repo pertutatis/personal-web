@@ -19,7 +19,7 @@ onMounted(async () => {
   if (recievedArticles) {
     articles.value = recievedArticles;
   }
-  isLoading.value = false
+  isLoading.value = false;
 });
 
 function hasArticles() {
@@ -50,11 +50,15 @@ function hasArticles() {
         </p>
       </header>
 
-      
       <div class="blog__content">
-        <articlePlaceholder v-if="isLoading" :count="3"/>
+        <articlePlaceholder v-if="isLoading" :count="3" />
 
-        <article class="excerpt" v-for="article in articles as Article[]" v-else-if="hasArticles()">
+        <article
+          class="excerpt"
+          v-for="article in articles"
+          v-if="hasArticles()"
+          :key="article.slug"
+        >
           <router-link class="excerpt__link" :to="'/blog/' + article.slug">
             <h3 class="excerpt__title">{{ article.title }}</h3>
             <p class="excerpt__text">{{ article.excerpt }}</p>
@@ -62,7 +66,6 @@ function hasArticles() {
         </article>
 
         <div v-else class="blog__no-articles">No hay artículos disponibles.</div>
-
       </div>
     </div>
   </section>
@@ -89,6 +92,14 @@ function hasArticles() {
 
 .blog__title {
   margin-bottom: calc(var(--base) * 2);
+  /* font-weight: bold; */
+  /* margin-bottom: 20px; */
+  /* background: var(--title); */
+  /* -webkit-background-clip: text; */
+  /* -webkit-text-fill-color: transparent; */
+  /* background-clip: text; */
+  /* text-shadow: var(--title-shadow); */
+  /* animation: glow 3s infinite alternate; */
 }
 
 .excerpt {

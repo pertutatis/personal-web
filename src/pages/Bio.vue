@@ -1,35 +1,43 @@
 <script setup lang="ts">
-import Brand from '../components/Brand.vue'
-import Github from '../components/Github.vue'
-import Linkedin from '../components/Linkedin.vue'
+import Brand from "../components/Brand.vue";
+import Github from "../components/Github.vue";
+import Linkedin from "../components/Linkedin.vue";
 </script>
 
 <template>
   <div class="home-wrapper">
-  <section class="section">
-    <div class="bio section__wrapper">
-      
-      <img class="portrait" src="../assets/foto.png" alt="Picture about me">
-      <div class="bio__column">
+    <section class="section">
+      <div class="bio section__wrapper">
+        <img class="portrait" src="../assets/foto.png" alt="Picture about me" />
+        <div class="bio__column">
+          <Brand class="logo" />
+          <h1 class="big-title">Hi! 👋🏻 I'm Diego Pertusa Irles</h1>
+          <p class="subtitle">Engineering manager at Seedtag</p>
 
-        <Brand class="logo" />
-        <h1 class="big-title">Hi! 👋🏻 I'm Diego Pertusa Irles</h1>
-        <p class="subtitle">Engineering manager at Seedtag</p>
+          <div class="link-collection">
+            <router-link class="link-collection__item" to="/blog/">Blog</router-link>
+            <router-link class="link-collection__item" to="/cv/">CV</router-link>
+          </div>
 
-        <div class="link-collection">
-          <router-link class="link-collection__item" to="/blog/">Blog</router-link>
+          <div class="link-collection">
+            <a
+              href="https://github.com/pertutatis"
+              target="_blank"
+              class="link-collection__item--reduced"
+            >
+              <Github
+            /></a>
+            <a
+              href="https://www.linkedin.com/in/diego-pertusa/"
+              target="_blank"
+              class="link-collection__item--reduced"
+            >
+              <Linkedin
+            /></a>
+          </div>
         </div>
-
-        <div class="link-collection">
-          <a href="https://github.com/pertutatis" target="_blank"  class="link-collection__item--reduced">
-            <Github /></a>
-          <a href="https://www.linkedin.com/in/diego-pertusa/" target="_blank"  class="link-collection__item--reduced">
-            <Linkedin /></a>
-        </div>
-
       </div>
-    </div>
-  </section>
+    </section>
   </div>
 </template>
 
@@ -104,5 +112,4 @@ import Linkedin from '../components/Linkedin.vue'
 .link-collection__item--reduced + .link-collection__item--reduced {
   margin-left: calc(var(--base) * 2);
 }
-
 </style>

@@ -43,7 +43,8 @@ import Brand from "./Brand.vue";
 }
 
 .header__spacer {
-  margin-bottom: calc(var(--base) * 2);
+  height: calc(var(--base) * 9);
+  /* margin-bottom: calc(var(--base) * 2); */
 }
 
 .header__wrapper {
