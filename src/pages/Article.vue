@@ -160,7 +160,7 @@ nav.table-of-contents {
   padding: calc(var(--base) * 4);
   margin-top: calc(var(--base) * 4);
   margin-bottom: calc(var(--base) * 8);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(1px);
   background: rgba(13, 27, 42, 0.7);
   border: 1px solid rgba(116, 185, 255, 0.2);
   border-radius: 20px;

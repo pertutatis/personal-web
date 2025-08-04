@@ -103,7 +103,7 @@ function hasArticles() {
 }
 
 .excerpt {
-  margin-bottom: calc(var(--base) * 4);
+  margin-bottom: calc(var(--base) * 6);
 }
 
 .excerpt__link {

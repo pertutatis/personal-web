@@ -290,7 +290,7 @@ h5 {
    ==================================== */
 
 table {
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(2px);
   border-radius: 20px;
   border-spacing: 0;
   border-collapse: separate;
