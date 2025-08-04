@@ -9,7 +9,7 @@ import { onMounted } from "vue";
 // Inicializar cuando se carga el DOM
 onMounted(() => {
   // Animación de aparición secuencial de los timeline items
-  const timelineItems = document.querySelectorAll(".timeline-item");
+  const timelineItems = document.querySelectorAll(".timeline__item");
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -24,20 +24,6 @@ onMounted(() => {
 
   timelineItems.forEach((item) => {
     observer.observe(item);
-  });
-
-  const timelineContents = document.querySelectorAll(".timeline-content");
-
-  timelineContents.forEach((content) => {
-    content.addEventListener("mouseenter", function (this: HTMLElement) {
-      this.style.transform = "translateY(-15px) scale(1.02)";
-      this.style.boxShadow = "0 25px 50px rgba(116, 185, 255, 0.3)";
-    });
-
-    content.addEventListener("mouseleave", function (this: HTMLElement) {
-      this.style.transform = "translateY(0) scale(1)";
-      this.style.boxShadow = "0 20px 40px rgba(116, 185, 255, 0.2)";
-    });
   });
 
   timelineItems.forEach((item) => {
@@ -90,8 +76,8 @@ const fadeInObserver = new IntersectionObserver((entries) => {
 
       // Si es el primer timeline item, anima los badges
       if (
-        entry.target.classList.contains("timeline-item") &&
-        entry.target === document.querySelector(".timeline-item")
+        entry.target.classList.contains("timeline__item") &&
+        entry.target === document.querySelector(".timeline__item")
       ) {
         setTimeout(animateAchievementBadges, 800);
       }
@@ -550,7 +536,7 @@ document.head.appendChild(style);
 
 /* Responsive */
 @media (max-width: 768px) {
-  .cv-subtitle {
+  .cv-header__subtitle {
     font-size: 1.1rem;
   }
 }
@@ -630,7 +616,6 @@ document.head.appendChild(style);
 }
 
 .timeline__content:hover {
-  /* transform: translateY(-10px); */
   box-shadow: 0 20px 40px rgba(116, 185, 255, 0.2);
   border-color: var(--secondary-accent-1-color);
 }
@@ -954,21 +939,21 @@ document.head.appendChild(style);
     max-height: none;
   }
 
-  .timeline::before {
+  .timeline__wrapper::before {
     left: 2rem;
   }
 
-  .timeline-node {
+  .timeline__node {
     left: 2rem;
   }
 
-  .timeline-content {
+  .timeline__content {
     width: calc(100% - 6rem);
     margin-left: 6rem !important;
   }
 
-  .timeline-content::before {
-    left: -30px !important;
+  .timeline__content::before {
+    left: -55px !important;
     right: auto !important;
   }
 }
@@ -978,7 +963,7 @@ document.head.appendChild(style);
     font-size: 2.5rem;
   }
 
-  .timeline-content {
+  .timeline__content {
     padding: 1.5rem;
   }
 

@@ -183,7 +183,7 @@ a {
   transition: color var(--main-transition);
 
   &:hover {
-    color: var(--accent-2-color);
+    color: var(--secondary-accent-5-color);
   }
 }
 

@@ -127,10 +127,12 @@ onMounted(async () => {
 }
 
 aside {
-  border: 1px solid var(--text-color);
   padding: calc(var(--base) * 3);
   margin-bottom: calc(var(--base) * 2);
   font-style: italic;
+  background: rgba(162, 155, 254, 0.1);
+  border-left: 4px solid rgba(116, 185, 255, 0.2);
+  backdrop-filter: blur(2px);
 }
 
 table legend {
@@ -172,6 +174,7 @@ nav.table-of-contents:before {
 hr {
   border-bottom: 1px solid var(--text-color);
   margin-bottom: calc(var(--base) * 2);
+  border-color: var(--accent-color);
 }
 
 h1,
