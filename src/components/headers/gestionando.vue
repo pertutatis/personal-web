@@ -1,17 +1,3 @@
-<script setup lang="ts">
-import { defineProps, defineAsyncComponent, computed } from "vue";
-
-const props = defineProps({
-  title: {
-    type: String,
-    required: true,
-  },
-  excerpt: {
-    type: String,
-  },
-});
-</script>
-
 <template>
   <div class="article-header">
     <div class="article-header__container">
@@ -46,7 +32,7 @@ const props = defineProps({
 
       <!-- Red de conexiones -->
       <div class="network">
-        <div v-for="n in 3" :key="n" class="connection connection{{ n }}"></div>
+        <div v-for="n in 3" :key="n" :class="'connection connection' + n"></div>
       </div>
 
       <!-- Partículas de energía -->
@@ -55,15 +41,8 @@ const props = defineProps({
       </div>
 
       <!-- Contenido principal -->
-      <div class="content">
-        <h1 class="title">
-          {{ props.title }}
-        </h1>
-        <h2 class="subtitle">Liderando desde la Experiencia</h2>
-        <p class="description">
-          {{ props.excerpt }}
-        </p>
-      </div>
+      <!-- <h2 class="subtitle">Liderando desde la Experiencia</h2> -->
+      <slot />
     </div>
   </div>
 </template>
@@ -369,57 +348,6 @@ const props = defineProps({
   }
 }
 
-/* Contenido principal */
-.content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  z-index: 10;
-  color: white;
-  max-width: 1000px;
-  padding: 50px;
-}
-
-.title {
-  font-size: 3.2rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-  background: var(--title);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: var(--title-shadow);
-  animation: titleGlow 4s infinite alternate;
-  line-height: 1.1;
-}
-
-@keyframes titleGlow {
-  0% {
-    filter: brightness(1) saturate(1);
-  }
-  100% {
-    filter: brightness(1.3) saturate(1.2);
-  }
-}
-
-.subtitle {
-  font-size: 1.4rem;
-  margin-bottom: 30px;
-  opacity: 0.9;
-  font-weight: 300;
-  letter-spacing: 1.5px;
-}
-
-.description {
-  font-size: 1.1rem;
-  line-height: 1.7;
-  opacity: 0.85;
-  max-width: 800px;
-  margin: 0 auto 40px;
-}
-
 /* Meteoros */
 .meteors {
   position: absolute;
@@ -587,22 +515,6 @@ const props = defineProps({
 
 /* Responsive */
 @media (max-width: 768px) {
-  .title {
-    font-size: 2.4rem;
-  }
-
-  .subtitle {
-    font-size: 1.1rem;
-  }
-
-  .description {
-    font-size: 1rem;
-  }
-
-  .content {
-    padding: 30px 20px;
-  }
-
   .space-station {
     width: 80px;
     height: 80px;

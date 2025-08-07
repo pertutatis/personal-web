@@ -1,17 +1,3 @@
-<script setup lang="ts">
-import { defineProps, defineAsyncComponent, computed } from "vue";
-
-const props = defineProps({
-  title: {
-    type: String,
-    required: true,
-  },
-  excerpt: {
-    type: String,
-  },
-});
-</script>
-
 <template>
   <div class="article-header">
     <div class="article-header__container">
@@ -50,14 +36,9 @@ const props = defineProps({
       <div class="hologram hologram2"></div>
       <div class="hologram hologram3"></div>
 
+      <!-- <h2 class="subtitle">Lo que no se ve, pero sostiene todo</h2> -->
       <!-- Contenido principal -->
-      <div class="content">
-        <h1 class="title">{{ props.title }}</h1>
-        <h2 class="subtitle">Lo que no se ve, pero sostiene todo</h2>
-        <p class="description">
-          {{ props.excerpt }}
-        </p>
-      </div>
+      <slot />
     </div>
   </div>
 </template>
@@ -387,57 +368,6 @@ const props = defineProps({
   }
 }
 
-/* Contenido principal */
-.content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  z-index: 10;
-  color: white;
-  max-width: 1000px;
-  padding: 50px;
-}
-
-.title {
-  font-size: 3.2rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-  background: var(--title);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: var(--title-shadow);
-  animation: titleGlow 5s infinite alternate;
-  line-height: 1.1;
-}
-
-@keyframes titleGlow {
-  0% {
-    filter: brightness(1) saturate(1);
-  }
-  100% {
-    filter: brightness(1.4) saturate(1.3);
-  }
-}
-
-.subtitle {
-  font-size: 1.3rem;
-  margin-bottom: 30px;
-  opacity: 0.9;
-  font-weight: 300;
-  letter-spacing: 2px;
-}
-
-.description {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  opacity: 0.85;
-  max-width: 850px;
-  margin: 0 auto 40px;
-}
-
 /* Ondas de comunicación */
 .communication-waves {
   position: absolute;
@@ -595,25 +525,6 @@ const props = defineProps({
   50% {
     transform: scale(1.2);
     opacity: 1;
-  }
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .title {
-    font-size: 2.4rem;
-  }
-
-  .subtitle {
-    font-size: 1.1rem;
-  }
-
-  .description {
-    font-size: 1rem;
-  }
-
-  .content {
-    padding: 30px 20px;
   }
 }
 </style>

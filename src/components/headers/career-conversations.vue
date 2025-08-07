@@ -44,11 +44,8 @@ const props = defineProps({
       </div>
 
       <!-- Contenido principal -->
-      <div class="content">
-        <h1 class="title">{{ props.title }}</h1>
-        <h2 class="subtitle">Navegando el Crecimiento Profesional</h2>
-        <p class="description">{{ props.excerpt }}</p>
-      </div>
+      <!-- <h2 class="subtitle">Navegando el Crecimiento Profesional</h2> -->
+      <slot />
     </div>
   </div>
 </template>
@@ -228,56 +225,6 @@ const props = defineProps({
   }
 }
 
-/* Contenido principal */
-.content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  z-index: 10;
-  color: white;
-  max-width: 900px;
-  padding: 40px;
-}
-
-.title {
-  font-size: 4rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-  background: var(--title);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: var(--title-shadow);
-  animation: glow 3s infinite alternate;
-}
-
-@keyframes glow {
-  0% {
-    filter: brightness(1);
-  }
-  100% {
-    filter: brightness(1.2);
-  }
-}
-
-.subtitle {
-  font-size: 1.5rem;
-  margin-bottom: 30px;
-  opacity: 0.9;
-  font-weight: 300;
-  letter-spacing: 2px;
-}
-
-.description {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  opacity: 0.8;
-  max-width: 700px;
-  margin: 0 auto 40px;
-}
-
 /* Cohetes/naves espaciales */
 .rocket {
   position: absolute;
@@ -418,25 +365,6 @@ const props = defineProps({
   50% {
     opacity: 1;
     transform: scaleX(1);
-  }
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .title {
-    font-size: 2.5rem;
-  }
-
-  .subtitle {
-    font-size: 1.2rem;
-  }
-
-  .description {
-    font-size: 1rem;
-  }
-
-  .content {
-    padding: 20px;
   }
 }
 </style>

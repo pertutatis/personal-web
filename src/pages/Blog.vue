@@ -51,7 +51,7 @@ function hasArticles() {
       </header>
 
       <div class="blog__content">
-        <articlePlaceholder v-if="isLoading" :count="3" />
+        <articlePlaceholder v-if="isLoading" :count="3" :long="2" />
 
         <article
           class="excerpt"
@@ -65,7 +65,9 @@ function hasArticles() {
           </router-link>
         </article>
 
-        <div v-else class="blog__no-articles">No hay artículos disponibles.</div>
+        <div v-else-if="!isLoading" class="blog__no-articles">
+          No hay artículos disponibles.
+        </div>
       </div>
     </div>
   </section>
