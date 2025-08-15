@@ -21,6 +21,7 @@ const source = ref("");
 const title = ref("");
 const date = ref("");
 const excerpt = ref("");
+const serie = ref({});
 const slug = ref(route.params.slug as string);
 
 const books: Ref<Book[]> = ref([]);
@@ -44,6 +45,7 @@ onMounted(async () => {
   books.value = article.books;
   relatedLinks.value = article.relatedLinks;
   excerpt.value = article.excerpt;
+  serie.value = article.serie ? article.serie : {};
 });
 </script>
 
@@ -56,6 +58,7 @@ onMounted(async () => {
     :slug="slug"
     :excerpt="excerpt"
     :date="date"
+    :serie="serie"
   />
 
   <section class="section">

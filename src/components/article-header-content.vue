@@ -12,6 +12,9 @@ const props = defineProps({
   date: {
     type: String,
   },
+  serieName: {
+    type: String,
+  },
 });
 
 const formattedDate = computed(() => {
@@ -28,7 +31,10 @@ const formattedDate = computed(() => {
 <template>
   <div class="content">
     <h1 class="title">{{ props.title }}</h1>
-    <h2 class="subtitle">{{ formattedDate }}</h2>
+    <h2 class="subtitle">
+      {{ props.serieName ? props.serieName + " · " : "" }}
+      {{ formattedDate }}
+    </h2>
     <p class="description">
       {{ props.excerpt }}
     </p>

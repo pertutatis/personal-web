@@ -1,4 +1,5 @@
 import Book from './Book';
+import Serie from './Series';
 
 type CreateArticleParams = {
   title: string;
@@ -9,6 +10,7 @@ type CreateArticleParams = {
   books: Array<Book>;
   category: String;
   relatedLinks: { text: string; link: string }[];
+  serie: Serie | undefined;
 };
 
 export default class Article {
@@ -20,6 +22,7 @@ export default class Article {
   books: Array<Book>;
   category: String;
   relatedLinks: { text: string; link: string }[];
+  serie: Serie | undefined;
   
   constructor(content: CreateArticleParams) {
     this.title = content.title;
@@ -30,5 +33,6 @@ export default class Article {
     this.books = content.books;
     this.category = content.category;
     this.relatedLinks = content.relatedLinks;
+    this.serie = content.serie;
   }
 }

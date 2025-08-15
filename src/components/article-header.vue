@@ -17,6 +17,9 @@ const props = defineProps({
   date: {
     type: String,
   },
+  serie: {
+    type: Object,
+  },
 });
 
 const componentMap: Record<string, any> = {
@@ -42,6 +45,7 @@ const dynamicComponent = computed(() => componentMap[props.slug] || defaultCompo
       :title="props.title"
       :excerpt="props.excerpt"
       :date="props.date"
+      :serieName="props.serie?.title"
     />
   </component>
 </template>

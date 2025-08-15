@@ -25,6 +25,13 @@ export type articleResponse = {
     title: string;
     updatedAt: string;
   }>;
+  serie: {
+    id: string;
+    title: string;
+    description: string;
+    createdAt: string;
+    updatedAt: string;
+  } | undefined;
 };
 
 export default class getArticle implements articleRepository {
@@ -39,7 +46,7 @@ export default class getArticle implements articleRepository {
       .then((data: articleResponse[] | null) => {
         if (!data) {
           return Promise.resolve(null);
-        }
+        }        
 
         const responseArticles = data.map((article) => {
           return new Article({
@@ -59,9 +66,10 @@ export default class getArticle implements articleRepository {
                 text: link.text,
                 link: link.url,
             })),
+            serie: getSerie(article.serie),
             category: 'General', // Assuming a default category, adjust as needed
           });
-        });
+        });        
 
         return Promise.resolve(responseArticles);
       })
@@ -101,6 +109,7 @@ export default class getArticle implements articleRepository {
             text: link.text,
             link: link.url,
           })),
+          serie: getSerie(data.serie),
           category: 'General', // Assuming a default category, adjust as needed
         });
 
@@ -112,3 +121,18 @@ export default class getArticle implements articleRepository {
       });
   }
 }
+
+
+function getSerie(serie: articleResponse['serie'] | undefined) {
+            if (!serie) {
+              return undefined
+            }
+
+            return {
+              id: serie.id,
+              title: serie.title,
+              description: serie.description,
+              createdAt: serie.createdAt,
+              updatedAt: serie.updatedAt,
+            };
+          }
