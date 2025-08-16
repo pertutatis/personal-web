@@ -15,15 +15,17 @@ import articleHeader from "../components/article-header.vue";
 import articleRepository from "../module/infrastructure/backendRepository";
 import getArticle from "../module/application/getArticle";
 
+import Serie from "../module/domain/Series";
+
 const route = useRoute();
 const router = useRouter();
 const source = ref("");
 const title = ref("");
 const date = ref("");
 const excerpt = ref("");
-const serie = ref({});
 const slug = ref(route.params.slug as string);
 
+const serie = ref<Serie | undefined>(undefined);
 const books: Ref<Book[]> = ref([]);
 const relatedLinks: Ref<{ text: string; link: string }[]> = ref([]);
 const isLoading = ref(true);
@@ -45,7 +47,7 @@ onMounted(async () => {
   books.value = article.books;
   relatedLinks.value = article.relatedLinks;
   excerpt.value = article.excerpt;
-  serie.value = article.serie ? article.serie : {};
+  serie.value = article.serie ? article.serie : undefined;
 });
 </script>
 
@@ -67,6 +69,11 @@ onMounted(async () => {
         <articlePlaceholder v-if="isLoading" :count="1" :long="10" />
 
         <template v-else>
+          <aside class="article__serie" v-if="serie">
+            <strong>Sobre esta serie</strong>
+            <p>{{ serie.description }}</p>
+          </aside>
+
           <Markdown :source="source" :html="true" />
 
           <hr class="article__division" />
@@ -136,6 +143,15 @@ onMounted(async () => {
       display: block;
     }
   }
+}
+
+.article__serie {
+  margin-bottom: calc(var(--base) * 6);
+  padding: calc(var(--base) * 3);
+  background: rgba(116, 185, 255, 0.1);
+  border-left: none;
+  border-radius: 20px;
+  backdrop-filter: blur(2px);
 }
 
 .article__title {

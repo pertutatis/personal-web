@@ -18,7 +18,7 @@ const props = defineProps({
     type: String,
   },
   serie: {
-    type: Object,
+    type: Object || undefined,
   },
 });
 
