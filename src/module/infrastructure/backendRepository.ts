@@ -6,6 +6,7 @@ import articleRepository from '../domain/ArticleRepository';
 export type articleResponse = {
   content: string;
   createdAt: string;
+  publishedAt: string;
   excerpt: string;
   id: string;
   relatedLinks: Array<{
@@ -54,7 +55,7 @@ export default class getArticle implements articleRepository {
             content: article.content,
             slug: article.slug,
             excerpt: article.excerpt,
-            date: article.createdAt,
+            date: article.publishedAt,
             books: article.books.map((book) => ({
               id: book.id,
               title: book.title,
@@ -97,7 +98,7 @@ export default class getArticle implements articleRepository {
           content: data.content,
           slug: data.slug,
           excerpt: data.excerpt,
-          date: data.createdAt,
+          date: data.publishedAt,
           books: data.books.map((book) => ({
             id: book.id,
             title: book.title,
