@@ -168,11 +168,12 @@ onMounted(async () => {
 
 aside {
   padding: calc(var(--base) * 3);
-  margin-bottom: calc(var(--base) * 2);
-  font-style: italic;
+  margin-bottom: calc(var(--base) * 4);
+  /* font-style: italic; */
   background: rgba(162, 155, 254, 0.1);
-  border-left: 4px solid rgba(116, 185, 255, 0.2);
+  border: 1px solid rgba(116, 185, 255, 0.2);
   backdrop-filter: blur(2px);
+  border-radius: 20px;
 }
 
 aside ul:last-child,
@@ -183,11 +184,12 @@ aside p:last-child {
 blockquote {
   position: relative;
   padding: calc(var(--base) * 3);
-  margin-bottom: calc(var(--base) * 2);
+  margin: calc(var(--base) * 4) 0;
   font-style: italic;
   background: rgba(255, 118, 117, 0.1);
-  border-left: 4px solid rgba(255, 118, 117, 0.2);
+  border: 1px solid rgba(255, 118, 117, 0.2);
   backdrop-filter: blur(2px);
+  border-radius: 20px;
 
   strong {
     font-weight: var(--light);
