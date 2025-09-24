@@ -1,5 +1,19 @@
 <script setup lang="ts">
 import BackgroundStars from "./components/background-stars.vue";
+import Rover from "./components/rover.vue";
+
+if (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) {
+  console.log("Light mode");
+}
+
+if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+  console.log("dark mode");
+}
+
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) => {
+  const newColorScheme = event.matches ? "dark" : "light";
+  console.log("Color scheme changed to:", newColorScheme);
+});
 </script>
 
 <template>
@@ -20,11 +34,11 @@ import BackgroundStars from "./components/background-stars.vue";
   /* Palette */
   --primary-font: "Montserrat", helvetica, arial, serif;
   --secondary-font: "Roboto Mono", arial, serif;
-  --primary-color: rgb(255, 127, 71);
-  --secondary-color: rgb(255, 140, 66);
-  --dark-color: #0a1e2c;
-  --light-color: #d1d1d1;
-  --lighter-color: #f0f0f0;
+  --primary-color: 255, 101, 101;
+  --secondary-color: 255, 140, 66;
+  --dark-color: 10, 30, 44;
+  --light-color: 209, 209, 209;
+  --lighter-color: 255, 240, 224; /*#F0F0F0*/
 
   /* scheme */
   --base: 8px;
@@ -35,12 +49,21 @@ import BackgroundStars from "./components/background-stars.vue";
 
   --main-transition: 0.3s ease;
 
-  --accent-color: var(--secondary-color);
-  --accent-2-color: var(--primary-color);
-  --background-color: var(--dark-color);
-  --text-color: var(--light-color);
-  --title-color: var(--light-color);
+  --accent-color: rgb(var(--secondary-color));
+  --accent-color-01: rgba(var(--secondary-color), 0.1);
+  --accent-color-03: rgba(var(--secondary-color), 0.3);
+  --accent-2-color: rgb(var(--primary-color));
+  --background-color: rgb(var(--dark-color));
+  --text-color: rgb(var(--light-color));
+  --title-color: rgb(var(--light-color));
 
+  --secondary-accent-1-rgb: 162, 155, 254;
+  --secondary-accent-2-rgb: 102, 126, 234;
+  --secondary-accent-3-rgb: 162, 155, 254;
+  --secondary-accent-4-rgb: 118, 75, 162;
+  --secondary-accent-5-rgb: 255, 118, 117;
+  --secondary-accent-6-rgb: 253, 121, 168;
+  --secondary-accent-7-rgb: 253, 203, 110;
   --secondary-accent-1-color: rgb(116, 185, 255);
   --secondary-accent-2-color: rgb(102, 126, 234);
   --secondary-accent-3-color: rgb(162, 155, 254);
@@ -48,6 +71,8 @@ import BackgroundStars from "./components/background-stars.vue";
   --secondary-accent-5-color: rgb(255, 118, 117);
   --secondary-accent-6-color: rgb(253, 121, 168);
   --secondary-accent-7-color: rgb(253, 203, 110);
+
+  --cv-color: var(--secondary-accent-1-rgb);
 
   /* Titles gradients */
   --title-1: linear-gradient(
@@ -80,25 +105,41 @@ import BackgroundStars from "./components/background-stars.vue";
   --title-shadow: var(--title-3-shadow);
 }
 
-/* @media (prefers-color-scheme: light) {
+@media (prefers-color-scheme: light) {
   :root {
-    --accent-color: var(--primary-color);
-    --accent-2-color: var(--secondary-color);
-    --background-color: var(--lighter-color);
-    --text-color: var(--dark-color);
-    --title-color: var(--dark-color);
+    --accent-color: rgb(var(--primary-color));
+    --accent-color-01: rgba(var(--primary-color), 0.1);
+    --accent-color-03: rgba(var(--primary-color), 0.3);
+    --accent-2-color: rgb(var(--secondary-color));
+    --background-color: rgb(var(--lighter-color));
+    --text-color: rgb(var(--dark-color));
+    --title-color: rgb(var(--dark-color));
+
+    --title: var(--title-1);
+    --title-shadow: 0;
+
+    --cv-color: var(--secondary-accent-3-rgb);
+    --stars-colors: var(--secondary-accent-7-color);
   }
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --accent-color: var(--secondary-color);
-    --accent-2-color: var(--primary-color);
-    --background-color: var(--dark-color);
-    --text-color: var(--light-color);
-    --title-color: var(--light-color);
+    --accent-color: rgb(var(--secondary-color));
+    --accent-color-01: rgba(var(--secondary-color), 0.1);
+    --accent-color-03: rgba(var(--secondary-color), 0.3);
+    --accent-2-color: rgb(var(--primary-color));
+    --background-color: rgb(var(--dark-color));
+    --text-color: rgb(var(--light-color));
+    --title-color: rgb(var(--light-color));
+
+    --title: var(--title-3);
+    --title-shadow: 0;
+
+    --cv-color: var(--secondary-accent-1-rgb);
+    --stars-colors: rgb(var(--light-color));
   }
-} */
+}
 
 /* ====================================
    Skeleton
@@ -116,6 +157,7 @@ body,
 }
 
 body {
+  min-height: 100vh;
   background-color: var(--background-color);
   font-family: var(--secondary-font);
   font-size: calc(var(--base) * 2.25);
@@ -123,12 +165,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--text-color);
-}
-
-body {
-  background: radial-gradient(ellipse at center, #0c0c1e 0%, #1a1a3a 40%, #0a0a0f 100%);
   overflow-x: hidden;
-  min-height: 100vh;
 }
 
 .section {

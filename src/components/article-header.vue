@@ -23,11 +23,13 @@ const props = defineProps({
 });
 
 const componentMap: Record<string, any> = {
-  "cultura-distribuida-0-fundamentos-para-equipos-que-no-comparten-oficina": defineAsyncComponent(
+  "0d02f895-b160-4e9b-86d0-421d4c06c9ff": defineAsyncComponent(
+    //Cultura Distribuida
     () => import("./headers/cultura-distribuida.vue")
   ),
-  "empezando-a-gestionar-un-equipo-de-alto-rendimiento": defineAsyncComponent(
-    () => import("./headers/gestionando.vue")
+  "ffb22877-fb2f-4add-91e8-b70098ae483c": defineAsyncComponent(
+    // Hiring en Ingeniería: Del 'Who' al Equipo de Alto Rendimiento
+    () => import("./headers/mars.vue")
   ),
   "career-conversations": defineAsyncComponent(
     () => import("./headers/career-conversations.vue")
@@ -36,7 +38,9 @@ const componentMap: Record<string, any> = {
 
 const defaultComponent = defineAsyncComponent(() => import("./headers/default.vue"));
 
-const dynamicComponent = computed(() => componentMap[props.slug] || defaultComponent);
+const dynamicComponent = computed(
+  () => componentMap[props.serie?.id] || defaultComponent
+);
 </script>
 
 <template>

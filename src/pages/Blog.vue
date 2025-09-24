@@ -53,15 +53,23 @@ function hasArticles() {
       <div class="blog__content">
         <articlePlaceholder v-if="isLoading" :count="3" :long="2" />
 
+        <p class="blog__flag" v-if="hasArticles()">Destacado</p>
+
         <article
           class="excerpt"
-          v-for="article in articles"
+          :class="index == 0 ? 'is-first' : ''"
+          v-for="(article, index) in articles"
           v-if="hasArticles()"
           :key="article.slug"
         >
           <router-link class="excerpt__link" :to="'/blog/' + article.slug">
-            <h3 class="excerpt__title">{{ article.title }}</h3>
+            <span v-if="article.serie" class="excerpt__cat">
+              {{ article.serie?.title }}
+            </span>
+            <h2 v-if="index == 0" class="excerpt__title">{{ article.title }}</h2>
+            <h3 v-else class="excerpt__title">{{ article.title }}</h3>
             <p class="excerpt__text">{{ article.excerpt }}</p>
+            <span class="excerpt__more">Leer artículo completo </span>
           </router-link>
         </article>
 
@@ -86,36 +94,135 @@ function hasArticles() {
 }
 
 .blog__content {
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) {
     margin-left: calc(8.33% * 1);
-    margin-right: calc(8.33% * 5);
+    margin-right: calc(8.33% * 1);
+    display: flex;
+    flex-wrap: wrap;
   }
 }
 
 .blog__title {
   margin-bottom: calc(var(--base) * 2);
-  /* font-weight: bold; */
-  /* margin-bottom: 20px; */
-  /* background: var(--title); */
-  /* -webkit-background-clip: text; */
-  /* -webkit-text-fill-color: transparent; */
-  /* background-clip: text; */
-  /* text-shadow: var(--title-shadow); */
-  /* animation: glow 3s infinite alternate; */
+}
+
+.blog__flag {
+  font-family: var(--primary-font);
+  color: var(--accent-color);
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  opacity: 0.9;
+  font-weight: 300;
+  letter-spacing: 2px;
+  width: 100%;
+  margin-bottom: calc(var(--base) * 1);
+
+  @media (min-width: 768px) {
+    font-size: 1.3rem;
+  }
 }
 
 .excerpt {
-  margin-bottom: calc(var(--base) * 6);
+  margin-bottom: calc(var(--base) * 12);
+  padding-right: calc(var(--base) * 8);
+  width: 100%;
+  transition: transform var(--main-transition);
+
+  @media (min-width: 768px) {
+    width: 50%;
+  }
+
+  &.is-first {
+    @media (min-width: 768px) {
+      width: 80%;
+    }
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: -40px;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, var(--accent-color), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover {
+    transform: translateX(10px);
+
+    &::before {
+      opacity: 1;
+    }
+
+    .excerpt__title {
+      background: linear-gradient(
+        135deg,
+        var(--accent-color) 0%,
+        var(--accent-color) 100%
+      );
+
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  }
+}
+
+.excerpt__title {
+  background: var(--title);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: var(--title-shadow);
+  animation: titleGlow 5s infinite alternate;
+  transition: background var(--main-transition);
+}
+
+.excerpt__cat {
+  display: inline-block;
+  background: var(--accent-color-01);
+  color: var(--accent-color);
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  margin: 0.3rem 0.3rem 0.3rem 0;
+  border: 1px solid var(--accent-color-03);
+  margin-bottom: 20px;
+  text-overflow: ellipsis;
+  max-width: calc(80%);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.excerpt__serie {
+  font-family: var(--primary-font);
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  opacity: 0.9;
+  font-weight: 300;
+  letter-spacing: 2px;
 }
 
 .excerpt__link {
   color: var(--text-color);
   text-decoration: none;
   transition: color var(--main-transition), text-decoration var(--main-transition);
+}
 
-  &:hover {
-    color: var(--accent-color);
-    text-decoration: underline;
+.excerpt__more {
+  color: var(--accent-color);
+
+  &:after {
+    content: "→";
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover::after {
+    transform: translateX(5px);
   }
 }
 </style>

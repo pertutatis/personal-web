@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Github from "../components/Github.vue";
 import Linkedin from "../components/Linkedin.vue";
+import Rover from "./rover.vue";
 </script>
 
 <template>
@@ -18,12 +19,15 @@ import Linkedin from "../components/Linkedin.vue";
           <Linkedin
         /></a>
       </nav>
+
+      <Rover />
     </div>
   </footer>
 </template>
 
 <style lang="postcss" scoped>
 .footer {
+  position: relative;
   width: 100%;
   margin-top: calc(var(--base) * 2);
   margin: 0;

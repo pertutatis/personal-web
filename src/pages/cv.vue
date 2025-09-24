@@ -470,15 +470,15 @@ document.head.appendChild(style);
 
 .achievement-badge {
   display: inline-block;
-  background: rgba(255, 140, 66, 0.1);
+  background: var(--accent-color-01);
   color: var(--secondary-accent-1-color);
-  background: rgba(255, 140, 66, 0.1);
+  background: var(--accent-color-01);
   color: var(--accent-color);
   padding: 0.3rem 0.8rem;
   border-radius: 15px;
   font-size: 0.8rem;
   margin: 0.3rem 0.3rem 0.3rem 0;
-  border: 1px solid rgba(255, 140, 66, 0.3);
+  border: 1px solid var(--accent-color-03);
 }
 
 /* Scroll personalizado */

@@ -38,7 +38,6 @@ import Brand from "./Brand.vue";
   width: 100vw;
   z-index: 100;
   backdrop-filter: blur(12px);
-  background: rgba(var(background-color), 0.7);
   box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.04);
 }
 

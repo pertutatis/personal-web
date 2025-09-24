@@ -47,9 +47,9 @@
 /* Sección lateral (sidebar espacial) */
 .sidebar {
   width: 100%;
-  background: rgba(13, 27, 42, 0.8);
+  background: rgba(var(--cv-color), 0.1);
   backdrop-filter: blur(15px);
-  border: 1px solid rgba(116, 185, 255, 0.2);
+  border: 1px solid rgba(var(--cv-color), 0.3);
   border-radius: 20px;
   padding: 2rem;
   margin: 2rem auto;
@@ -96,7 +96,7 @@
   align-items: center;
   justify-content: center;
   font-size: 0.8rem;
-  color: var(--dark-color);
+  color: rgb(var(--dark-color));
 }
 
 .skills {

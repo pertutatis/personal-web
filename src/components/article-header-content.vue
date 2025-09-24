@@ -49,7 +49,7 @@ const formattedDate = computed(() => {
   transform: translate(0, -50%);
   text-align: center;
   z-index: 10;
-  color: white;
+  color: var(--text-color);
   padding: 30px 20px;
 
   @media (min-width: 768px) {

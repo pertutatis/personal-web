@@ -46,16 +46,16 @@ const props = defineProps<{ period: string; title: string; company: string }>();
 .timeline__content {
   width: 45%;
   padding: 1rem;
-  background: rgba(13, 27, 42, 0.7);
+  background: rgba(var(--cv-color), 0.1);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(116, 185, 255, 0.2);
+  border: 1px solid rgba(var(--cv-color), 0.3);
   border-radius: 20px;
   position: relative;
   transition: all 0.3s ease;
 }
 
 .timeline__content:hover {
-  box-shadow: 0 20px 40px rgba(116, 185, 255, 0.2);
+  box-shadow: 0 20px 40px rgba(var(--cv-color), 0.2);
   border-color: var(--secondary-accent-1-color);
 }
 
@@ -142,7 +142,7 @@ const props = defineProps<{ period: string; title: string; company: string }>();
     var(--secondary-accent-5-color),
     var(--secondary-accent-7-color)
   );
-  color: var(--dark-color);
+  color: rgb(var(--dark-color));
   padding: 0.5rem 1rem;
   border-radius: 20px;
   font-size: 0.85rem;
@@ -154,7 +154,7 @@ const props = defineProps<{ period: string; title: string; company: string }>();
   font-family: var(--primary-font);
   font-size: 1.4rem;
   font-weight: 600;
-  color: var(--light-color);
+  color: var(--text-color);
   margin-bottom: 0.5rem;
 }
 
@@ -166,7 +166,7 @@ const props = defineProps<{ period: string; title: string; company: string }>();
 }
 
 .job__description {
-  color: var(--light-color);
+  color: var(--text-color);
   line-height: 1.7;
   opacity: 0.9;
 }
