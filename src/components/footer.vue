@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Github from "../components/Github.vue";
 import Linkedin from "../components/Linkedin.vue";
+import LunarModule from "./lunar-module.vue";
 import Rover from "./rover.vue";
 </script>
 
@@ -21,6 +22,7 @@ import Rover from "./rover.vue";
       </nav>
 
       <Rover />
+      <LunarModule />
     </div>
   </footer>
 </template>

@@ -51,11 +51,17 @@
 <style lang="postcss" scoped>
 /* Contenedor del rover */
 .rover-container {
+  display: none;
   position: absolute;
   bottom: 40px;
   left: 0;
   z-index: 10;
+  pointer-events: none;
   animation: hover 120s ease-in-out infinite;
+
+  @media screen and (prefers-color-scheme: light) {
+    display: block;
+  }
 }
 
 /* Cuerpo principal */
