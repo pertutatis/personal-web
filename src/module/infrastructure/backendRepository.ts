@@ -37,7 +37,7 @@ export type articleResponse = {
 
 export default class getArticle implements articleRepository {
   getArticles() {
-    return HTTP('https://personal-web-backend.vercel.app/api/blog/articles', '', 'GET')
+    return HTTP('https://blog-api.diegopertusa.com/api/blog/articles', '', 'GET')
       .then((response) => {
         if (!response) {
           return Promise.resolve(null);
@@ -81,7 +81,7 @@ export default class getArticle implements articleRepository {
   }
 
   getArticle(slug: string) {
-    return HTTP(`https://personal-web-backend.vercel.app/api/blog/articles/by-slug/${slug}`, '', 'GET')
+    return HTTP(`https://blog-api.diegopertusa.com/api/blog/articles/by-slug/${slug}`, '', 'GET')
       .then((response) => {
         if (!response) {
           return Promise.resolve(null);
