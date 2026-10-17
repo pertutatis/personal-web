@@ -1,39 +1,29 @@
 <script setup lang="ts">
-import type { Ref } from "vue";
-import type Article from "../module/domain/Article";
-
-import { ref, computed, onMounted } from "vue";
+import { computed } from "vue";
 import Header from "../components/header.vue";
 import Footer from "../components/footer.vue";
 import ArticlePlaceholder from "../components/article-placeholder.vue";
 
 import articleRepository from "../module/infrastructure/backendRepository";
-import getArticles from "../module/application/getArticles";
-import estimateReadingMinutes from "../module/domain/readingTime";
+import getBlogListing from "../module/application/getBlogListing";
 import formatArticleDate from "../module/presentation/formatArticleDate";
+import usePrefetchedData from "../composables/usePrefetchedData";
 
-const articles: Ref<Article[] | null> = ref([]);
-const isLoading = ref(true);
-
-onMounted(async () => {
-  isLoading.value = true;
-  const recievedArticles = await getArticles(new articleRepository());
-  if (recievedArticles) {
-    articles.value = recievedArticles;
-  }
-  isLoading.value = false;
-});
+const { data: listing, isLoading } = usePrefetchedData(
+  () => "blog:listing",
+  () => getBlogListing(new articleRepository())
+);
 
 const listedArticles = computed(() =>
-  (articles.value ?? []).map((article) => ({
+  (listing.value ?? []).map((article) => ({
     article,
     formattedDate: formatArticleDate(article.date),
-    readingMinutes: estimateReadingMinutes(article.content),
+    readingMinutes: article.readingMinutes,
   }))
 );
 
 function hasArticles() {
-  return Array.isArray(articles.value) && articles.value.length > 0;
+  return listedArticles.value.length > 0;
 }
 </script>
 

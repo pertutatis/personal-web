@@ -1,8 +1,5 @@
 <script setup lang="ts">
 import type { Ref } from "vue";
-import type Book from "../module/domain/Book";
-import type Article from "../module/domain/Article";
-import type { SeriesNeighbours } from "../module/application/getSeriesNeighbours";
 
 import { ref, computed, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
@@ -16,29 +13,38 @@ import ReadingProgress from "../components/reading-progress.vue";
 import SeriesNavigation from "../components/series-navigation.vue";
 
 import articleRepository from "../module/infrastructure/backendRepository";
-import getArticle from "../module/application/getArticle";
-import getArticles from "../module/application/getArticles";
-import getSeriesNeighbours from "../module/application/getSeriesNeighbours";
+import getArticlePage from "../module/application/getArticlePage";
 import estimateReadingMinutes from "../module/domain/readingTime";
 import useReadingProgress from "../composables/useReadingProgress";
+import usePrefetchedData from "../composables/usePrefetchedData";
 import renderArticleMarkdown from "../module/infrastructure/renderArticleMarkdown";
 import { getLinkPresentation } from "../module/presentation/linkPresentation";
 
-import Serie from "../module/domain/Series";
-
 const route = useRoute();
 const router = useRouter();
-const source = ref("");
-const title = ref("");
-const date = ref("");
-const excerpt = ref("");
-const slug = ref(route.params.slug as string);
+const slug = computed(() => route.params.slug as string);
 
-const serie = ref<Serie | undefined>(undefined);
-const books: Ref<Book[]> = ref([]);
-const relatedLinks: Ref<{ text: string; link: string }[]> = ref([]);
-const seriesNeighbours: Ref<SeriesNeighbours<Article>> = ref({ previous: undefined, next: undefined });
-const isLoading = ref(true);
+const { data: page, isLoading } = usePrefetchedData(
+  () => `article:${slug.value}`,
+  () => getArticlePage(new articleRepository(), slug.value)
+);
+
+const article = computed(() => page.value?.article ?? null);
+const source = computed(() => article.value?.content ?? "");
+const title = computed(() => article.value?.title ?? "");
+const date = computed(() => article.value?.date ?? "");
+const excerpt = computed(() => article.value?.excerpt ?? "");
+const serie = computed(() => article.value?.serie);
+const books = computed(() => article.value?.books ?? []);
+const relatedLinks = computed(() => article.value?.relatedLinks ?? []);
+const seriesNeighbours = computed(
+  () => page.value?.seriesNeighbours ?? { previous: undefined, next: undefined }
+);
+
+// Only reachable in the browser: every prerendered slug exists
+watch([isLoading, page], ([loading, loadedPage]) => {
+  if (!loading && !loadedPage) router.push({ path: "/blog/" });
+});
 
 const articleElement: Ref<HTMLElement | null> = ref(null);
 const { progress } = useReadingProgress(articleElement);
@@ -55,45 +61,6 @@ const presentedRelatedLinks = computed(() =>
     url: relatedLink.link,
     ...getLinkPresentation(relatedLink.text, relatedLink.link),
   }))
-);
-
-async function loadSeriesNeighbours(currentSlug: string) {
-  const articles = await getArticles(new articleRepository());
-  seriesNeighbours.value = getSeriesNeighbours(articles ?? [], currentSlug);
-}
-
-async function loadArticle(articleSlug: string) {
-  isLoading.value = true;
-  seriesNeighbours.value = { previous: undefined, next: undefined };
-
-  const article = await getArticle(new articleRepository(), articleSlug);
-
-  if (!article) {
-    router.push({ path: "/blog/" });
-    return;
-  }
-
-  slug.value = article.slug;
-  source.value = article.content;
-  title.value = article.title;
-  date.value = article.date;
-  books.value = article.books;
-  relatedLinks.value = article.relatedLinks;
-  excerpt.value = article.excerpt;
-  serie.value = article.serie ? article.serie : undefined;
-  isLoading.value = false;
-
-  if (article.serie) {
-    loadSeriesNeighbours(article.slug);
-  }
-}
-
-watch(
-  () => route.params.slug as string | undefined,
-  (articleSlug) => {
-    if (articleSlug) loadArticle(articleSlug);
-  },
-  { immediate: true }
 );
 </script>
 

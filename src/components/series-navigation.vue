@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type Article from "../module/domain/Article";
+import type { SeriesLink } from "../module/application/getArticlePage";
 
 const props = defineProps<{
   serieTitle: string;
-  previous: Article | undefined;
-  next: Article | undefined;
+  previous: SeriesLink | undefined;
+  next: SeriesLink | undefined;
 }>();
 </script>
 

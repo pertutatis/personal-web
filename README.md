@@ -1,9 +1,9 @@
 # Diego Pertusa — personal web
 
-Personal site with bio, CV and blog. Built with Vue 3 (`<script setup>`), TypeScript, Vite and vue-router.
+Personal site with bio, CV and blog. Built with Vue 3 (`<script setup>`), TypeScript, Vite, vue-router and [vite-ssg](https://github.com/antfu-collective/vite-ssg).
 
 - Staging (branch `develop`): https://diegopertusa.netlify.app
-- Hosting: Netlify, as a single page app (`public/_redirects` rewrites every route to `index.html`)
+- Hosting: Netlify, as static pages prerendered at build time and hydrated in the browser
 
 ## Getting started
 
@@ -17,7 +17,7 @@ yarn dev        # dev server on http://localhost:3001
 | Script | Description |
 | --- | --- |
 | `yarn dev` | Start the Vite dev server on port 3001 |
-| `yarn build` | Type-check with `vue-tsc` and build for production |
+| `yarn build` | Type-check with `vue-tsc` and prerender every page with `vite-ssg` |
 | `yarn preview` | Serve the production build locally |
 | `yarn test` | Run the Jest test suite |
 | `yarn lint` | Lint and fix `.js` and `.vue` files |
@@ -29,7 +29,11 @@ yarn dev        # dev server on http://localhost:3001
 
 ## Content
 
-Articles are not stored in this repository. They are fetched at runtime from the blog API (`https://blog-api.diegopertusa.com/api/blog/articles`) and written in Markdown with raw HTML allowed.
+Articles are not stored in this repository. They live in the blog API (`https://blog-api.diegopertusa.com/api/blog/articles`) and are written in Markdown with raw HTML allowed.
+
+At build time `vite.config.mts` asks the API for every published article and prerenders `/blog/<slug>`, so each page ships its full HTML. The build fails if the API is unreachable, so a broken API never replaces a good deploy. Publishing or editing an article therefore needs a new build.
+
+Data loaded while prerendering is embedded in the page (`initialState`) through `usePrefetchedData`, so the browser does not call the API again on the first load. Navigating inside the app loads data from the API as usual.
 
 Markdown is rendered with `markdown-it` plus:
 
