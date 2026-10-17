@@ -20,6 +20,9 @@ const props = defineProps({
   serie: {
     type: Object || undefined,
   },
+  readingMinutes: {
+    type: Number,
+  },
 });
 
 const componentMap: Record<string, any> = {
@@ -50,6 +53,52 @@ const dynamicComponent = computed(
       :excerpt="props.excerpt"
       :date="props.date"
       :serieName="props.serie?.title"
+      :readingMinutes="props.readingMinutes"
     />
+    <a class="read-cue" href="#article-start">
+      Leer <span class="read-cue__arrow" aria-hidden="true">↓</span>
+    </a>
   </component>
 </template>
+
+<style lang="postcss" scoped>
+.read-cue {
+  position: absolute;
+  /* the 100vh header starts below the fixed header spacer (base * 9) */
+  bottom: calc(var(--base) * 13);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  font-family: var(--secondary-font);
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  color: var(--text-color);
+  text-decoration: none;
+  opacity: 0.8;
+
+  /* on phones the centred header text can reach the bottom; scrolling is the natural gesture there */
+  @media (max-width: 767px) {
+    display: none;
+  }
+
+  &:hover {
+    color: var(--accent-text-color);
+    opacity: 1;
+  }
+}
+
+.read-cue__arrow {
+  display: inline-block;
+  animation: read-cue-bounce 2s ease-in-out infinite;
+}
+
+@keyframes read-cue-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+</style>

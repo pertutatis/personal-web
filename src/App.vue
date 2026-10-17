@@ -27,7 +27,6 @@ window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (ev
    Config
    ==================================== */
 
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Roboto+Mono:wght@300;400;700&display=swap");
 @import url("./assets/reset.css");
 
 :root {
@@ -38,7 +37,7 @@ window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (ev
   --secondary-color: 255, 140, 66;
   --dark-color: 10, 30, 44;
   --light-color: 209, 209, 209;
-  --lighter-color: 255, 240, 224; /*#F0F0F0*/
+  --lighter-color: 255, 248, 240; /* #FFF8F0 */
 
   /* scheme */
   --base: 8px;
@@ -73,6 +72,15 @@ window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (ev
   --secondary-accent-7-color: rgb(253, 203, 110);
 
   --cv-color: var(--secondary-accent-1-rgb);
+
+  /* Accent used as text colour; the light theme needs a darker shade for contrast */
+  --accent-text-color: var(--accent-color);
+  --accent-heading-color: var(--accent-color);
+  --link-hover-color: var(--secondary-accent-5-color);
+
+  /* Content blocks */
+  --block-radius: 12px;
+  --experience-rgb: var(--secondary-accent-3-rgb);
 
   /* Titles gradients */
   --title-1: linear-gradient(
@@ -120,6 +128,13 @@ window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (ev
 
     --cv-color: var(--secondary-accent-3-rgb);
     --stars-colors: var(--secondary-accent-7-color);
+    --experience-rgb: var(--secondary-accent-4-rgb);
+
+    /* #FF6565 on cream is 2.7:1, so text uses darker shades of the same red:
+       large headings need 3:1 (3.7:1), small text 4.5:1 (5.1:1) */
+    --accent-text-color: rgb(200, 45, 45);
+    --accent-heading-color: rgb(230, 70, 70);
+    --link-hover-color: rgb(175, 40, 40);
   }
 }
 
@@ -138,7 +153,39 @@ window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (ev
 
     --cv-color: var(--secondary-accent-1-rgb);
     --stars-colors: rgb(var(--light-color));
+    --experience-rgb: var(--secondary-accent-3-rgb);
   }
+}
+
+/* ====================================
+   Motion
+   ==================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ====================================
+   Focus
+   reset.css unsets every outline, so keyboard focus needs its own style
+   ==================================== */
+
+html {
+  /* keeps focused elements and anchor targets clear of the fixed header */
+  scroll-padding-top: calc(var(--base) * 12);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-text-color);
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 
 /* ====================================
@@ -154,6 +201,8 @@ body,
 
 #app {
   overflow: hidden;
+  /* clip keeps decorative overflow hidden without breaking position: sticky */
+  overflow: clip;
 }
 
 body {
@@ -219,12 +268,12 @@ h6 {
 a {
   /* font-family: var(--primary-font); */
   /* font-weight: var(--medium); */
-  color: var(--accent-color);
+  color: var(--accent-text-color);
   text-decoration: underline;
   transition: color var(--main-transition);
 
   &:hover {
-    color: var(--secondary-accent-5-color);
+    color: var(--link-hover-color);
   }
 }
 
@@ -276,7 +325,7 @@ li {
 }
 
 ul li::marker {
-  color: var(--accent-color);
+  color: var(--accent-text-color);
 }
 
 h1 {
@@ -326,47 +375,4 @@ h5 {
   font-size: 18px;
 }
 
-/* ====================================
-   Tables
-   ==================================== */
-
-table {
-  backdrop-filter: blur(2px);
-  border-radius: 20px;
-  border-spacing: 0;
-  border-collapse: separate;
-  overflow: hidden;
-}
-
-thead {
-  background: rgba(116, 185, 255, 0.3);
-  border-radius: 20px 0 0 0 20px;
-  border-spacing: 0;
-  border-collapse: separate;
-}
-
-tr {
-  background: rgba(162, 155, 254, 0.05);
-  border-bottom: 1px solid rgba(116, 185, 255, 0.2);
-
-  &:nth-child(odd) {
-    background: rgba(118, 75, 162, 0.05);
-  }
-}
-
-th,
-td {
-  display: block;
-  border: none;
-  padding: calc(var(--base) * 2);
-
-  @media (min-width: 768px) {
-    display: table-cell;
-    border-bottom: 0.25px solid rgba(116, 185, 255, 0.2);
-  }
-
-  tr:last-child & {
-    border-bottom: none;
-  }
-}
 </style>

@@ -8,7 +8,13 @@ import Linkedin from "../components/Linkedin.vue";
   <div class="home-wrapper">
     <section class="section">
       <div class="bio section__wrapper">
-        <img class="portrait" src="../assets/foto.png" alt="Picture about me" />
+        <img
+          class="portrait"
+          src="../assets/foto.webp"
+          alt="Picture about me"
+          width="200"
+          height="200"
+        />
         <div class="bio__column">
           <Brand class="logo" />
           <h1 class="big-title">Hi! 👋🏻 I'm Diego Pertusa Irles</h1>

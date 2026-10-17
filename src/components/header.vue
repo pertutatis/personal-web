@@ -82,7 +82,7 @@ import Brand from "./Brand.vue";
 }
 
 .nav__item:hover {
-  color: var(--accent-color);
+  color: var(--accent-text-color);
 }
 
 .nav__item::after {
@@ -101,7 +101,7 @@ import Brand from "./Brand.vue";
 }
 
 .nav__item.active {
-  color: var(--accent-color);
+  color: var(--accent-text-color);
 }
 
 .nav__item.active::after {

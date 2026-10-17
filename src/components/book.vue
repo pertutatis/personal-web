@@ -1,20 +1,35 @@
 <script setup lang="ts">
-const props = defineProps({
-  book: Object,
-})
+import { computed } from "vue";
+import type Book from "../module/domain/Book";
+import { getLinkDomain } from "../module/presentation/linkPresentation";
+
+const props = defineProps<{ book: Book }>();
+
+const bookLinkDomain = computed(() => getLinkDomain(props.book.url));
 </script>
 
 <template>
-  <div class="book" v-if="book">
-    <img class="book__image" :src="'/imgs/' + book.image + '.jpg'" :alt="book.title">
+  <div class="book">
+    <img
+      class="book__image"
+      :src="'/imgs/' + props.book.image + '.jpg'"
+      :alt="props.book.title"
+      loading="lazy"
+      decoding="async"
+    />
     <div class="book__content">
-      <h5 class="book__title">{{ book.title }}</h5>
-      <p class="book__description">{{ book.description }}</p>
-      <!-- <p><strong>Te lo recomiendo</strong> o no, quien sabe</p> -->
-      <!-- <a href="">Comprar libro</a> -->
+      <h5 class="book__title">{{ props.book.title }}</h5>
+      <p class="book__description">{{ props.book.description }}</p>
+      <a
+        v-if="props.book.url"
+        class="book__link"
+        :href="props.book.url"
+        target="_blank"
+        rel="noopener"
+        >Ver libro{{ bookLinkDomain ? " en " + bookLinkDomain : "" }} →</a
+      >
     </div>
   </div>
-  
 </template>
 
 <style lang="postcss" scoped>
@@ -38,6 +53,12 @@ const props = defineProps({
     margin-right: calc(var(--base) * 4);
     margin-bottom: 0;
   }
+}
+
+.book__link {
+  font-family: var(--secondary-font);
+  font-size: 0.9rem;
+  text-decoration: none;
 }
 
 .book__title {

@@ -1,21 +1,23 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { onMounted, onBeforeUnmount } from "vue";
+
+// Parallax for the nebulas
+function moveNebulasWithScroll() {
+  const scrolled = window.scrollY;
+  const nebula1 = document.querySelector(".nebula--1") as HTMLElement | null;
+  const nebula2 = document.querySelector(".nebula--2") as HTMLElement | null;
+  if (nebula1 && nebula2) {
+    nebula1.style.transform = `translateY(${scrolled * 0.5}px) rotate(${scrolled * 0.1}deg)`;
+    nebula2.style.transform = `translateY(${-scrolled * 0.3}px) rotate(${-scrolled * 0.1}deg)`;
+  }
+}
 
 onMounted(() => {
-  // Parallax y animaciones para nebulosas
-  window.addEventListener("scroll", () => {
-    const scrolled = window.pageYOffset;
-    const nebula1 = document.querySelector(".nebula--1") as HTMLElement | null;
-    const nebula2 = document.querySelector(".nebula--2") as HTMLElement | null;
-    if (nebula1 && nebula2) {
-      nebula1.style.transform = `translateY(${scrolled * 0.5}px) rotate(${
-        scrolled * 0.1
-      }deg)`;
-      nebula2.style.transform = `translateY(${-scrolled * 0.3}px) rotate(${
-        -scrolled * 0.1
-      }deg)`;
-    }
-  });
+  window.addEventListener("scroll", moveNebulasWithScroll, { passive: true });
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("scroll", moveNebulasWithScroll);
 });
 </script>
 

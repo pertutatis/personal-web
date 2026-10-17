@@ -5,86 +5,91 @@ import NebulaSatellites from "../components/NebulaSatellites.vue";
 import TimelineItem from "../components/TimelineItem.vue";
 import CvSidebar from "../components/CvSidebar.vue";
 
-import { onMounted } from "vue";
+import { onMounted, onBeforeUnmount } from "vue";
 
-// Crear estrellas animadas
+const SCROLL_EVENTS_PER_PARTICLE = 10;
+const KONAMI_SEQUENCE = [
+  "ArrowUp",
+  "ArrowUp",
+  "ArrowDown",
+  "ArrowDown",
+  "ArrowLeft",
+  "ArrowRight",
+  "ArrowLeft",
+  "ArrowRight",
+  "KeyB",
+  "KeyA",
+];
+const HYPERDRIVE_CSS = `
+  @keyframes hyperdrive {
+    0% { filter: blur(0px) brightness(1); }
+    50% { filter: blur(2px) brightness(1.5); }
+    100% { filter: blur(0px) brightness(1); }
+  }
+`;
 
-// Inicializar cuando se carga el DOM
-onMounted(() => {
-  // Animación de aparición secuencial de los timeline items
+let scrollEventCount = 0;
+let typedKeys: string[] = [];
+let hyperdriveStyle: HTMLStyleElement | null = null;
+const observers: IntersectionObserver[] = [];
+
+function prefersReducedMotion(): boolean {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+// Badges appear one after another
+function animateAchievementBadges() {
+  const badges = document.querySelectorAll<HTMLElement>(".achievement-badge");
+  badges.forEach((badge, index) => {
+    badge.style.opacity = "0";
+    badge.style.transform = "scale(0.8)";
+
+    setTimeout(() => {
+      badge.style.transition = "all 0.5s ease";
+      badge.style.opacity = "1";
+      badge.style.transform = "scale(1)";
+    }, index * 200);
+  });
+}
+
+function observeTimelineItems() {
   const timelineItems = document.querySelectorAll(".timeline__item");
-  const observer = new IntersectionObserver(
+  const firstTimelineItem = timelineItems[0];
+
+  const slideInObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          (entry.target as HTMLElement).style.animation =
-            "slideIn 0.8s ease-out forwards";
+          (entry.target as HTMLElement).style.animation = "slideIn 0.8s ease-out forwards";
         }
       });
     },
     { threshold: 0.1 }
   );
 
-  timelineItems.forEach((item) => {
-    observer.observe(item);
-  });
+  const fadeInObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+
+        entry.target.classList.add("animate-in");
+        if (entry.target === firstTimelineItem) {
+          setTimeout(animateAchievementBadges, 800);
+        }
+      });
+    },
+    { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+  );
 
   timelineItems.forEach((item) => {
+    slideInObserver.observe(item);
     fadeInObserver.observe(item);
   });
-});
 
-// Animación de escritura para los badges de logros
-function animateAchievementBadges() {
-  const badges = document.querySelectorAll(".achievement-badge");
-  badges.forEach((badge, index) => {
-    const el = badge as HTMLElement;
-    el.style.opacity = "0";
-    el.style.transform = "scale(0.8)";
-
-    setTimeout(() => {
-      el.style.transition = "all 0.5s ease";
-      el.style.opacity = "1";
-      el.style.transform = "scale(1)";
-    }, index * 200);
-  });
+  observers.push(slideInObserver, fadeInObserver);
 }
 
-// Intersection Observer para animaciones cuando los elementos entran en vista
-const observerOptions = {
-  threshold: 0.1,
-  rootMargin: "0px 0px -50px 0px",
-};
-
-const fadeInObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("animate-in");
-
-      // Si es el primer timeline item, anima los badges
-      if (
-        entry.target.classList.contains("timeline__item") &&
-        entry.target === document.querySelector(".timeline__item")
-      ) {
-        setTimeout(animateAchievementBadges, 800);
-      }
-    }
-  });
-}, observerOptions);
-
-// Aplicar observer a todos los timeline items
-document.addEventListener("DOMContentLoaded", function () {});
-
-// Efecto de partículas adicionales al hacer scroll
-let particleCount = 0;
-window.addEventListener("scroll", () => {
-  particleCount++;
-  if (particleCount % 10 === 0) {
-    // Crear partícula cada 10 scrolls
-    createScrollParticle();
-  }
-});
-
+// A particle rises from the bottom every few scroll events
 function createScrollParticle() {
   const particle = document.createElement("div");
   particle.style.position = "fixed";
@@ -100,7 +105,6 @@ function createScrollParticle() {
 
   document.body.appendChild(particle);
 
-  // Animar la partícula hacia arriba
   let position = window.innerHeight;
   const animate = () => {
     position -= 2;
@@ -110,52 +114,33 @@ function createScrollParticle() {
     if (position > -10) {
       requestAnimationFrame(animate);
     } else {
-      document.body.removeChild(particle);
+      particle.remove();
     }
   };
 
   requestAnimationFrame(animate);
 }
 
-// Easter egg: Konami code para modo "hyperdrive"
-let konamiCode: String[] = [];
-const konamiSequence = [
-  "ArrowUp",
-  "ArrowUp",
-  "ArrowDown",
-  "ArrowDown",
-  "ArrowLeft",
-  "ArrowRight",
-  "ArrowLeft",
-  "ArrowRight",
-  "KeyB",
-  "KeyA",
-];
-
-document.addEventListener("keydown", (e) => {
-  konamiCode.push(e.code);
-  if (konamiCode.length > konamiSequence.length) {
-    konamiCode.shift();
+function handleScroll() {
+  scrollEventCount++;
+  if (scrollEventCount % SCROLL_EVENTS_PER_PARTICLE === 0 && !prefersReducedMotion()) {
+    createScrollParticle();
   }
+}
 
-  if (JSON.stringify(konamiCode) === JSON.stringify(konamiSequence)) {
-    activateHyperdrive();
-    konamiCode = [];
-  }
-});
-
+// Easter egg: Konami code triggers "hyperdrive" mode
 function activateHyperdrive() {
+  if (prefersReducedMotion()) return;
+
   document.body.style.animation = "hyperdrive 3s ease-in-out";
 
-  // Crear efecto de líneas de velocidad
   for (let i = 0; i < 50; i++) {
     setTimeout(() => {
       const line = document.createElement("div");
       line.style.position = "fixed";
       line.style.width = "2px";
       line.style.height = "100px";
-      line.style.background =
-        "linear-gradient(180deg, transparent, #74b9ff, transparent)";
+      line.style.background = "linear-gradient(180deg, transparent, #74b9ff, transparent)";
       line.style.left = Math.random() * window.innerWidth + "px";
       line.style.top = "-100px";
       line.style.pointerEvents = "none";
@@ -169,29 +154,45 @@ function activateHyperdrive() {
           { transform: "translateY(0px)", opacity: 1 },
           { transform: "translateY(100vh)", opacity: 0 },
         ],
-        {
-          duration: 500,
-          easing: "ease-out",
-        }
+        { duration: 500, easing: "ease-out" }
       ).onfinish = () => {
-        document.body.removeChild(line);
+        line.remove();
       };
     }, i * 20);
   }
 }
 
-// CSS adicional para la animación hyperdrive
-const hyperdriveCSS = `
-            @keyframes hyperdrive {
-                0% { filter: blur(0px) brightness(1); }
-                50% { filter: blur(2px) brightness(1.5); }
-                100% { filter: blur(0px) brightness(1); }
-            }
-        `;
+function handleKeydown(event: KeyboardEvent) {
+  typedKeys.push(event.code);
+  if (typedKeys.length > KONAMI_SEQUENCE.length) {
+    typedKeys.shift();
+  }
 
-const style = document.createElement("style");
-style.textContent = hyperdriveCSS;
-document.head.appendChild(style);
+  if (typedKeys.join() === KONAMI_SEQUENCE.join()) {
+    activateHyperdrive();
+    typedKeys = [];
+  }
+}
+
+onMounted(() => {
+  hyperdriveStyle = document.createElement("style");
+  hyperdriveStyle.textContent = HYPERDRIVE_CSS;
+  document.head.appendChild(hyperdriveStyle);
+
+  observeTimelineItems();
+  window.addEventListener("scroll", handleScroll, { passive: true });
+  document.addEventListener("keydown", handleKeydown);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("scroll", handleScroll);
+  document.removeEventListener("keydown", handleKeydown);
+  observers.forEach((observer) => observer.disconnect());
+  observers.length = 0;
+  hyperdriveStyle?.remove();
+  hyperdriveStyle = null;
+  document.body.style.animation = "";
+});
 </script>
 
 <template>
@@ -473,7 +474,7 @@ document.head.appendChild(style);
   background: var(--accent-color-01);
   color: var(--secondary-accent-1-color);
   background: var(--accent-color-01);
-  color: var(--accent-color);
+  color: var(--accent-text-color);
   padding: 0.3rem 0.8rem;
   border-radius: 15px;
   font-size: 0.8rem;

@@ -160,7 +160,7 @@ const props = defineProps<{ period: string; title: string; company: string }>();
 
 .job__company {
   font-size: 1.1rem;
-  color: var(--accent-color);
+  color: var(--accent-text-color);
   margin-bottom: 1rem;
   font-weight: 500;
 }

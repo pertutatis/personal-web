@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { defineProps, computed } from "vue";
+import formatArticleDate from "../module/presentation/formatArticleDate";
 
 const props = defineProps({
   title: {
@@ -15,26 +16,22 @@ const props = defineProps({
   serieName: {
     type: String,
   },
+  readingMinutes: {
+    type: Number,
+  },
 });
 
-const formattedDate = computed(() => {
-  if (!props.date) return "";
-  const dateObj = new Date(props.date);
-  return dateObj.toLocaleDateString("es-ES", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-});
+const formattedDate = computed(() => formatArticleDate(props.date));
 </script>
 
 <template>
   <div class="content">
     <h1 class="title">{{ props.title }}</h1>
-    <h2 class="subtitle">
+    <p class="subtitle">
       {{ props.serieName ? props.serieName + " · " : "" }}
       {{ formattedDate }}
-    </h2>
+      {{ props.readingMinutes ? " · " + props.readingMinutes + " min de lectura" : "" }}
+    </p>
     <p class="description">
       {{ props.excerpt }}
     </p>

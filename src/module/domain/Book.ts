@@ -7,7 +7,7 @@ type CreateBookParams = {
 };
 
 export default class Book {
-  id: String;
+  id: string;
   title: string;
   description: string;
   image: string;

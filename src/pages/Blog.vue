@@ -2,13 +2,15 @@
 import type { Ref } from "vue";
 import type Article from "../module/domain/Article";
 
-import { ref, onMounted } from "vue";
+import { ref, computed, onMounted } from "vue";
 import Header from "../components/header.vue";
 import Footer from "../components/footer.vue";
 import ArticlePlaceholder from "../components/article-placeholder.vue";
 
 import articleRepository from "../module/infrastructure/backendRepository";
 import getArticles from "../module/application/getArticles";
+import estimateReadingMinutes from "../module/domain/readingTime";
+import formatArticleDate from "../module/presentation/formatArticleDate";
 
 const articles: Ref<Article[] | null> = ref([]);
 const isLoading = ref(true);
@@ -21,6 +23,14 @@ onMounted(async () => {
   }
   isLoading.value = false;
 });
+
+const listedArticles = computed(() =>
+  (articles.value ?? []).map((article) => ({
+    article,
+    formattedDate: formatArticleDate(article.date),
+    readingMinutes: estimateReadingMinutes(article.content),
+  }))
+);
 
 function hasArticles() {
   return Array.isArray(articles.value) && articles.value.length > 0;
@@ -58,8 +68,7 @@ function hasArticles() {
         <article
           class="excerpt"
           :class="index == 0 ? 'is-first' : ''"
-          v-for="(article, index) in articles"
-          v-if="hasArticles()"
+          v-for="({ article, formattedDate, readingMinutes }, index) in listedArticles"
           :key="article.slug"
         >
           <router-link class="excerpt__link" :to="'/blog/' + article.slug">
@@ -68,12 +77,16 @@ function hasArticles() {
             </span>
             <h2 v-if="index == 0" class="excerpt__title">{{ article.title }}</h2>
             <h3 v-else class="excerpt__title">{{ article.title }}</h3>
+            <p class="excerpt__meta">
+              <time :datetime="article.date">{{ formattedDate }}</time>
+              · {{ readingMinutes }} min de lectura
+            </p>
             <p class="excerpt__text">{{ article.excerpt }}</p>
             <span class="excerpt__more">Leer artículo completo </span>
           </router-link>
         </article>
 
-        <div v-else-if="!isLoading" class="blog__no-articles">
+        <div v-if="!isLoading && !hasArticles()" class="blog__no-articles">
           No hay artículos disponibles.
         </div>
       </div>
@@ -108,7 +121,7 @@ function hasArticles() {
 
 .blog__flag {
   font-family: var(--primary-font);
-  color: var(--accent-color);
+  color: var(--accent-text-color);
   font-size: 1.1rem;
   margin-bottom: 30px;
   opacity: 0.9;
@@ -172,6 +185,7 @@ function hasArticles() {
 }
 
 .excerpt__title {
+  margin-bottom: var(--base);
   background: var(--title);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -181,10 +195,18 @@ function hasArticles() {
   transition: background var(--main-transition);
 }
 
+.excerpt__meta {
+  font-family: var(--secondary-font);
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  opacity: 0.75;
+  margin-bottom: calc(var(--base) * 2);
+}
+
 .excerpt__cat {
   display: inline-block;
   background: var(--accent-color-01);
-  color: var(--accent-color);
+  color: var(--accent-text-color);
   padding: 0.3rem 0.8rem;
   border-radius: 15px;
   font-size: 0.8rem;
@@ -213,7 +235,7 @@ function hasArticles() {
 }
 
 .excerpt__more {
-  color: var(--accent-color);
+  color: var(--accent-text-color);
 
   &:after {
     content: "→";

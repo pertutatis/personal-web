@@ -65,6 +65,14 @@ onMounted(() => {
   transition: all 0.3s ease;
 }
 
+.is-reading .sky {
+  opacity: 0.35;
+}
+
+.is-reading .sky__star {
+  animation-play-state: paused;
+}
+
 @keyframes twinkle {
   0%,
   100% {
