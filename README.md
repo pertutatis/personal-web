@@ -7,6 +7,8 @@ Personal site with bio, CV and blog. Built with Vue 3 (`<script setup>`), TypeSc
 
 ## Getting started
 
+Requires Node 18 or later (Vite 5); `.nvmrc` pins the version used by Netlify.
+
 ```sh
 yarn install
 yarn dev        # dev server on http://localhost:3001
