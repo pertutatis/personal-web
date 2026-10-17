@@ -1,6 +1,6 @@
-import type { MarkdownRenderer } from './markdownItTypes';
+import type MarkdownIt from 'markdown-it';
 
-export default function markdownLazyImages(markdown: MarkdownRenderer): void {
+export default function markdownLazyImages(markdown: MarkdownIt): void {
   const rules = markdown.renderer.rules;
   const defaultImageRule = rules.image;
 

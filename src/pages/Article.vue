@@ -6,7 +6,6 @@ import type { SeriesNeighbours } from "../module/application/getSeriesNeighbours
 
 import { ref, computed, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import Markdown from "vue3-markdown-it";
 
 import Header from "../components/header.vue";
 import Footer from "../components/footer.vue";
@@ -22,8 +21,7 @@ import getArticles from "../module/application/getArticles";
 import getSeriesNeighbours from "../module/application/getSeriesNeighbours";
 import estimateReadingMinutes from "../module/domain/readingTime";
 import useReadingProgress from "../composables/useReadingProgress";
-import markdownTableWrapper from "../module/infrastructure/markdownTableWrapper";
-import markdownLazyImages from "../module/infrastructure/markdownLazyImages";
+import renderArticleMarkdown from "../module/infrastructure/renderArticleMarkdown";
 import { getLinkPresentation } from "../module/presentation/linkPresentation";
 
 import Serie from "../module/domain/Series";
@@ -41,7 +39,6 @@ const books: Ref<Book[]> = ref([]);
 const relatedLinks: Ref<{ text: string; link: string }[]> = ref([]);
 const seriesNeighbours: Ref<SeriesNeighbours<Article>> = ref({ previous: undefined, next: undefined });
 const isLoading = ref(true);
-const tableOfContentsHtml = ref("");
 
 const articleElement: Ref<HTMLElement | null> = ref(null);
 const { progress } = useReadingProgress(articleElement);
@@ -51,7 +48,7 @@ const hasSeriesNeighbours = computed(
   () => Boolean(seriesNeighbours.value.previous || seriesNeighbours.value.next)
 );
 
-const markdownPlugins = [{ plugin: markdownTableWrapper }, { plugin: markdownLazyImages }];
+const renderedArticle = computed(() => renderArticleMarkdown(source.value));
 
 const presentedRelatedLinks = computed(() =>
   relatedLinks.value.map((relatedLink) => ({
@@ -60,12 +57,6 @@ const presentedRelatedLinks = computed(() =>
   }))
 );
 
-const tableOfContentsOptions = {
-  callback: (html: string) => {
-    tableOfContentsHtml.value = html;
-  },
-};
-
 async function loadSeriesNeighbours(currentSlug: string) {
   const articles = await getArticles(new articleRepository());
   seriesNeighbours.value = getSeriesNeighbours(articles ?? [], currentSlug);
@@ -73,7 +64,6 @@ async function loadSeriesNeighbours(currentSlug: string) {
 
 async function loadArticle(articleSlug: string) {
   isLoading.value = true;
-  tableOfContentsHtml.value = "";
   seriesNeighbours.value = { previous: undefined, next: undefined };
 
   const article = await getArticle(new articleRepository(), articleSlug);
@@ -126,12 +116,12 @@ watch(
     <div class="section__wrapper">
       <div class="article" ref="articleElement">
         <aside
-          v-if="!isLoading && tableOfContentsHtml"
+          v-if="!isLoading && renderedArticle.tableOfContentsHtml"
           class="article__sidebar"
           aria-label="Índice del artículo"
         >
           <p class="article__sidebar-title">En este artículo</p>
-          <div v-html="tableOfContentsHtml" />
+          <div v-html="renderedArticle.tableOfContentsHtml" />
         </aside>
 
         <div class="article__body">
@@ -143,12 +133,7 @@ watch(
               <p>{{ serie.description }}</p>
             </aside>
 
-            <Markdown
-              :source="source"
-              :html="true"
-              :toc="tableOfContentsOptions"
-              :plugins="markdownPlugins"
-            />
+            <div class="article__markdown" v-html="renderedArticle.html" />
 
             <template v-if="books.length">
               <hr class="article__division" />

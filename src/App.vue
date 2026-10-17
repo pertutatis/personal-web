@@ -1,19 +1,5 @@
 <script setup lang="ts">
 import BackgroundStars from "./components/background-stars.vue";
-import Rover from "./components/rover.vue";
-
-if (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) {
-  console.log("Light mode");
-}
-
-if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-  console.log("dark mode");
-}
-
-window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) => {
-  const newColorScheme = event.matches ? "dark" : "light";
-  console.log("Color scheme changed to:", newColorScheme);
-});
 </script>
 
 <template>

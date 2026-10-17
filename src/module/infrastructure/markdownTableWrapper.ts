@@ -1,9 +1,9 @@
-import type { MarkdownRenderer } from './markdownItTypes';
+import type MarkdownIt from 'markdown-it';
 
 const TABLE_WRAPPER_OPEN = '<div class="table-scroll">';
 const TABLE_WRAPPER_CLOSE = '</div>\n';
 
-export default function markdownTableWrapper(markdown: MarkdownRenderer): void {
+export default function markdownTableWrapper(markdown: MarkdownIt): void {
   const rules = markdown.renderer.rules;
 
   rules.table_open = (tokens, index, options, _env, renderer) =>
