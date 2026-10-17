@@ -1917,7 +1917,7 @@
     "@unhead/schema" "1.11.20"
     packrup "^0.1.2"
 
-"@unhead/vue@^1.11.14":
+"@unhead/vue@^1.11.14", "@unhead/vue@^1.11.20":
   version "1.11.20"
   resolved "https://registry.yarnpkg.com/@unhead/vue/-/vue-1.11.20.tgz#609513751abfd2d20426d2e97337f3a76fbb8b12"
   integrity sha512-sqQaLbwqY9TvLEGeq8Fd7+F2TIuV3nZ5ihVISHjWpAM3y7DwNWRU7NmT9+yYT+2/jw1Vjwdkv5/HvDnvCLrgmg==

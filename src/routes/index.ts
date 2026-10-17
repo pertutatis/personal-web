@@ -4,6 +4,7 @@ import Bio from '../pages/Bio.vue';
 import Blog from '../pages/Blog.vue';
 import Article from '../pages/Article.vue';
 import Cv from '../pages/cv.vue';
+import NotFound from '../pages/NotFound.vue';
 
 const FIXED_HEADER_OFFSET = 96;
 
@@ -23,6 +24,15 @@ export const routes: RouteRecordRaw[] = [
   {
     path: '/cv',
     component: Cv,
+  },
+  // Prerendered as dist/404.html, which Netlify serves for unknown urls
+  {
+    path: '/404',
+    component: NotFound,
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    component: NotFound,
   },
 ];
 

@@ -17,6 +17,8 @@ import getArticlePage from "../module/application/getArticlePage";
 import estimateReadingMinutes from "../module/domain/readingTime";
 import useReadingProgress from "../composables/useReadingProgress";
 import usePrefetchedData from "../composables/usePrefetchedData";
+import usePageMeta from "../composables/usePageMeta";
+import { buildArticleMeta } from "../module/presentation/pageMeta";
 import renderArticleMarkdown from "../module/infrastructure/renderArticleMarkdown";
 import { getLinkPresentation } from "../module/presentation/linkPresentation";
 
@@ -40,6 +42,8 @@ const relatedLinks = computed(() => article.value?.relatedLinks ?? []);
 const seriesNeighbours = computed(
   () => page.value?.seriesNeighbours ?? { previous: undefined, next: undefined }
 );
+
+usePageMeta(() => (article.value ? buildArticleMeta(article.value) : null));
 
 // Only reachable in the browser: every prerendered slug exists
 watch([isLoading, page], ([loading, loadedPage]) => {

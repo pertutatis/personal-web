@@ -64,6 +64,20 @@ src/
 
 Article headers are chosen in `src/components/article-header.vue` by series id; articles without a mapped series use `headers/default.vue`.
 
+## SEO
+
+Every page sets its own `<head>` through `usePageMeta` (`@unhead/vue`), so the tags are in the prerendered HTML and update while navigating:
+
+- Title, description and canonical URL on `https://diegopertusa.com`, always with a trailing slash (Netlify redirects slashless URLs to it, so internal links use it too).
+- Open Graph and Twitter tags; articles add `article:published_time` and `BlogPosting` structured data (JSON-LD).
+- The tag values are built by pure functions in `src/module/presentation/pageMeta.ts` and `toHeadInput.ts`.
+
+The build also writes, from `src/build/`:
+
+- `404.html`: the prerendered not found page (`noindex`). Netlify serves it with a 404 status for any unknown url, so there is no SPA rewrite.
+- `sitemap.xml` with the static pages and every article, and `rss.xml` with the articles.
+- `robots.txt`: allows crawling and points to the sitemap, except when Netlify's `URL` build variable is a `*.netlify.app` address (staging), where it blocks all crawlers. Once the custom domain is the site's main domain, the next build allows crawling.
+
 ## Design notes
 
 - Colours are CSS custom properties in `src/App.vue`, with light and dark themes from `prefers-color-scheme`.

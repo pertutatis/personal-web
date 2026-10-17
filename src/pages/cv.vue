@@ -6,6 +6,10 @@ import TimelineItem from "../components/TimelineItem.vue";
 import CvSidebar from "../components/CvSidebar.vue";
 
 import { onMounted, onBeforeUnmount } from "vue";
+import usePageMeta from "../composables/usePageMeta";
+import { buildStaticPageMeta } from "../module/presentation/pageMeta";
+
+usePageMeta(() => buildStaticPageMeta("cv"));
 
 const SCROLL_EVENTS_PER_PARTICLE = 10;
 const KONAMI_SEQUENCE = [

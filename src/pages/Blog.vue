@@ -8,6 +8,10 @@ import articleRepository from "../module/infrastructure/backendRepository";
 import getBlogListing from "../module/application/getBlogListing";
 import formatArticleDate from "../module/presentation/formatArticleDate";
 import usePrefetchedData from "../composables/usePrefetchedData";
+import usePageMeta from "../composables/usePageMeta";
+import { buildStaticPageMeta } from "../module/presentation/pageMeta";
+
+usePageMeta(() => buildStaticPageMeta("blog"));
 
 const { data: listing, isLoading } = usePrefetchedData(
   () => "blog:listing",
@@ -61,7 +65,7 @@ function hasArticles() {
           v-for="({ article, formattedDate, readingMinutes }, index) in listedArticles"
           :key="article.slug"
         >
-          <router-link class="excerpt__link" :to="'/blog/' + article.slug">
+          <router-link class="excerpt__link" :to="'/blog/' + article.slug + '/'">
             <span v-if="article.serie" class="excerpt__cat">
               {{ article.serie?.title }}
             </span>

@@ -10,6 +10,7 @@
     "test": "jest src"
   },
   "dependencies": {
+    "@unhead/vue": "^1.11.20",
     "autoprefixer": "^10.4.2",
     "markdown-it": "^12.3.2",
     "markdown-it-anchor": "^8.6.7",

@@ -1,7 +1,11 @@
 <script setup lang="ts">
+import usePageMeta from "../composables/usePageMeta";
+import { buildStaticPageMeta } from "../module/presentation/pageMeta";
 import Brand from "../components/Brand.vue";
 import Github from "../components/Github.vue";
 import Linkedin from "../components/Linkedin.vue";
+
+usePageMeta(() => buildStaticPageMeta("home"));
 </script>
 
 <template>

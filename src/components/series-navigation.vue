@@ -15,7 +15,7 @@ const props = defineProps<{
       <router-link
         v-if="props.previous"
         class="series-navigation__link series-navigation__link--previous"
-        :to="'/blog/' + props.previous.slug"
+        :to="'/blog/' + props.previous.slug + '/'"
       >
         <span class="series-navigation__direction">← Anterior</span>
         <span class="series-navigation__title">{{ props.previous.title }}</span>
@@ -23,7 +23,7 @@ const props = defineProps<{
       <router-link
         v-if="props.next"
         class="series-navigation__link series-navigation__link--next"
-        :to="'/blog/' + props.next.slug"
+        :to="'/blog/' + props.next.slug + '/'"
       >
         <span class="series-navigation__direction">Siguiente →</span>
         <span class="series-navigation__title">{{ props.next.title }}</span>
