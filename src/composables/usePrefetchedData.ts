@@ -11,6 +11,10 @@ export function providePrefetchedState(app: App, state: PrefetchedState): void {
   app.provide(PREFETCHED_STATE_KEY, state);
 }
 
+export function usePrefetchedState(): PrefetchedState {
+  return inject(PREFETCHED_STATE_KEY, {});
+}
+
 type PrefetchedData<T> = {
   data: Ref<T | null>;
   isLoading: Ref<boolean>;
@@ -20,7 +24,7 @@ export default function usePrefetchedData<T>(
   key: () => string,
   load: () => Promise<T | null>
 ): PrefetchedData<T> {
-  const state = inject(PREFETCHED_STATE_KEY, {});
+  const state = usePrefetchedState();
   const hasData = (dataKey: string) => dataKey in state;
 
   const data = ref(hasData(key()) ? state[key()] : null) as Ref<T | null>;

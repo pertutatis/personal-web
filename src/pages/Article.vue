@@ -21,6 +21,7 @@ import usePageMeta from "../composables/usePageMeta";
 import { buildArticleMeta } from "../module/presentation/pageMeta";
 import renderArticleMarkdown from "../module/infrastructure/renderArticleMarkdown";
 import { getLinkPresentation } from "../module/presentation/linkPresentation";
+import { notFoundLocation } from "../routes/notFound";
 
 const route = useRoute();
 const router = useRouter();
@@ -47,7 +48,7 @@ usePageMeta(() => (article.value ? buildArticleMeta(article.value) : null));
 
 // Only reachable in the browser: every prerendered slug exists
 watch([isLoading, page], ([loading, loadedPage]) => {
-  if (!loading && !loadedPage) router.push({ path: "/blog/" });
+  if (!loading && !loadedPage) router.replace(notFoundLocation(route));
 });
 
 const articleElement: Ref<HTMLElement | null> = ref(null);

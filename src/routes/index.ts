@@ -5,6 +5,7 @@ import Blog from '../pages/Blog.vue';
 import Article from '../pages/Article.vue';
 import Cv from '../pages/cv.vue';
 import NotFound from '../pages/NotFound.vue';
+import { NOT_FOUND_ROUTE_NAME } from './notFound';
 
 const FIXED_HEADER_OFFSET = 96;
 
@@ -32,6 +33,7 @@ export const routes: RouteRecordRaw[] = [
   },
   {
     path: '/:pathMatch(.*)*',
+    name: NOT_FOUND_ROUTE_NAME,
     component: NotFound,
   },
 ];

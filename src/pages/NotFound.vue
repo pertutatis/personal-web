@@ -2,9 +2,16 @@
 import Header from "../components/header.vue";
 import Footer from "../components/footer.vue";
 import usePageMeta from "../composables/usePageMeta";
+import { usePrefetchedState } from "../composables/usePrefetchedData";
+import { NOT_FOUND_STATE_KEY } from "../routes/notFound";
 import { buildNotFoundMeta } from "../module/presentation/pageMeta";
 
 usePageMeta(() => buildNotFoundMeta());
+
+// Lets the browser know it received the 404 document, whatever the url
+if (import.meta.env.SSR) {
+  usePrefetchedState()[NOT_FOUND_STATE_KEY] = true;
+}
 </script>
 
 <template>
