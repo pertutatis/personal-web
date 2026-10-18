@@ -7,11 +7,11 @@ import Brand from "./Brand.vue";
   <header class="section header header--fixed">
     <div class="section__wrapper header__wrapper">
       <div class="header__logo">
-        <router-link class="nav__item" to="/">
+        <router-link class="nav__item" to="/" aria-label="Diego Pertusa, home">
           <Brand class="logo" />
         </router-link>
       </div>
-      <nav class="header__nav nav" aria-label="Principal">
+      <nav class="header__nav nav" aria-label="Main">
         <router-link class="nav__item" to="/" active-class="active">Home</router-link> ·
         <router-link class="nav__item" to="/blog/" active-class="active"
           >Blog</router-link

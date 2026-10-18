@@ -17,17 +17,17 @@ if (import.meta.env.SSR) {
 <template>
   <Header />
 
-  <main class="section not-found">
+  <main id="main" tabindex="-1" class="section not-found">
     <div class="section__wrapper">
       <p class="not-found__code">404</p>
-      <h1 class="not-found__title">Esta página se ha perdido en el espacio</h1>
+      <h1 class="not-found__title">This page got lost in space</h1>
       <p>
-        La página que buscas no existe o ha cambiado de dirección. Puede que te interese
-        alguno de los artículos del blog.
+        The page you are looking for doesn't exist or has moved. You may find something
+        interesting in the blog.
       </p>
-      <nav class="not-found__links" aria-label="Enlaces de la página no encontrada">
-        <router-link to="/blog/">Ir al blog</router-link>
-        <router-link to="/">Volver al inicio</router-link>
+      <nav class="not-found__links" aria-label="Where to go next">
+        <router-link to="/blog/">Go to the blog</router-link>
+        <router-link to="/">Back to home</router-link>
       </nav>
     </div>
   </main>

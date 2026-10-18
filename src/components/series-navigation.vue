@@ -9,15 +9,15 @@ const props = defineProps<{
 </script>
 
 <template>
-  <nav class="series-navigation" aria-label="Navegación de la serie">
-    <p class="series-navigation__label">Más de la serie · {{ props.serieTitle }}</p>
+  <nav class="series-navigation" aria-label="Series navigation">
+    <p class="series-navigation__label">More from the series · {{ props.serieTitle }}</p>
     <div class="series-navigation__links">
       <router-link
         v-if="props.previous"
         class="series-navigation__link series-navigation__link--previous"
         :to="'/blog/' + props.previous.slug + '/'"
       >
-        <span class="series-navigation__direction">← Anterior</span>
+        <span class="series-navigation__direction">← Previous</span>
         <span class="series-navigation__title">{{ props.previous.title }}</span>
       </router-link>
       <router-link
@@ -25,7 +25,7 @@ const props = defineProps<{
         class="series-navigation__link series-navigation__link--next"
         :to="'/blog/' + props.next.slug + '/'"
       >
-        <span class="series-navigation__direction">Siguiente →</span>
+        <span class="series-navigation__direction">Next →</span>
         <span class="series-navigation__title">{{ props.next.title }}</span>
       </router-link>
     </div>
@@ -42,7 +42,7 @@ const props = defineProps<{
   font-size: var(--text-xs);
   letter-spacing: var(--tracking-label);
   margin-bottom: calc(var(--base) * 2);
-  opacity: 0.8;
+  color: var(--text-muted);
 }
 
 .series-navigation__links {
@@ -58,7 +58,7 @@ const props = defineProps<{
   display: block;
   padding: calc(var(--base) * 3);
   border: 1px solid var(--accent-color-03);
-  border-radius: 20px;
+  border-radius: var(--radius-md);
   background: var(--accent-color-01);
   color: var(--text-color);
   text-decoration: none;

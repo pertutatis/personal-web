@@ -1,5 +1,5 @@
 import type Article from '../domain/Article';
-import { AUTHOR, BLOG_NAME, SITE_LANGUAGE, SITE_NAME, SITE_URL, getCanonicalUrl } from './site';
+import { ARTICLE_LANGUAGE, AUTHOR, BLOG_NAME, SITE_LANGUAGE, SITE_NAME, SITE_URL, getCanonicalUrl } from './site';
 
 type StructuredData = Record<string, unknown>;
 type BlogPostSummary = Pick<Article, 'slug' | 'title' | 'date'>;
@@ -103,7 +103,7 @@ export function buildArticleStructuredData(
         description,
         ...(publishedTime ? { datePublished: publishedTime } : {}),
         ...(modifiedTime ? { dateModified: modifiedTime } : {}),
-        inLanguage: SITE_LANGUAGE,
+        inLanguage: ARTICLE_LANGUAGE,
         url: articleUrl,
         mainEntityOfPage: articleUrl,
         image: articleImage(article),
@@ -116,7 +116,7 @@ export function buildArticleStructuredData(
       {
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Inicio', item: getCanonicalUrl('/') },
+          { '@type': 'ListItem', position: 1, name: 'Home', item: getCanonicalUrl('/') },
           { '@type': 'ListItem', position: 2, name: 'Blog', item: getCanonicalUrl('/blog/') },
           { '@type': 'ListItem', position: 3, name: article.title, item: articleUrl },
         ],

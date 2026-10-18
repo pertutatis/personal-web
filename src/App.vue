@@ -20,6 +20,7 @@ useHead({
 </script>
 
 <template>
+  <a class="skip-link" href="#main">Skip to content</a>
   <BackgroundStars />
 
   <router-view></router-view>
@@ -98,8 +99,17 @@ useHead({
   --accent-heading-color: var(--accent-color);
   --link-hover-color: var(--secondary-accent-5-color);
 
+  /* Radii: small details, blocks and cards, CV glass panels, pills */
+  --radius-sm: 4px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* Secondary text (dates, captions, details) instead of ad hoc opacities */
+  --text-muted: color-mix(in srgb, var(--text-color) 78%, transparent);
+
   /* Content blocks */
-  --block-radius: 12px;
+  --block-radius: var(--radius-md);
   --experience-rgb: var(--secondary-accent-3-rgb);
 
   /* Titles gradients */
@@ -200,12 +210,37 @@ useHead({
 html {
   /* keeps focused elements and anchor targets clear of the fixed header */
   scroll-padding-top: calc(var(--base) * 12);
+  /* table of contents and other in-page anchors; reduced motion resets it to auto */
+  scroll-behavior: smooth;
 }
 
 :focus-visible {
   outline: 2px solid var(--accent-text-color);
   outline-offset: 3px;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
+}
+
+/* Skip link: hidden until it gets keyboard focus */
+.skip-link {
+  position: fixed;
+  top: calc(var(--base) * 1);
+  left: calc(var(--base) * 1);
+  z-index: 1000;
+  padding: var(--base) calc(var(--base) * 2);
+  border-radius: var(--block-radius);
+  background: var(--background-color);
+  font-family: var(--secondary-font);
+  font-size: var(--text-sm);
+  transform: translateY(-200%);
+
+  &:focus {
+    transform: none;
+  }
+}
+
+/* The skip link target receives focus programmatically: no outline on it */
+main:focus {
+  outline: none;
 }
 
 /* ====================================

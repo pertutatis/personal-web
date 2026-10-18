@@ -3,7 +3,7 @@ import portraitUrl from "../assets/foto.webp";
 </script>
 
 <template>
-  <aside class="author-box" aria-label="Sobre el autor">
+  <aside class="author-box" aria-label="About the author">
     <img
       class="author-box__photo"
       :src="portraitUrl"
@@ -18,11 +18,11 @@ import portraitUrl from "../assets/foto.webp";
         <router-link to="/cv/" rel="author">Diego Pertusa Irles</router-link>
       </p>
       <p class="author-box__bio">
-        Engineering Leader · Engineering Manager en Seedtag. Escribo sobre liderazgo, hiring y
-        cultura en equipos de ingeniería.
+        Engineering Leader · Engineering Manager at Seedtag. I write about leadership, hiring
+        and culture in engineering teams.
       </p>
       <p class="author-box__links">
-        <router-link to="/cv/">Ver CV</router-link>
+        <router-link to="/cv/">View CV</router-link>
         <span aria-hidden="true">·</span>
         <a href="https://www.linkedin.com/in/diego-pertusa/" target="_blank" rel="noopener"
           >LinkedIn</a

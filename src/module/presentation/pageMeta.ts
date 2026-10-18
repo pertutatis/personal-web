@@ -1,6 +1,6 @@
 import type Article from '../domain/Article';
 import type { PageLanguage } from './site';
-import { SITE_LANGUAGE, SITE_NAME, getCanonicalUrl } from './site';
+import { ARTICLE_LANGUAGE, SITE_LANGUAGE, SITE_NAME, getCanonicalUrl } from './site';
 import {
   buildArticleStructuredData,
   buildBlogStructuredData,
@@ -38,20 +38,19 @@ const STATIC_PAGES: Record<
     path: '/',
     title: `${SITE_NAME} · Engineering Leader`,
     description:
-      'Diego Pertusa Irles, Engineering Leader y Engineering Manager en Seedtag. Escribo sobre liderazgo, hiring y cultura en equipos de ingeniería.',
+      'Diego Pertusa Irles, Engineering Leader and Engineering Manager at Seedtag. Writing about leadership, hiring and culture in engineering teams.',
   },
   blog: {
     path: '/blog/',
     title: `Blog · ${SITE_NAME}`,
     description:
-      'Blog de Diego Pertusa sobre engineering management: liderazgo, hiring, cultura y cómo construir equipos de alto rendimiento.',
+      'Notes on engineering leadership: hiring, culture, career growth and how to build high-performing engineering teams.',
   },
   cv: {
     path: '/cv/',
     title: `CV · ${SITE_NAME}`,
     description:
       'Diego Pertusa Irles, Engineering Leader at Seedtag: scaling engineering organizations from 5 to 23+ people, org design and managing managers.',
-    language: 'en',
   },
 };
 
@@ -91,8 +90,8 @@ export function buildBlogMeta(posts: Pick<Article, 'slug' | 'title' | 'date'>[])
 
 export function buildNotFoundMeta(): PageMeta {
   return {
-    title: `Página no encontrada · ${SITE_NAME}`,
-    description: 'La página que buscas no existe o ha cambiado de dirección.',
+    title: `Page not found · ${SITE_NAME}`,
+    description: 'The page you are looking for does not exist or has moved.',
     type: 'website',
     noIndex: true,
   };
@@ -109,6 +108,7 @@ export function buildArticleMeta(article: Article): PageMeta {
     description,
     canonicalUrl,
     type: 'article',
+    ...(ARTICLE_LANGUAGE !== SITE_LANGUAGE ? { language: ARTICLE_LANGUAGE } : {}),
     publishedTime,
     modifiedTime,
     structuredData: buildArticleStructuredData(article, description, { publishedTime, modifiedTime }),

@@ -54,12 +54,14 @@ const props = defineProps({
 .article-header {
   /* overflow: hidden; */
   height: 100vh;
+  height: 100svh;
   position: relative;
 }
 
 .article-header__container {
   width: 100%;
   height: 100vh;
+  height: 100svh;
   position: relative;
   /* overflow: hidden; */
 }

@@ -37,6 +37,7 @@ describe("buildSeoFiles", () => {
     const { "rss.xml": feed } = buildSeoFiles(articles, undefined);
 
     expect(feed).toContain("<title>Blog · Diego Pertusa</title>");
+    expect(feed).toContain("<language>en</language>");
     expect(feed).toContain("<link>https://diegopertusa.com/blog/career-conversations/</link>");
     expect(feed).toContain("<description>Excerpt</description>");
   });

@@ -1,6 +1,5 @@
 <template>
-  <svg width="24px" height="24px" viewBox="0 0 24 24">
-    <title>Github</title>
+  <svg aria-hidden="true" focusable="false" width="24px" height="24px" viewBox="0 0 24 24">
     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g transform="translate(-528.000000, -412.000000)" fill="var(--title-color)">
             <g transform="translate(528.000000, 412.000000)">

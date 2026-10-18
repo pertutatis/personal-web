@@ -4,6 +4,7 @@ import markdownItTableOfContents from 'markdown-it-toc-done-right';
 
 import markdownTableWrapper from './markdownTableWrapper';
 import markdownLazyImages from './markdownLazyImages';
+import hideDecorativeEmojis from './hideDecorativeEmojis';
 // Headings and table of contents links must share the same slug
 import slugify from './slugifyHeading';
 
@@ -29,5 +30,8 @@ export default function renderArticleMarkdown(source: string): RenderedArticle {
   lastTableOfContentsHtml = '';
   const html = markdown.render(source);
 
-  return { html, tableOfContentsHtml: lastTableOfContentsHtml };
+  return {
+    html: hideDecorativeEmojis(html),
+    tableOfContentsHtml: hideDecorativeEmojis(lastTableOfContentsHtml),
+  };
 }

@@ -34,27 +34,27 @@ function hasArticles() {
 <template>
   <Header />
 
-  <main class="section blog">
+  <main id="main" tabindex="-1" class="section blog">
     <div class="section__wrapper">
       <header class="blog__header">
-        <h1 class="blog__title">Notas de un engineering manager</h1>
+        <h1 class="blog__title">Notes from an engineering leader</h1>
         <p>
-          Escribo sobre lo que me encuentro liderando equipos de ingeniería: contratar, dar
-          contexto, construir cultura, acompañar el crecimiento de las personas… y los
-          errores que cometo por el camino.
+          I write about what I run into while leading engineering teams: hiring, giving
+          context, building culture, helping people grow… and the mistakes I make along the
+          way.
         </p>
         <p>
-          No publico con calendario: escribo cuando algo me ha hecho pensar lo bastante como
-          para ordenarlo por escrito. Si algo te resuena, o no estás de acuerdo, escríbeme por
+          There's no publishing schedule: I write when something has made me think enough to
+          put it in order. If something resonates, or you disagree, message me on
           <a href="https://www.linkedin.com/in/diego-pertusa/" target="_blank" rel="noopener">LinkedIn</a
-          >. Todo feedback es un regalo.
+          >. All feedback is a gift.
         </p>
       </header>
 
       <div class="blog__content">
         <articlePlaceholder v-if="isLoading" :count="3" :long="2" />
 
-        <p class="blog__flag" v-if="hasArticles()">Destacado</p>
+        <p class="blog__flag" v-if="hasArticles()">Featured</p>
 
         <article
           class="excerpt"
@@ -69,15 +69,15 @@ function hasArticles() {
             <h2 class="excerpt__title">{{ article.title }}</h2>
             <p class="excerpt__meta">
               <time :datetime="article.date">{{ formattedDate }}</time>
-              · {{ readingMinutes }} min de lectura
+              · {{ readingMinutes }} min read
             </p>
             <p class="excerpt__text">{{ article.excerpt }}</p>
-            <span class="excerpt__more">Leer artículo completo </span>
+            <span class="excerpt__more">Read the article </span>
           </router-link>
         </article>
 
         <div v-if="!isLoading && !hasArticles()" class="blog__no-articles">
-          No hay artículos disponibles.
+          No articles yet.
         </div>
       </div>
     </div>
@@ -124,13 +124,16 @@ function hasArticles() {
 }
 
 .excerpt {
+  /* positions the hover accent bar (::before) */
+  position: relative;
   margin-bottom: calc(var(--base) * 12);
-  padding-right: calc(var(--base) * 8);
   width: 100%;
   transition: transform var(--main-transition);
 
   @media (min-width: 768px) {
     width: 50%;
+    /* gutter between the two columns; on phones it only ate reading width */
+    padding-right: calc(var(--base) * 8);
   }
 
   &.is-first {
@@ -142,7 +145,7 @@ function hasArticles() {
   &::before {
     content: "";
     position: absolute;
-    left: -40px;
+    left: calc(var(--base) * -5);
     top: 0;
     width: 3px;
     height: 100%;
@@ -188,7 +191,7 @@ function hasArticles() {
   font-family: var(--secondary-font);
   font-size: var(--text-xs);
   letter-spacing: var(--tracking-label);
-  opacity: 0.75;
+  color: var(--text-muted);
   margin-bottom: calc(var(--base) * 2);
 }
 
@@ -211,12 +214,12 @@ function hasArticles() {
   background: var(--accent-color-01);
   color: var(--accent-text-color);
   padding: 0.3rem 0.8rem;
-  border-radius: 15px;
+  border-radius: var(--radius-pill);
   font-family: var(--secondary-font);
   font-size: var(--text-xs);
   margin: 0.3rem 0.3rem 0.3rem 0;
   border: 1px solid var(--accent-color-03);
-  margin-bottom: 20px;
+  margin-bottom: calc(var(--base) * 2.5);
   text-overflow: ellipsis;
   max-width: calc(80%);
   overflow: hidden;

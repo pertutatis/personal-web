@@ -14,6 +14,8 @@ const bookLinkDomain = computed(() => getLinkDomain(props.book.url));
       class="book__image"
       :src="'/imgs/' + props.book.image + '.webp'"
       :alt="props.book.title"
+      width="150"
+      height="228"
       loading="lazy"
       decoding="async"
     />
@@ -26,7 +28,7 @@ const bookLinkDomain = computed(() => getLinkDomain(props.book.url));
         :href="props.book.url"
         target="_blank"
         rel="noopener"
-        >Ver libro{{ bookLinkDomain ? " en " + bookLinkDomain : "" }} →</a
+        >{{ bookLinkDomain ? "View on " + bookLinkDomain : "View book" }} →</a
       >
     </div>
   </div>
@@ -50,7 +52,7 @@ const bookLinkDomain = computed(() => getLinkDomain(props.book.url));
   width: 150px;
   height: auto;
   margin: 0 auto calc(var(--base) * 2);
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
 
   @media (min-width: 768px) {
     margin-left: 0;

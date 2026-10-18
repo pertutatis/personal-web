@@ -9,7 +9,7 @@ usePageMeta(() => buildStaticPageMeta("home"));
 </script>
 
 <template>
-  <main class="home-wrapper">
+  <main id="main" tabindex="-1" class="home-wrapper">
     <section class="section">
       <div class="bio section__wrapper">
         <img
@@ -34,6 +34,7 @@ usePageMeta(() => buildStaticPageMeta("home"));
               href="https://github.com/pertutatis"
               target="_blank"
               rel="noopener"
+              aria-label="GitHub"
               class="link-collection__item--reduced"
             >
               <Github
@@ -42,6 +43,7 @@ usePageMeta(() => buildStaticPageMeta("home"));
               href="https://www.linkedin.com/in/diego-pertusa/"
               target="_blank"
               rel="noopener"
+              aria-label="LinkedIn"
               class="link-collection__item--reduced"
             >
               <Linkedin

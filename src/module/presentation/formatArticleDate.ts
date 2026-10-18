@@ -1,4 +1,4 @@
-const ARTICLE_DATE_LOCALE = "es-ES";
+const ARTICLE_DATE_LOCALE = "en-GB";
 
 export default function formatArticleDate(date: string | undefined): string {
   if (!date) return "";

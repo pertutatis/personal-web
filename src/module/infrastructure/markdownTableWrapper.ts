@@ -1,6 +1,8 @@
 import type MarkdownIt from 'markdown-it';
 
-const TABLE_WRAPPER_OPEN = '<div class="table-scroll">';
+// Focusable region so keyboard users can scroll wide tables (Safari does not focus scrollers)
+const TABLE_WRAPPER_OPEN =
+  '<div class="table-scroll" tabindex="0" role="region" aria-label="Scrollable table">';
 const TABLE_WRAPPER_CLOSE = '</div>\n';
 
 export default function markdownTableWrapper(markdown: MarkdownIt): void {

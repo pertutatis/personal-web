@@ -55,7 +55,7 @@ describe("renderArticleMarkdown", () => {
   it("wraps tables and lazy loads images", () => {
     const { html } = renderArticleMarkdown("| A |\n| --- |\n| B |\n\n![alt](/imgs/a.png)");
 
-    expect(html).toContain('<div class="table-scroll"><table>');
+    expect(html).toContain('<div class="table-scroll" tabindex="0" role="region"');
     expect(html).toContain('loading="lazy"');
   });
 

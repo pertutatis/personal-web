@@ -30,7 +30,7 @@ const formattedDate = computed(() => formatArticleDate(props.date));
     <p class="subtitle">
       {{ props.serieName ? props.serieName + " · " : "" }}
       <time v-if="props.date" :datetime="props.date">{{ formattedDate }}</time>
-      {{ props.readingMinutes ? " · " + props.readingMinutes + " min de lectura" : "" }}
+      {{ props.readingMinutes ? " · " + props.readingMinutes + " min read" : "" }}
     </p>
     <p class="description">
       {{ props.excerpt }}
@@ -47,15 +47,15 @@ const formattedDate = computed(() => formatArticleDate(props.date));
   text-align: center;
   z-index: 10;
   color: var(--text-color);
-  padding: 30px 20px;
+  padding: calc(var(--base) * 4) calc(var(--base) * 2.5);
 
   @media (min-width: 768px) {
-    padding: 50px;
+    padding: calc(var(--base) * 6);
   }
 
   @media (min-width: 1024px) {
     max-width: 1000px;
-    padding: 50px 0;
+    padding: calc(var(--base) * 6) 0;
     left: 25%;
     transform: translate(-16.6667%, -50%);
   }
@@ -69,7 +69,7 @@ const formattedDate = computed(() => formatArticleDate(props.date));
 .title {
   font-weight: var(--bold);
   font-size: var(--text-display);
-  margin-bottom: 20px;
+  margin-bottom: calc(var(--base) * 2.5);
   background: var(--title);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -83,8 +83,8 @@ const formattedDate = computed(() => formatArticleDate(props.date));
   font-family: var(--secondary-font);
   font-size: var(--text-sm);
   letter-spacing: var(--tracking-label);
-  margin-bottom: 30px;
-  opacity: 0.9;
+  margin-bottom: calc(var(--base) * 4);
+  color: var(--text-muted);
 
   @media (min-width: 768px) {
     font-size: var(--text-base);
@@ -97,9 +97,9 @@ const formattedDate = computed(() => formatArticleDate(props.date));
   font-weight: var(--light);
   font-size: var(--text-sm);
   line-height: 1.8;
-  opacity: 0.85;
+  color: var(--text-muted);
   max-width: 850px;
-  margin: 0 auto 40px;
+  margin: 0 auto calc(var(--base) * 5);
 
   @media (min-width: 768px) {
     font-size: var(--text-base);

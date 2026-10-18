@@ -13,6 +13,8 @@ function moveNebulasWithScroll() {
 }
 
 onMounted(() => {
+  // The parallax rotates with scroll: a vestibular trigger, so skip it on reduced motion
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   window.addEventListener("scroll", moveNebulasWithScroll, { passive: true });
 });
 

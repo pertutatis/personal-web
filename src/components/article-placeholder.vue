@@ -41,7 +41,7 @@ defineProps({
 }
 
 .placeholder__article {
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   padding: 1.5rem 1rem;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
 }
@@ -50,7 +50,7 @@ defineProps({
   width: 60%;
   height: 2.5rem;
   margin-bottom: 3rem;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   background: var(--title-color);
 }
 
@@ -58,7 +58,7 @@ defineProps({
   width: 90%;
   height: 1rem;
   margin-bottom: 1rem;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   background: var(--text-color);
 }
 

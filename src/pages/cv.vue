@@ -29,7 +29,7 @@ useStickySidebar(sidebar, { topGap: 96, bottomGap: 32 });
 
   <Header />
 
-  <main class="cv-page">
+  <main id="main" tabindex="-1" class="cv-page">
     <div class="cv-page__container">
       <header class="cv-header">
         <p class="cv-header__name">Diego Pertusa Irles</p>
@@ -252,7 +252,7 @@ useStickySidebar(sidebar, { topGap: 96, bottomGap: 32 });
   padding: calc(var(--base) * 2.5) calc(var(--base) * 2);
   background: var(--cv-glass);
   border: 1px solid var(--cv-glass-border);
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   backdrop-filter: blur(10px);
   text-align: center;
   transition: box-shadow var(--main-transition), border-color var(--main-transition);
@@ -302,7 +302,8 @@ useStickySidebar(sidebar, { topGap: 96, bottomGap: 32 });
   position: relative;
   padding-left: calc(var(--base) * 5);
 
-  &::before {
+  &::before,
+  &::after {
     content: "";
     position: absolute;
     top: 0;
@@ -310,21 +311,32 @@ useStickySidebar(sidebar, { topGap: 96, bottomGap: 32 });
     left: calc(var(--base) * 1.25);
     width: 2px;
     background: var(--cv-line);
+  }
+
+  /* The glow is a static shadow whose opacity pulses: animating opacity runs on the
+     compositor, animating box-shadow repainted the whole line every frame */
+  &::after {
+    box-shadow: 0 0 16px var(--secondary-accent-3-color);
     animation: timelineGlow 3s infinite alternate;
   }
 }
 
-.cv-timeline--faded::before {
-  opacity: 0.4;
-  animation: none;
+.cv-timeline--faded {
+  &::before {
+    opacity: 0.4;
+  }
+
+  &::after {
+    display: none;
+  }
 }
 
 @keyframes timelineGlow {
   0% {
-    box-shadow: 0 0 6px var(--secondary-accent-1-color);
+    opacity: 0.3;
   }
   100% {
-    box-shadow: 0 0 16px var(--secondary-accent-3-color);
+    opacity: 1;
   }
 }
 
@@ -376,7 +388,7 @@ useStickySidebar(sidebar, { topGap: 96, bottomGap: 32 });
 .cv-role__period {
   display: inline-block;
   padding: calc(var(--base) * 0.5) calc(var(--base) * 1.5);
-  border-radius: 20px;
+  border-radius: var(--radius-pill);
   background: linear-gradient(
     135deg,
     var(--secondary-accent-5-color),
@@ -489,7 +501,7 @@ useStickySidebar(sidebar, { topGap: 96, bottomGap: 32 });
   padding: calc(var(--base) * 3);
   background: var(--cv-glass);
   border: 1px solid var(--cv-glass-border);
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   backdrop-filter: blur(15px);
   margin-bottom: calc(var(--base) * 8);
 
@@ -548,6 +560,6 @@ useStickySidebar(sidebar, { topGap: 96, bottomGap: 32 });
   display: block;
   font-family: var(--secondary-font);
   font-size: var(--text-xs);
-  opacity: 0.75;
+  color: var(--text-muted);
 }
 </style>

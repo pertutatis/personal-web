@@ -20,7 +20,8 @@ import useReadingProgress from "../composables/useReadingProgress";
 import usePrefetchedData from "../composables/usePrefetchedData";
 import usePageMeta from "../composables/usePageMeta";
 import { buildArticleMeta } from "../module/presentation/pageMeta";
-import renderArticleMarkdown from "../module/infrastructure/renderArticleMarkdown";
+import type { RenderedArticle } from "../module/infrastructure/renderArticleMarkdown";
+import type { ArticlePage } from "../module/application/getArticlePage";
 import { getLinkPresentation } from "../module/presentation/linkPresentation";
 import { notFoundLocation } from "../routes/notFound";
 
@@ -28,10 +29,21 @@ const route = useRoute();
 const router = useRouter();
 const slug = computed(() => route.params.slug as string);
 
-const { data: page, isLoading } = usePrefetchedData(
-  () => `article:${slug.value}`,
-  () => getArticlePage(new articleRepository(), slug.value)
-);
+type ArticleView = ArticlePage & { rendered: RenderedArticle };
+
+// Markdown is rendered while prerendering and travels as HTML in the page state:
+// the renderer (markdown-it) is only downloaded when navigating to an article in the app
+async function loadArticleView(): Promise<ArticleView | null> {
+  const articlePage = await getArticlePage(new articleRepository(), slug.value);
+  if (!articlePage) return null;
+
+  const { default: renderArticleMarkdown } = await import(
+    "../module/infrastructure/renderArticleMarkdown"
+  );
+  return { ...articlePage, rendered: renderArticleMarkdown(articlePage.article.content) };
+}
+
+const { data: page, isLoading } = usePrefetchedData(() => `article:${slug.value}`, loadArticleView);
 
 const article = computed(() => page.value?.article ?? null);
 const source = computed(() => article.value?.content ?? "");
@@ -61,7 +73,9 @@ const hasSeriesNeighbours = computed(
   () => Boolean(seriesNeighbours.value.previous || seriesNeighbours.value.next)
 );
 
-const renderedArticle = computed(() => renderArticleMarkdown(source.value));
+const renderedArticle = computed(
+  () => page.value?.rendered ?? { html: "", tableOfContentsHtml: "" }
+);
 
 const presentedRelatedLinks = computed(() =>
   relatedLinks.value.map((relatedLink) => ({
@@ -76,7 +90,7 @@ const presentedRelatedLinks = computed(() =>
 
   <Header />
 
-  <main>
+  <main id="main" tabindex="-1">
     <articleHeader
       v-show="!isLoading"
       :title="title"
@@ -93,9 +107,9 @@ const presentedRelatedLinks = computed(() =>
           <aside
             v-if="!isLoading && renderedArticle.tableOfContentsHtml"
             class="article__sidebar"
-            aria-label="Índice del artículo"
+            aria-label="Table of contents"
           >
-            <p class="article__sidebar-title">En este artículo</p>
+            <p class="article__sidebar-title">In this article</p>
             <div v-html="renderedArticle.tableOfContentsHtml" />
           </aside>
 
@@ -104,7 +118,7 @@ const presentedRelatedLinks = computed(() =>
 
             <template v-else>
               <aside class="article__serie" v-if="serie">
-                <strong>Sobre esta serie</strong>
+                <strong>About this series</strong>
                 <p>{{ serie.description }}</p>
               </aside>
 
@@ -113,22 +127,17 @@ const presentedRelatedLinks = computed(() =>
               <template v-if="books.length">
                 <hr class="article__division" />
 
-                <h2 class="article__endmatter-title">Profundiza en el tema</h2>
+                <h2 class="article__endmatter-title">Go deeper</h2>
                 <p>
-                  ¿Te ha interesado el tema? A continuación te dejo algunos libros donde
-                  seguir profundizando en el tema que te cuento más arriba. Algunos de ellos
-                  son la inspiración a mi enfoque del problema.
+                  Want to dig further? These books inspired a good part of what I share in
+                  this article.
                 </p>
                 <BookComponent v-for="book in books" :key="book.id" :book="book" />
               </template>
 
               <template v-if="relatedLinks.length">
-                <h2 class="article__endmatter-title">Enlaces de interés</h2>
-                <p>
-                  Puede que profundizar en el tema con un libro no sea la forma más rápida
-                  para avanzar. Si quieres expandir tu conocimiento antes, o simplemente
-                  complementar los libros de arriba, te dejo estos enlaces.
-                </p>
+                <h2 class="article__endmatter-title">Further reading</h2>
+                <p>If you prefer something shorter, here are a few articles and resources.</p>
                 <ul class="related-links">
                   <li v-for="relatedLink in presentedRelatedLinks" :key="relatedLink.url">
                     <a :href="relatedLink.url" target="_blank" rel="noopener">{{
@@ -148,8 +157,8 @@ const presentedRelatedLinks = computed(() =>
                 :next="seriesNeighbours.next"
               />
 
-              <nav v-if="moreArticles.length" class="more-articles" aria-label="Más artículos">
-                <h2 class="article__endmatter-title">Sigue leyendo</h2>
+              <nav v-if="moreArticles.length" class="more-articles" aria-label="More articles">
+                <h2 class="article__endmatter-title">Keep reading</h2>
                 <ul class="more-articles__list">
                   <li v-for="moreArticle in moreArticles" :key="moreArticle.slug">
                     <router-link :to="'/blog/' + moreArticle.slug + '/'">{{
@@ -162,13 +171,13 @@ const presentedRelatedLinks = computed(() =>
               <footer class="article__closing">
                 <AuthorBox />
                 <p>
-                  Gracias por leer hasta aquí. Todo feedback es un regalo: si quieres
-                  comentar algo de este artículo, escríbeme por
+                  Thanks for reading this far. All feedback is a gift: if you want to comment
+                  on this article, message me on
                   <a href="https://www.linkedin.com/in/diego-pertusa/" target="_blank" rel="noopener"
                     >LinkedIn</a
                   >.
                 </p>
-                <router-link class="article__back" to="/blog/">← Volver al blog</router-link>
+                <router-link class="article__back" to="/blog/">← Back to the blog</router-link>
               </footer>
             </template>
           </div>
@@ -266,7 +275,7 @@ const presentedRelatedLinks = computed(() =>
   }
 
   img {
-    border-radius: 12px;
+    border-radius: var(--radius-md);
   }
 }
 
@@ -348,7 +357,12 @@ const presentedRelatedLinks = computed(() =>
 .related-links__domain {
   font-family: var(--secondary-font);
   font-size: var(--text-xs);
-  opacity: 0.7;
+  color: var(--text-muted);
+}
+
+/* Once the reader is in the text, the full-screen header is off screen: stop its loops */
+.is-reading .article-header-frame * {
+  animation-play-state: paused;
 }
 
 /* The author box opens the closing with its own hairline */
@@ -371,7 +385,7 @@ const presentedRelatedLinks = computed(() =>
     display: block;
     margin-bottom: var(--base);
     font-family: var(--secondary-font);
-    font-size: var(--text-xs);
+    font-size: var(--text-sm);
     font-weight: var(--regular);
     letter-spacing: var(--tracking-label);
     text-transform: uppercase;
@@ -379,8 +393,8 @@ const presentedRelatedLinks = computed(() =>
   }
 
   p {
-    font-size: var(--text-sm);
-    line-height: 1.6;
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
   }
 }
 
@@ -463,7 +477,7 @@ const presentedRelatedLinks = computed(() =>
     font-family: var(--secondary-font);
     font-size: var(--text-xs);
     font-style: normal;
-    opacity: 0.85;
+    color: var(--text-muted);
 
     &::before {
       content: "— ";
@@ -567,7 +581,7 @@ nav.table-of-contents {
   line-height: 1.5;
 
   &::before {
-    content: "En este artículo";
+    content: "In this article";
     display: block;
   }
 

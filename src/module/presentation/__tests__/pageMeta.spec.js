@@ -158,7 +158,7 @@ describe("buildArticleMeta", () => {
     const breadcrumb = findNode(buildArticleMeta(article).structuredData, "BreadcrumbList");
 
     expect(breadcrumb.itemListElement).toEqual([
-      { "@type": "ListItem", position: 1, name: "Inicio", item: "https://diegopertusa.com/" },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://diegopertusa.com/" },
       { "@type": "ListItem", position: 2, name: "Blog", item: "https://diegopertusa.com/blog/" },
       {
         "@type": "ListItem",
@@ -194,7 +194,7 @@ describe("home structured data", () => {
       "@id": "https://diegopertusa.com/#website",
       url: "https://diegopertusa.com/",
       name: "Diego Pertusa",
-      inLanguage: "es",
+      inLanguage: "en",
       publisher: { "@id": "https://diegopertusa.com/#person" },
     });
     expect(findNode(data, "Person")).toEqual(PERSON_NODE);
@@ -231,8 +231,8 @@ describe("buildBlogMeta", () => {
       "@type": "Blog",
       "@id": "https://diegopertusa.com/blog/#blog",
       url: "https://diegopertusa.com/blog/",
-      name: "Notas de un engineering manager",
-      inLanguage: "es",
+      name: "Notes from an engineering leader",
+      inLanguage: "en",
       publisher: PERSON_REFERENCE,
       blogPost: [
         {
@@ -250,16 +250,15 @@ describe("buildBlogMeta", () => {
   });
 });
 
-describe("CV page language", () => {
-  it("marks the CV as an English page with an English description", () => {
-    const meta = buildStaticPageMeta("cv");
-
-    expect(meta.language).toBe("en");
-    expect(meta.description).toMatch(/^Diego Pertusa Irles, Engineering Leader/);
+describe("page language", () => {
+  it("keeps static pages in the site language (English)", () => {
+    expect(buildStaticPageMeta("home").language).toBeUndefined();
+    expect(buildStaticPageMeta("cv").language).toBeUndefined();
+    expect(buildStaticPageMeta("cv").description).toMatch(/^Diego Pertusa Irles, Engineering Leader/);
   });
 
-  it("keeps the other static pages in the site language", () => {
-    expect(buildStaticPageMeta("blog").language).toBeUndefined();
+  it("marks articles as Spanish until they are translated", () => {
+    expect(buildArticleMeta(article).language).toBe("es");
   });
 });
 
@@ -267,7 +266,7 @@ describe("buildNotFoundMeta", () => {
   it("asks search engines not to index the page and has no canonical url", () => {
     const meta = buildNotFoundMeta();
 
-    expect(meta.title).toBe("Página no encontrada · Diego Pertusa");
+    expect(meta.title).toBe("Page not found · Diego Pertusa");
     expect(meta.noIndex).toBe(true);
     expect(meta.canonicalUrl).toBeUndefined();
   });

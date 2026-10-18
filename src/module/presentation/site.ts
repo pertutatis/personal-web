@@ -1,10 +1,12 @@
 // Site-wide identity shared by page meta, structured data and the SEO files
 export const SITE_URL = 'https://diegopertusa.com';
 export const SITE_NAME = 'Diego Pertusa';
-export const BLOG_NAME = 'Notas de un engineering manager';
+export const BLOG_NAME = 'Notes from an engineering leader';
 
 export type PageLanguage = 'es' | 'en';
-export const SITE_LANGUAGE: PageLanguage = 'es';
+export const SITE_LANGUAGE: PageLanguage = 'en';
+// Articles are still written in Spanish: switch to 'en' once they are translated
+export const ARTICLE_LANGUAGE: PageLanguage = 'es';
 
 export const AUTHOR = {
   name: 'Diego Pertusa Irles',

@@ -8,12 +8,13 @@ import Rover from "./rover.vue";
 <template>
   <footer class="section footer">
     <div class="section__wrapper footer__wrapper">
-      <nav class="footer__nav nav" aria-label="Redes sociales">
+      <nav class="footer__nav nav" aria-label="Social links">
         <a
           href="https://github.com/pertutatis"
           target="_blank"
           rel="noopener"
           class="nav__item"
+          aria-label="GitHub"
         >
           <Github
         /></a>
@@ -22,6 +23,7 @@ import Rover from "./rover.vue";
           target="_blank"
           rel="noopener"
           class="nav__item"
+          aria-label="LinkedIn"
         >
           <Linkedin
         /></a>

@@ -25,7 +25,7 @@ describe("toHeadInput", () => {
     const head = toHeadInput(websiteMeta);
 
     expect(head.title).toBe("Blog · Diego Pertusa");
-    expect(head.htmlAttrs).toEqual({ lang: "es" });
+    expect(head.htmlAttrs).toEqual({ lang: "en" });
     expect(head.link).toEqual([{ rel: "canonical", href: "https://diegopertusa.com/blog/" }]);
   });
 
@@ -38,7 +38,7 @@ describe("toHeadInput", () => {
     expect(metaContent(head, "og:description")).toBe("Blog description");
     expect(metaContent(head, "og:url")).toBe("https://diegopertusa.com/blog/");
     expect(metaContent(head, "og:site_name")).toBe("Diego Pertusa");
-    expect(metaContent(head, "og:locale")).toBe("es_ES");
+    expect(metaContent(head, "og:locale")).toBe("en_US");
     expect(metaContent(head, "twitter:card")).toBe("summary");
     expect(metaContent(head, "twitter:title")).toBe("Blog · Diego Pertusa");
   });
@@ -78,7 +78,7 @@ describe("toHeadInput", () => {
 
   it("marks pages that must not be indexed and skips the url tags without canonical", () => {
     const head = toHeadInput({
-      title: "Página no encontrada · Diego Pertusa",
+      title: "Page not found · Diego Pertusa",
       description: "Not found",
       type: "website",
       noIndex: true,
@@ -94,9 +94,9 @@ describe("toHeadInput", () => {
   });
 
   it("uses the page language and locale when the page sets one", () => {
-    const head = toHeadInput({ ...websiteMeta, language: "en" });
+    const head = toHeadInput({ ...websiteMeta, language: "es" });
 
-    expect(head.htmlAttrs).toEqual({ lang: "en" });
-    expect(metaContent(head, "og:locale")).toBe("en_US");
+    expect(head.htmlAttrs).toEqual({ lang: "es" });
+    expect(metaContent(head, "og:locale")).toBe("es_ES");
   });
 });

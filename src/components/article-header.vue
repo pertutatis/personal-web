@@ -58,7 +58,7 @@ const dynamicComponent = computed(
         :readingMinutes="props.readingMinutes"
       />
       <a class="read-cue" href="#article-start">
-        Leer <span class="read-cue__arrow" aria-hidden="true">↓</span>
+        Read <span class="read-cue__arrow" aria-hidden="true">↓</span>
       </a>
     </component>
   </div>
@@ -67,6 +67,7 @@ const dynamicComponent = computed(
 <style lang="postcss" scoped>
 .article-header-frame {
   min-height: 100vh;
+  min-height: 100svh;
 }
 
 .read-cue {

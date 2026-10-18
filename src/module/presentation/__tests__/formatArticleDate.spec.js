@@ -1,8 +1,8 @@
 import formatArticleDate from "../formatArticleDate";
 
 describe("formatArticleDate", () => {
-  it("formats an ISO date as a long Spanish date", () => {
-    expect(formatArticleDate("2025-08-16T10:00:00.000Z")).toBe("16 de agosto de 2025");
+  it("formats an ISO date as a long British English date", () => {
+    expect(formatArticleDate("2025-08-16T10:00:00.000Z")).toBe("16 August 2025");
   });
 
   it("returns an empty string when there is no date", () => {

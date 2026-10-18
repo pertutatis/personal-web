@@ -7,7 +7,12 @@ describe("markdownTableWrapper", () => {
   it("wraps every table in a scrollable container", () => {
     const html = new MarkdownIt().use(markdownTableWrapper).render(tableMarkdown);
 
-    expect(html.startsWith('<div class="table-scroll"><table>')).toBe(true);
+    // focusable region so keyboard users can scroll wide tables
+    expect(
+      html.startsWith(
+        '<div class="table-scroll" tabindex="0" role="region" aria-label="Scrollable table"><table>'
+      )
+    ).toBe(true);
     expect(html.trim().endsWith("</table>\n</div>")).toBe(true);
   });
 
@@ -16,7 +21,7 @@ describe("markdownTableWrapper", () => {
       .use(markdownTableWrapper)
       .render(`${tableMarkdown}\n\nText\n\n${tableMarkdown}`);
 
-    expect(html.match(/<div class="table-scroll">/g)).toHaveLength(2);
+    expect(html.match(/<div class="table-scroll"/g)).toHaveLength(2);
   });
 
   it("leaves content without tables untouched", () => {

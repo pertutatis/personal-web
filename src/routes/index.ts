@@ -1,47 +1,43 @@
 import type { RouteRecordRaw, RouterScrollBehavior } from 'vue-router';
-
-import Bio from '../pages/Bio.vue';
-import Blog from '../pages/Blog.vue';
-import Article from '../pages/Article.vue';
-import Cv from '../pages/cv.vue';
-import NotFound from '../pages/NotFound.vue';
 import { NOT_FOUND_ROUTE_NAME } from './notFound';
 
 const FIXED_HEADER_OFFSET = 96;
 
+// Pages are loaded per route, so each page only ships the code it uses
 export const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    component: Bio,
+    component: () => import('../pages/Bio.vue'),
   },
   {
     path: '/blog',
-    component: Blog,
+    component: () => import('../pages/Blog.vue'),
   },
   {
     path: '/blog/:slug',
-    component: Article,
+    component: () => import('../pages/Article.vue'),
   },
   {
     path: '/cv',
-    component: Cv,
+    component: () => import('../pages/cv.vue'),
   },
   // Prerendered as dist/404.html, which Netlify serves for unknown urls
   {
     path: '/404',
-    component: NotFound,
+    component: () => import('../pages/NotFound.vue'),
   },
   {
     path: '/:pathMatch(.*)*',
     name: NOT_FOUND_ROUTE_NAME,
-    component: NotFound,
+    component: () => import('../pages/NotFound.vue'),
   },
 ];
 
 // Only runs in the browser: the router never scrolls during prerendering
 export const scrollBehavior: RouterScrollBehavior = (to, _from, savedPosition) => {
+  // html has scroll-behavior: smooth for in-page anchors; page changes must not animate
   if (savedPosition) {
-    return savedPosition;
+    return { ...savedPosition, behavior: 'instant' };
   }
 
   if (to.hash) {
@@ -49,5 +45,5 @@ export const scrollBehavior: RouterScrollBehavior = (to, _from, savedPosition) =
     return { el: to.hash, top: FIXED_HEADER_OFFSET, behavior: prefersReducedMotion ? 'auto' : 'smooth' };
   }
 
-  return { top: 0 };
+  return { top: 0, behavior: 'instant' };
 };
