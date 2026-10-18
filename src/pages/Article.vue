@@ -11,6 +11,7 @@ import ArticlePlaceholder from "../components/article-placeholder.vue";
 import articleHeader from "../components/article-header.vue";
 import ReadingProgress from "../components/reading-progress.vue";
 import SeriesNavigation from "../components/series-navigation.vue";
+import AuthorBox from "../components/author-box.vue";
 
 import articleRepository from "../module/infrastructure/backendRepository";
 import getArticlePage from "../module/application/getArticlePage";
@@ -159,6 +160,7 @@ const presentedRelatedLinks = computed(() =>
               </nav>
 
               <footer class="article__closing">
+                <AuthorBox />
                 <p>
                   Gracias por leer hasta aquí. Todo feedback es un regalo: si quieres
                   comentar algo de este artículo, escríbeme por
@@ -349,10 +351,9 @@ const presentedRelatedLinks = computed(() =>
   opacity: 0.7;
 }
 
+/* The author box opens the closing with its own hairline */
 .article__closing {
   margin-top: calc(var(--base) * 8);
-  padding-top: calc(var(--base) * 4);
-  border-top: 1px solid var(--accent-color-03);
 }
 
 .article__back {
@@ -403,7 +404,8 @@ const presentedRelatedLinks = computed(() =>
    data (table) = frame.
    ==================================== */
 
-.article__body aside:not(.article__serie) {
+/* experience notes written in the article content (not the series note or author box) */
+.article__markdown aside {
   margin: calc(var(--base) * 5) 0;
   padding: calc(var(--base) * 3);
   background: rgba(var(--experience-rgb), 0.08);
@@ -414,7 +416,8 @@ const presentedRelatedLinks = computed(() =>
   line-height: var(--leading-relaxed);
 }
 
-.article__body aside {
+.article__markdown aside,
+.article__serie {
   > :last-child,
   ul:last-child,
   p:last-child {

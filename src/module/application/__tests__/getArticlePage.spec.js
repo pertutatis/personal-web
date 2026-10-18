@@ -17,6 +17,7 @@ const buildArticle = (slug, date, serie) => ({
 const articles = [
   buildArticle("culture-1", "2025-01-01T00:00:00Z", cultureSerie),
   buildArticle("culture-2", "2025-02-01T00:00:00Z", cultureSerie),
+  buildArticle("culture-3", "2025-03-01T00:00:00Z", cultureSerie),
   buildArticle("standalone", "2025-01-10T00:00:00Z", undefined),
   buildArticle("newest", "2025-05-01T00:00:00Z", undefined),
   buildArticle("recent", "2025-04-01T00:00:00Z", undefined),
@@ -39,7 +40,7 @@ describe("getArticlePage", () => {
     expect(page?.article.slug).toBe("culture-2");
     expect(page?.seriesNeighbours).toEqual({
       previous: { slug: "culture-1", title: "Title culture-1" },
-      next: undefined,
+      next: { slug: "culture-3", title: "Title culture-3" },
     });
   });
 
@@ -52,7 +53,7 @@ describe("getArticlePage", () => {
   it("suggests the three newest other articles", async () => {
     const page = await getArticlePage(fakeRepository(), "standalone");
 
-    expect(page?.moreArticles.map((link) => link.slug)).toEqual(["newest", "recent", "culture-2"]);
+    expect(page?.moreArticles.map((link) => link.slug)).toEqual(["newest", "recent", "culture-3"]);
     expect(page?.moreArticles[0]).toEqual({ slug: "newest", title: "Title newest" });
   });
 
@@ -60,6 +61,13 @@ describe("getArticlePage", () => {
     const page = await getArticlePage(fakeRepository(), "culture-2");
 
     expect(page?.moreArticles.map((link) => link.slug)).toEqual(["newest", "recent", "standalone"]);
+  });
+
+  it("suggests other articles of the same serie before the newest ones", async () => {
+    const page = await getArticlePage(fakeRepository(), "culture-1");
+
+    expect(page?.seriesNeighbours.next?.slug).toBe("culture-2");
+    expect(page?.moreArticles.map((link) => link.slug)).toEqual(["culture-3", "newest", "recent"]);
   });
 
   it("returns null when the article does not exist", async () => {

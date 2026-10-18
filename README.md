@@ -69,7 +69,9 @@ Article headers are chosen in `src/components/article-header.vue` by series id; 
 Every page sets its own `<head>` through `usePageMeta` (`@unhead/vue`), so the tags are in the prerendered HTML and update while navigating:
 
 - Title, description and canonical URL on `https://diegopertusa.com`, always with a trailing slash (Netlify redirects slashless URLs to it, so internal links use it too).
-- Open Graph and Twitter tags; articles add `article:published_time` and `BlogPosting` structured data (JSON-LD).
+- Open Graph and Twitter tags; articles add `article:published_time` and `article:modified_time`.
+- Structured data (JSON-LD, `src/module/presentation/structuredData.ts`): one `Person` (`#person`, with photo `public/imgs/diego-pertusa.webp` and profiles) referenced everywhere; `WebSite` + `Person` on home, `Blog` with its posts on /blog/, `ProfilePage` on /cv/, and `BlogPosting` (image, author, publisher, series) + `BreadcrumbList` on articles.
+- Heading anchors are readable slugs without emojis or accents (`slugifyHeading`).
 - The tag values are built by pure functions in `src/module/presentation/pageMeta.ts` and `toHeadInput.ts`.
 
 The build also writes, from `src/build/`:

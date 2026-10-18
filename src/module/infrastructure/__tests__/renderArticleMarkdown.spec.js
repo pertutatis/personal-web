@@ -65,4 +65,11 @@ describe("renderArticleMarkdown", () => {
 
     expect(tableOfContentsHtml).not.toContain("Previous article");
   });
+
+  it("uses readable ids without emojis or accents, matching the table of contents", () => {
+    const { html, tableOfContentsHtml } = renderArticleMarkdown("## 🤯 El detonante\n\n## ¿Qué documentar?");
+
+    expect(headingIds(html)).toEqual(["el-detonante", "que-documentar"]);
+    expect(tocLinkTargets(tableOfContentsHtml)).toEqual(["el-detonante", "que-documentar"]);
+  });
 });

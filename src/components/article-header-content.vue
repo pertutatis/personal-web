@@ -29,7 +29,7 @@ const formattedDate = computed(() => formatArticleDate(props.date));
     <h1 class="title">{{ props.title }}</h1>
     <p class="subtitle">
       {{ props.serieName ? props.serieName + " · " : "" }}
-      {{ formattedDate }}
+      <time v-if="props.date" :datetime="props.date">{{ formattedDate }}</time>
       {{ props.readingMinutes ? " · " + props.readingMinutes + " min de lectura" : "" }}
     </p>
     <p class="description">

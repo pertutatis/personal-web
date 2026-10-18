@@ -4,16 +4,13 @@ import markdownItTableOfContents from 'markdown-it-toc-done-right';
 
 import markdownTableWrapper from './markdownTableWrapper';
 import markdownLazyImages from './markdownLazyImages';
+// Headings and table of contents links must share the same slug
+import slugify from './slugifyHeading';
 
 export type RenderedArticle = {
   html: string;
   tableOfContentsHtml: string;
 };
-
-// Headings and table of contents links must share the same slug
-function slugify(text: string): string {
-  return encodeURIComponent(String(text).trim().toLowerCase().replace(/\s+/g, '-'));
-}
 
 let lastTableOfContentsHtml = '';
 

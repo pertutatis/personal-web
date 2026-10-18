@@ -9,14 +9,14 @@ import getBlogListing from "../module/application/getBlogListing";
 import formatArticleDate from "../module/presentation/formatArticleDate";
 import usePrefetchedData from "../composables/usePrefetchedData";
 import usePageMeta from "../composables/usePageMeta";
-import { buildStaticPageMeta } from "../module/presentation/pageMeta";
-
-usePageMeta(() => buildStaticPageMeta("blog"));
+import { buildBlogMeta } from "../module/presentation/pageMeta";
 
 const { data: listing, isLoading } = usePrefetchedData(
   () => "blog:listing",
   () => getBlogListing(new articleRepository())
 );
+
+usePageMeta(() => buildBlogMeta(listing.value ?? []));
 
 const listedArticles = computed(() =>
   (listing.value ?? []).map((article) => ({

@@ -1,12 +1,16 @@
 import type Article from '../domain/Article';
+import type { PageLanguage } from './site';
+import { SITE_LANGUAGE, SITE_NAME, getCanonicalUrl } from './site';
+import {
+  buildArticleStructuredData,
+  buildBlogStructuredData,
+  buildHomeStructuredData,
+  buildProfilePageStructuredData,
+} from './structuredData';
 
-export const SITE_URL = 'https://diegopertusa.com';
-export const SITE_NAME = 'Diego Pertusa';
-export type PageLanguage = 'es' | 'en';
+export { SITE_URL, SITE_NAME, SITE_LANGUAGE, getCanonicalUrl } from './site';
+export type { PageLanguage } from './site';
 
-export const SITE_LANGUAGE: PageLanguage = 'es';
-const AUTHOR_NAME = 'Diego Pertusa Irles';
-const AUTHOR_PROFILES = ['https://www.linkedin.com/in/diego-pertusa/', 'https://github.com/pertutatis'];
 const MAX_DESCRIPTION_LENGTH = 160;
 // Search engines cut longer titles
 const MAX_TITLE_LENGTH = 60;
@@ -32,9 +36,9 @@ const STATIC_PAGES: Record<
 > = {
   home: {
     path: '/',
-    title: `${SITE_NAME} · Engineering Manager`,
+    title: `${SITE_NAME} · Engineering Leader`,
     description:
-      'Diego Pertusa Irles, Engineering Manager en Seedtag. Escribo sobre liderazgo, gestión de equipos de ingeniería y cultura.',
+      'Diego Pertusa Irles, Engineering Leader y Engineering Manager en Seedtag. Escribo sobre liderazgo, hiring y cultura en equipos de ingeniería.',
   },
   blog: {
     path: '/blog/',
@@ -51,12 +55,6 @@ const STATIC_PAGES: Record<
   },
 };
 
-// Netlify serves prerendered pages at their trailing slash url
-export function getCanonicalUrl(path: string): string {
-  const pathWithSlash = path.endsWith('/') ? path : `${path}/`;
-  return SITE_URL + pathWithSlash;
-}
-
 export function summarizeDescription(text: string): string {
   const singleLine = text.replace(/\s+/g, ' ').trim();
   if (singleLine.length <= MAX_DESCRIPTION_LENGTH) return singleLine;
@@ -70,18 +68,6 @@ function withSiteName(title: string): string {
   return fullTitle.length <= MAX_TITLE_LENGTH ? fullTitle : title;
 }
 
-function buildPersonStructuredData(): Record<string, unknown> {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: AUTHOR_NAME,
-    jobTitle: 'Engineering Manager',
-    worksFor: { '@type': 'Organization', name: 'Seedtag' },
-    url: getCanonicalUrl('/'),
-    sameAs: AUTHOR_PROFILES,
-  };
-}
-
 export function buildStaticPageMeta(page: StaticPage): PageMeta {
   const { path, title, description, language } = STATIC_PAGES[page];
   const meta: PageMeta = {
@@ -92,7 +78,15 @@ export function buildStaticPageMeta(page: StaticPage): PageMeta {
     ...(language ? { language } : {}),
   };
 
-  return page === 'home' ? { ...meta, structuredData: buildPersonStructuredData() } : meta;
+  if (page === 'home') return { ...meta, structuredData: buildHomeStructuredData() };
+  if (page === 'cv') {
+    return { ...meta, structuredData: buildProfilePageStructuredData(path, language ?? SITE_LANGUAGE) };
+  }
+  return meta;
+}
+
+export function buildBlogMeta(posts: Pick<Article, 'slug' | 'title' | 'date'>[]): PageMeta {
+  return { ...buildStaticPageMeta('blog'), structuredData: buildBlogStructuredData(posts) };
 }
 
 export function buildNotFoundMeta(): PageMeta {
@@ -117,17 +111,6 @@ export function buildArticleMeta(article: Article): PageMeta {
     type: 'article',
     publishedTime,
     modifiedTime,
-    structuredData: {
-      '@context': 'https://schema.org',
-      '@type': 'BlogPosting',
-      headline: article.title,
-      description,
-      ...(publishedTime ? { datePublished: publishedTime } : {}),
-      ...(modifiedTime ? { dateModified: modifiedTime } : {}),
-      inLanguage: SITE_LANGUAGE,
-      url: canonicalUrl,
-      mainEntityOfPage: canonicalUrl,
-      author: { '@type': 'Person', name: AUTHOR_NAME, url: getCanonicalUrl('/') },
-    },
+    structuredData: buildArticleStructuredData(article, description, { publishedTime, modifiedTime }),
   };
 }

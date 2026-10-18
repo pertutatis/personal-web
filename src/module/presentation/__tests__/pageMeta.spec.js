@@ -1,5 +1,6 @@
 import {
   buildArticleMeta,
+  buildBlogMeta,
   buildNotFoundMeta,
   buildStaticPageMeta,
   getCanonicalUrl,
@@ -18,6 +19,26 @@ const article = {
   category: "General",
   serie: { id: "1", title: "Liderazgo", description: "", createdAt: "", updatedAt: "" },
 };
+
+const PERSON_REFERENCE = {
+  "@type": "Person",
+  "@id": "https://diegopertusa.com/#person",
+  name: "Diego Pertusa Irles",
+  url: "https://diegopertusa.com/",
+};
+
+const PERSON_NODE = {
+  "@type": "Person",
+  "@id": "https://diegopertusa.com/#person",
+  name: "Diego Pertusa Irles",
+  jobTitle: "Engineering Leader",
+  worksFor: { "@type": "Organization", name: "Seedtag" },
+  url: "https://diegopertusa.com/",
+  image: "https://diegopertusa.com/imgs/diego-pertusa.webp",
+  sameAs: ["https://www.linkedin.com/in/diego-pertusa/", "https://github.com/pertutatis"],
+};
+
+const findNode = (data, type) => (data["@graph"] ?? [data]).find((node) => node["@type"] === type);
 
 describe("getCanonicalUrl", () => {
   it("builds an absolute url on the site domain with a trailing slash", () => {
@@ -53,7 +74,7 @@ describe("summarizeDescription", () => {
 
 describe("buildStaticPageMeta", () => {
   it.each([
-    ["home", "/", "Diego Pertusa · Engineering Manager"],
+    ["home", "/", "Diego Pertusa · Engineering Leader"],
     ["blog", "/blog/", "Blog · Diego Pertusa"],
     ["cv", "/cv/", "CV · Diego Pertusa"],
   ])("builds the %s page meta", (page, path, title) => {
@@ -91,12 +112,12 @@ describe("buildArticleMeta", () => {
     );
   });
 
-  it("describes the article as a BlogPosting for search engines", () => {
-    const { structuredData } = buildArticleMeta(article);
+  it("describes the article as a BlogPosting by Diego, published by Diego", () => {
+    const posting = findNode(buildArticleMeta(article).structuredData, "BlogPosting");
 
-    expect(structuredData).toEqual({
-      "@context": "https://schema.org",
+    expect(posting).toEqual({
       "@type": "BlogPosting",
+      "@id": "https://diegopertusa.com/blog/career-conversations/#article",
       headline: "Career conversations",
       description: article.excerpt,
       datePublished: "2025-08-16T10:00:00.000Z",
@@ -104,43 +125,127 @@ describe("buildArticleMeta", () => {
       inLanguage: "es",
       url: "https://diegopertusa.com/blog/career-conversations/",
       mainEntityOfPage: "https://diegopertusa.com/blog/career-conversations/",
-      author: {
-        "@type": "Person",
-        name: "Diego Pertusa Irles",
-        url: "https://diegopertusa.com/",
-      },
+      image: "https://diegopertusa.com/imgs/diego-pertusa.webp",
+      author: PERSON_REFERENCE,
+      publisher: PERSON_REFERENCE,
+      isPartOf: { "@type": "CreativeWorkSeries", name: "Liderazgo" },
     });
+  });
+
+  it("uses the first image of the article when there is one", () => {
+    const withImage = { ...article, content: "Intro\n\n![chart](/imgs/chart.webp)\n\n![other](/imgs/b.webp)" };
+
+    expect(findNode(buildArticleMeta(withImage).structuredData, "BlogPosting").image).toBe(
+      "https://diegopertusa.com/imgs/chart.webp"
+    );
+  });
+
+  it("keeps absolute image urls", () => {
+    const withImage = { ...article, content: "![x](https://cdn.example.com/x.png)" };
+
+    expect(findNode(buildArticleMeta(withImage).structuredData, "BlogPosting").image).toBe(
+      "https://cdn.example.com/x.png"
+    );
+  });
+
+  it("omits the series for an article without serie", () => {
+    const posting = findNode(buildArticleMeta({ ...article, serie: undefined }).structuredData, "BlogPosting");
+
+    expect(posting).not.toHaveProperty("isPartOf");
+  });
+
+  it("adds a breadcrumb Home > Blog > Article", () => {
+    const breadcrumb = findNode(buildArticleMeta(article).structuredData, "BreadcrumbList");
+
+    expect(breadcrumb.itemListElement).toEqual([
+      { "@type": "ListItem", position: 1, name: "Inicio", item: "https://diegopertusa.com/" },
+      { "@type": "ListItem", position: 2, name: "Blog", item: "https://diegopertusa.com/blog/" },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Career conversations",
+        item: "https://diegopertusa.com/blog/career-conversations/",
+      },
+    ]);
   });
 
   it("omits the published time when the article has no date", () => {
     const meta = buildArticleMeta({ ...article, date: "" });
 
     expect(meta.publishedTime).toBeUndefined();
-    expect(meta.structuredData).not.toHaveProperty("datePublished");
+    expect(findNode(meta.structuredData, "BlogPosting")).not.toHaveProperty("datePublished");
   });
 
   it("omits the modified time when the article has no modification date", () => {
     const meta = buildArticleMeta({ ...article, modifiedDate: undefined });
 
     expect(meta.modifiedTime).toBeUndefined();
-    expect(meta.structuredData).not.toHaveProperty("dateModified");
+    expect(findNode(meta.structuredData, "BlogPosting")).not.toHaveProperty("dateModified");
   });
 });
 
 describe("home structured data", () => {
-  it("describes Diego as a Person with his profiles", () => {
-    expect(buildStaticPageMeta("home").structuredData).toEqual({
-      "@context": "https://schema.org",
-      "@type": "Person",
-      name: "Diego Pertusa Irles",
-      jobTitle: "Engineering Manager",
-      worksFor: { "@type": "Organization", name: "Seedtag" },
+  it("describes the website and Diego as a Person with photo and profiles", () => {
+    const data = buildStaticPageMeta("home").structuredData;
+
+    expect(data["@context"]).toBe("https://schema.org");
+    expect(findNode(data, "WebSite")).toEqual({
+      "@type": "WebSite",
+      "@id": "https://diegopertusa.com/#website",
       url: "https://diegopertusa.com/",
-      sameAs: ["https://www.linkedin.com/in/diego-pertusa/", "https://github.com/pertutatis"],
+      name: "Diego Pertusa",
+      inLanguage: "es",
+      publisher: { "@id": "https://diegopertusa.com/#person" },
+    });
+    expect(findNode(data, "Person")).toEqual(PERSON_NODE);
+  });
+});
+
+describe("CV structured data", () => {
+  it("describes the CV as Diego's profile page", () => {
+    expect(buildStaticPageMeta("cv").structuredData).toEqual({
+      "@context": "https://schema.org",
+      "@type": "ProfilePage",
+      url: "https://diegopertusa.com/cv/",
+      inLanguage: "en",
+      mainEntity: PERSON_NODE,
+    });
+  });
+});
+
+describe("buildBlogMeta", () => {
+  const listing = [
+    { slug: "career-conversations", title: "Career conversations", date: "2025-08-16T10:00:00.000Z" },
+  ];
+
+  it("keeps the blog page meta", () => {
+    const meta = buildBlogMeta(listing);
+
+    expect(meta.title).toBe(buildStaticPageMeta("blog").title);
+    expect(meta.canonicalUrl).toBe("https://diegopertusa.com/blog/");
+  });
+
+  it("describes the blog and lists its posts", () => {
+    expect(buildBlogMeta(listing).structuredData).toEqual({
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      "@id": "https://diegopertusa.com/blog/#blog",
+      url: "https://diegopertusa.com/blog/",
+      name: "Notas de un engineering manager",
+      inLanguage: "es",
+      publisher: PERSON_REFERENCE,
+      blogPost: [
+        {
+          "@type": "BlogPosting",
+          headline: "Career conversations",
+          url: "https://diegopertusa.com/blog/career-conversations/",
+          datePublished: "2025-08-16T10:00:00.000Z",
+        },
+      ],
     });
   });
 
-  it("adds no structured data to other static pages", () => {
+  it("adds no structured data to the static blog meta", () => {
     expect(buildStaticPageMeta("blog").structuredData).toBeUndefined();
   });
 });

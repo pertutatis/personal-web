@@ -27,12 +27,19 @@ function findSeriesNeighbours(articles: Article[], article: Article) {
   return getSeriesNeighbours(articles, article.slug);
 }
 
-// Newest articles other than the current one and the ones already linked as series neighbours
-function findMoreArticles(articles: Article[], excludedSlugs: string[]): Article[] {
-  return articles
-    .filter((candidate) => !excludedSlugs.includes(candidate.slug))
-    .sort((first, second) => Date.parse(second.date) - Date.parse(first.date))
-    .slice(0, MORE_ARTICLES_COUNT);
+const byNewest = (first: Article, second: Article) => Date.parse(second.date) - Date.parse(first.date);
+
+// Other articles of the same serie first, then the newest ones; never the current
+// article nor the ones already linked as series neighbours
+function findMoreArticles(articles: Article[], article: Article, excludedSlugs: string[]): Article[] {
+  const candidates = articles.filter((candidate) => !excludedSlugs.includes(candidate.slug));
+  const isSameSerie = (candidate: Article) =>
+    Boolean(article.serie) && candidate.serie?.id === article.serie?.id;
+
+  return [
+    ...candidates.filter(isSameSerie).sort(byNewest),
+    ...candidates.filter((candidate) => !isSameSerie(candidate)).sort(byNewest),
+  ].slice(0, MORE_ARTICLES_COUNT);
 }
 
 export default async function getArticlePage(
@@ -57,6 +64,6 @@ export default async function getArticlePage(
       previous: previous && toSeriesLink(previous),
       next: next && toSeriesLink(next),
     },
-    moreArticles: findMoreArticles(articles, linkedSlugs).map(toSeriesLink),
+    moreArticles: findMoreArticles(articles, article, linkedSlugs).map(toSeriesLink),
   };
 }

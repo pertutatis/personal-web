@@ -22,7 +22,7 @@ usePageMeta(() => buildStaticPageMeta("home"));
         <div class="bio__column">
           <Brand class="logo" />
           <h1 class="big-title">Hi! 👋🏻 I'm Diego Pertusa Irles</h1>
-          <p class="subtitle">Engineering manager at Seedtag</p>
+          <p class="subtitle">Engineering Leader · Engineering Manager at Seedtag</p>
 
           <div class="link-collection">
             <router-link class="link-collection__item" to="/blog/">Blog</router-link>
