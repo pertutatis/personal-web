@@ -1,5 +1,22 @@
 <script setup lang="ts">
+import { useHead } from "@unhead/vue";
 import BackgroundStars from "./components/background-stars.vue";
+import montserratLatinUrl from "@fontsource-variable/montserrat/files/montserrat-latin-wght-normal.woff2?url";
+import robotoMonoLatinUrl from "@fontsource-variable/roboto-mono/files/roboto-mono-latin-wght-normal.woff2?url";
+
+// Both fonts appear in the first screen of every page (body text, and dates, labels
+// and article excerpts): fetch them with the HTML. Montserrat italic is only used further down.
+const firstPaintFontUrls = [montserratLatinUrl, robotoMonoLatinUrl];
+
+useHead({
+  link: firstPaintFontUrls.map((href) => ({
+    rel: "preload",
+    as: "font",
+    type: "font/woff2",
+    href,
+    crossorigin: "",
+  })),
+});
 </script>
 
 <template>
@@ -17,8 +34,8 @@ import BackgroundStars from "./components/background-stars.vue";
 
 :root {
   /* Palette */
-  --primary-font: "Montserrat", helvetica, arial, serif;
-  --secondary-font: "Roboto Mono", arial, serif;
+  --primary-font: "Montserrat Variable", "Montserrat", helvetica, arial, sans-serif;
+  --secondary-font: "Roboto Mono Variable", "Roboto Mono", ui-monospace, monospace;
   --primary-color: 255, 101, 101;
   --secondary-color: 255, 140, 66;
   --dark-color: 10, 30, 44;
@@ -59,7 +76,7 @@ import BackgroundStars from "./components/background-stars.vue";
   --text-color: rgb(var(--light-color));
   --title-color: rgb(var(--light-color));
 
-  --secondary-accent-1-rgb: 162, 155, 254;
+  --secondary-accent-1-rgb: 116, 185, 255;
   --secondary-accent-2-rgb: 102, 126, 234;
   --secondary-accent-3-rgb: 162, 155, 254;
   --secondary-accent-4-rgb: 118, 75, 162;

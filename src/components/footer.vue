@@ -8,7 +8,7 @@ import Rover from "./rover.vue";
 <template>
   <footer class="section footer">
     <div class="section__wrapper footer__wrapper">
-      <nav class="footer__nav nav">
+      <nav class="footer__nav nav" aria-label="Redes sociales">
         <a
           href="https://github.com/pertutatis"
           target="_blank"

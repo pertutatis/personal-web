@@ -81,7 +81,8 @@ The build also writes, from `src/build/`:
 ## Design notes
 
 - Typography uses tokens in `src/App.vue`: a single scale (`--text-xs` 13px to `--text-3xl` 48px, plus `--text-display` for hero titles), `--leading-*` line heights and `--tracking-label`. Do not hardcode font sizes.
-- Montserrat is used for headings and running text; Roboto Mono for labels, dates, navigation and the light (300) article excerpts. Only the loaded weights are used: Montserrat 400/600/700 and 400 italic, Roboto Mono 300/400.
+- Montserrat is used for headings and running text; Roboto Mono for labels, dates, navigation and the light (300) article excerpts. Fonts are self-hosted variable fonts from Fontsource (`@fontsource-variable/*`, imported in `src/main.ts`); `App.vue` preloads the Latin Montserrat and Roboto Mono files used in the first screen. Use weights 400/600/700 and 400 italic for Montserrat, 300/400 for Roboto Mono.
+- Critical CSS is inlined in every page by `beasties` during the build (`ssgOptions.beastiesOptions` in `vite.config.mts`).
 
 - Colours are CSS custom properties in `src/App.vue`, with light and dark themes from `prefers-color-scheme`.
 - In the light theme, accent text uses darker shades of the brand red (`--accent-text-color`, `--accent-heading-color`) to meet WCAG AA contrast; the brand red stays for decoration.

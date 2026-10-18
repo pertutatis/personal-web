@@ -181,7 +181,6 @@ function hasArticles() {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-shadow: var(--title-shadow);
-  animation: titleGlow 5s infinite alternate;
   transition: background var(--main-transition);
 }
 

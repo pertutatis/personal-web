@@ -86,7 +86,7 @@ const presentedRelatedLinks = computed(() =>
       :readingMinutes="readingMinutes"
     />
 
-    <section class="section" id="article-start">
+    <section class="section article-section" id="article-start">
       <div class="section__wrapper">
         <div class="article" ref="articleElement">
           <aside
@@ -179,7 +179,9 @@ const presentedRelatedLinks = computed(() =>
 </template>
 
 <style lang="postcss">
-.section {
+/* Unscoped on purpose (styles the rendered markdown), so every selector is
+   prefixed with article classes to keep it from leaking into other pages */
+.section.article-section {
   margin-top: calc(var(--base) * 4);
 
   @media (min-width: 768px) {
@@ -571,13 +573,13 @@ nav.table-of-contents {
   }
 }
 
-hr {
+.article__body hr {
   border-bottom: 1px solid var(--text-color);
   margin-bottom: calc(var(--base) * 2);
   border-color: var(--accent-color);
 }
 
-figcaption {
+.article__body figcaption {
   margin-top: calc(var(--base) * -2);
   margin-bottom: calc(var(--base) * 3);
   font-size: var(--text-sm);

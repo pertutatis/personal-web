@@ -1,4 +1,8 @@
 import { ViteSSG } from 'vite-ssg';
+// Self-hosted variable fonts (only the subsets a page uses are downloaded)
+import '@fontsource-variable/montserrat/wght.css';
+import '@fontsource-variable/montserrat/wght-italic.css';
+import '@fontsource-variable/roboto-mono/wght.css';
 import App from './App.vue';
 import { routes, scrollBehavior } from './routes';
 import { providePrefetchedState } from './composables/usePrefetchedData';

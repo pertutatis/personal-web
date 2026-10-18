@@ -49,6 +49,9 @@ export default defineConfig({
   ssgOptions: {
     // /blog -> blog/index.html, served by Netlify as /blog/
     dirStyle: "nested",
+    // Critical CSS is inlined by beasties; App.vue preloads the only font needed for
+    // the first paint, so don't preload every subset (cyrillic, greek, vietnamese…)
+    beastiesOptions: { preloadFonts: false },
     async includedRoutes(paths) {
       const staticPaths = paths.filter((path) => !path.includes(":"));
       const articles = await loadPublishedArticles();

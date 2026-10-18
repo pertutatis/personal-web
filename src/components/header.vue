@@ -11,7 +11,7 @@ import Brand from "./Brand.vue";
           <Brand class="logo" />
         </router-link>
       </div>
-      <nav class="header__nav nav">
+      <nav class="header__nav nav" aria-label="Principal">
         <router-link class="nav__item" to="/" active-class="active">Home</router-link> ·
         <router-link class="nav__item" to="/blog/" active-class="active"
           >Blog</router-link
