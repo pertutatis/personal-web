@@ -18,7 +18,7 @@ const bookLinkDomain = computed(() => getLinkDomain(props.book.url));
       decoding="async"
     />
     <div class="book__content">
-      <h5 class="book__title">{{ props.book.title }}</h5>
+      <h3 class="book__title">{{ props.book.title }}</h3>
       <p class="book__description">{{ props.book.description }}</p>
       <a
         v-if="props.book.url"
@@ -66,6 +66,9 @@ const bookLinkDomain = computed(() => getLinkDomain(props.book.url));
 }
 
 .book__title {
+  margin-top: 0;
+  font-size: 1.125rem;
+  line-height: 1.3;
   margin-bottom: calc(var(--base) * 1);
 }
 

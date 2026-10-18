@@ -30,11 +30,18 @@ describe("Article model", () => {
         "content": "Hey, I am an article",
         "date": "5 de febrero",
         "excerpt": "Story of an article",
+        "modifiedDate": undefined,
         "relatedLinks": undefined,
         "serie": undefined,
         "slug": "this-is-an-article",
         "title": "This is an article",
       }
     `);
+  });
+
+  it("keeps the last modification date", () => {
+    const article = new Article({ title, content, slug, excerpt, date, books, category, modifiedDate: "2025-08-24T10:00:00.000Z" });
+
+    expect(article.modifiedDate).toBe("2025-08-24T10:00:00.000Z");
   });
 });

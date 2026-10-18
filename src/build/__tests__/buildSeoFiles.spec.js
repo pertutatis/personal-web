@@ -6,6 +6,7 @@ const articles = [
     title: "Career conversations",
     excerpt: "Excerpt",
     date: "2025-08-16T10:00:00.000Z",
+    modifiedDate: "2025-08-24T10:00:00.000Z",
     content: "Content",
     books: [],
     relatedLinks: [],
@@ -28,7 +29,7 @@ describe("buildSeoFiles", () => {
     expect(sitemap).toContain("<loc>https://diegopertusa.com/blog/</loc>");
     expect(sitemap).toContain("<loc>https://diegopertusa.com/cv/</loc>");
     expect(sitemap).toContain(
-      "<loc>https://diegopertusa.com/blog/career-conversations/</loc><lastmod>2025-08-16</lastmod>"
+      "<loc>https://diegopertusa.com/blog/career-conversations/</loc><lastmod>2025-08-24</lastmod>"
     );
   });
 

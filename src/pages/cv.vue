@@ -210,9 +210,9 @@ onBeforeUnmount(() => {
       <!-- Header del CV -->
       <div class="cv-header">
         <h1 class="cv-header__title">Trayectoria Profesional</h1>
-        <h2 class="cv-header__subtitle">
+        <p class="cv-header__subtitle">
           Un viaje a través del cosmos del Engineering Management
-        </h2>
+        </p>
       </div>
 
       <!-- Timeline de experiencia -->
@@ -415,6 +415,8 @@ onBeforeUnmount(() => {
 }
 
 .cv-header__subtitle {
+  font-family: var(--primary-font);
+  line-height: normal;
   font-size: 1.1rem;
   margin-bottom: 30px;
   opacity: 0.9;

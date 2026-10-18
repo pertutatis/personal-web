@@ -10,21 +10,29 @@ export type ArticlePage = {
     previous: SeriesLink | undefined;
     next: SeriesLink | undefined;
   };
+  moreArticles: SeriesLink[];
 };
 
-function toSeriesLink(article: Article | undefined): SeriesLink | undefined {
-  return article ? { slug: article.slug, title: article.title } : undefined;
+const MORE_ARTICLES_COUNT = 3;
+
+function toSeriesLink(article: Article): SeriesLink {
+  return { slug: article.slug, title: article.title };
 }
 
-async function loadSeriesNeighbours(repository: ArticleRepository, article: Article) {
+function findSeriesNeighbours(articles: Article[], article: Article) {
   if (!article.serie) {
     return { previous: undefined, next: undefined };
   }
 
-  const articles = await repository.getArticles();
-  const neighbours = getSeriesNeighbours(articles ?? [], article.slug);
+  return getSeriesNeighbours(articles, article.slug);
+}
 
-  return { previous: toSeriesLink(neighbours.previous), next: toSeriesLink(neighbours.next) };
+// Newest articles other than the current one and the ones already linked as series neighbours
+function findMoreArticles(articles: Article[], excludedSlugs: string[]): Article[] {
+  return articles
+    .filter((candidate) => !excludedSlugs.includes(candidate.slug))
+    .sort((first, second) => Date.parse(second.date) - Date.parse(first.date))
+    .slice(0, MORE_ARTICLES_COUNT);
 }
 
 export default async function getArticlePage(
@@ -37,5 +45,18 @@ export default async function getArticlePage(
     return null;
   }
 
-  return { article, seriesNeighbours: await loadSeriesNeighbours(repository, article) };
+  const articles = (await repository.getArticles()) ?? [];
+  const { previous, next } = findSeriesNeighbours(articles, article);
+  const linkedSlugs = [article.slug, previous?.slug, next?.slug].filter(
+    (linkedSlug): linkedSlug is string => Boolean(linkedSlug)
+  );
+
+  return {
+    article,
+    seriesNeighbours: {
+      previous: previous && toSeriesLink(previous),
+      next: next && toSeriesLink(next),
+    },
+    moreArticles: findMoreArticles(articles, linkedSlugs).map(toSeriesLink),
+  };
 }

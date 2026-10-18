@@ -18,6 +18,9 @@ const articles = [
   buildArticle("culture-1", "2025-01-01T00:00:00Z", cultureSerie),
   buildArticle("culture-2", "2025-02-01T00:00:00Z", cultureSerie),
   buildArticle("standalone", "2025-01-10T00:00:00Z", undefined),
+  buildArticle("newest", "2025-05-01T00:00:00Z", undefined),
+  buildArticle("recent", "2025-04-01T00:00:00Z", undefined),
+  buildArticle("older", "2024-12-01T00:00:00Z", undefined),
 ];
 
 function fakeRepository() {
@@ -40,13 +43,23 @@ describe("getArticlePage", () => {
     });
   });
 
-  it("does not request the article list for an article without series", async () => {
-    const repository = fakeRepository();
-
-    const page = await getArticlePage(repository, "standalone");
+  it("returns no series neighbours for an article without series", async () => {
+    const page = await getArticlePage(fakeRepository(), "standalone");
 
     expect(page?.seriesNeighbours).toEqual({ previous: undefined, next: undefined });
-    expect(repository.getArticles).not.toHaveBeenCalled();
+  });
+
+  it("suggests the three newest other articles", async () => {
+    const page = await getArticlePage(fakeRepository(), "standalone");
+
+    expect(page?.moreArticles.map((link) => link.slug)).toEqual(["newest", "recent", "culture-2"]);
+    expect(page?.moreArticles[0]).toEqual({ slug: "newest", title: "Title newest" });
+  });
+
+  it("does not suggest the series neighbours again", async () => {
+    const page = await getArticlePage(fakeRepository(), "culture-2");
+
+    expect(page?.moreArticles.map((link) => link.slug)).toEqual(["newest", "recent", "standalone"]);
   });
 
   it("returns null when the article does not exist", async () => {
@@ -60,5 +73,6 @@ describe("getArticlePage", () => {
     const page = await getArticlePage(repository, "culture-2");
 
     expect(page?.seriesNeighbours).toEqual({ previous: undefined, next: undefined });
+    expect(page?.moreArticles).toEqual([]);
   });
 });

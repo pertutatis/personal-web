@@ -5,7 +5,10 @@ export const SITE_NAME = 'Diego Pertusa';
 export const SITE_LANGUAGE = 'es';
 export const SITE_LOCALE = 'es_ES';
 const AUTHOR_NAME = 'Diego Pertusa Irles';
+const AUTHOR_PROFILES = ['https://www.linkedin.com/in/diego-pertusa/', 'https://github.com/pertutatis'];
 const MAX_DESCRIPTION_LENGTH = 160;
+// Search engines cut longer titles
+const MAX_TITLE_LENGTH = 60;
 
 export type StaticPage = 'home' | 'blog' | 'cv';
 
@@ -16,6 +19,7 @@ export type PageMeta = {
   type: 'website' | 'article';
   noIndex?: boolean;
   publishedTime?: string;
+  modifiedTime?: string;
   structuredData?: Record<string, unknown>;
 };
 
@@ -54,9 +58,28 @@ export function summarizeDescription(text: string): string {
   return `${cut.slice(0, cut.lastIndexOf(' '))}…`;
 }
 
+function withSiteName(title: string): string {
+  const fullTitle = `${title} · ${SITE_NAME}`;
+  return fullTitle.length <= MAX_TITLE_LENGTH ? fullTitle : title;
+}
+
+function buildPersonStructuredData(): Record<string, unknown> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: AUTHOR_NAME,
+    jobTitle: 'Engineering Manager',
+    worksFor: { '@type': 'Organization', name: 'Seedtag' },
+    url: getCanonicalUrl('/'),
+    sameAs: AUTHOR_PROFILES,
+  };
+}
+
 export function buildStaticPageMeta(page: StaticPage): PageMeta {
   const { path, title, description } = STATIC_PAGES[page];
-  return { title, description, canonicalUrl: getCanonicalUrl(path), type: 'website' };
+  const meta: PageMeta = { title, description, canonicalUrl: getCanonicalUrl(path), type: 'website' };
+
+  return page === 'home' ? { ...meta, structuredData: buildPersonStructuredData() } : meta;
 }
 
 export function buildNotFoundMeta(): PageMeta {
@@ -72,19 +95,22 @@ export function buildArticleMeta(article: Article): PageMeta {
   const canonicalUrl = getCanonicalUrl(`/blog/${article.slug}`);
   const description = summarizeDescription(article.excerpt);
   const publishedTime = article.date || undefined;
+  const modifiedTime = article.modifiedDate || undefined;
 
   return {
-    title: `${article.title} · ${SITE_NAME}`,
+    title: withSiteName(article.title),
     description,
     canonicalUrl,
     type: 'article',
     publishedTime,
+    modifiedTime,
     structuredData: {
       '@context': 'https://schema.org',
       '@type': 'BlogPosting',
       headline: article.title,
       description,
       ...(publishedTime ? { datePublished: publishedTime } : {}),
+      ...(modifiedTime ? { dateModified: modifiedTime } : {}),
       inLanguage: SITE_LANGUAGE,
       url: canonicalUrl,
       mainEntityOfPage: canonicalUrl,

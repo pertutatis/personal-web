@@ -40,6 +40,7 @@ const excerpt = computed(() => article.value?.excerpt ?? "");
 const serie = computed(() => article.value?.serie);
 const books = computed(() => article.value?.books ?? []);
 const relatedLinks = computed(() => article.value?.relatedLinks ?? []);
+const moreArticles = computed(() => page.value?.moreArticles ?? []);
 const seriesNeighbours = computed(
   () => page.value?.seriesNeighbours ?? { previous: undefined, next: undefined }
 );
@@ -111,7 +112,7 @@ const presentedRelatedLinks = computed(() =>
               <template v-if="books.length">
                 <hr class="article__division" />
 
-                <h3>Profundiza en el tema</h3>
+                <h2 class="article__endmatter-title">Profundiza en el tema</h2>
                 <p>
                   ¿Te ha interesado el tema? A continuación te dejo algunos libros donde
                   seguir profundizando en el tema que te cuento más arriba. Algunos de ellos
@@ -121,7 +122,7 @@ const presentedRelatedLinks = computed(() =>
               </template>
 
               <template v-if="relatedLinks.length">
-                <h4>Más artículos de interés</h4>
+                <h2 class="article__endmatter-title">Enlaces de interés</h2>
                 <p>
                   Puede que profundizar en el tema con un libro no sea la forma más rápida
                   para avanzar. Si quieres expandir tu conocimiento antes, o simplemente
@@ -145,6 +146,17 @@ const presentedRelatedLinks = computed(() =>
                 :previous="seriesNeighbours.previous"
                 :next="seriesNeighbours.next"
               />
+
+              <nav v-if="moreArticles.length" class="more-articles" aria-label="Más artículos">
+                <h2 class="article__endmatter-title">Sigue leyendo</h2>
+                <ul class="more-articles__list">
+                  <li v-for="moreArticle in moreArticles" :key="moreArticle.slug">
+                    <router-link :to="'/blog/' + moreArticle.slug + '/'">{{
+                      moreArticle.title
+                    }}</router-link>
+                  </li>
+                </ul>
+              </nav>
 
               <footer class="article__closing">
                 <p>
@@ -293,6 +305,31 @@ const presentedRelatedLinks = computed(() =>
   text-transform: uppercase;
   color: var(--accent-text-color);
   margin-bottom: calc(var(--base) * 2);
+}
+
+/* End matter sections are h2 for the outline but keep a quieter look than content sections */
+.article__body .article__endmatter-title {
+  color: var(--title-color);
+  font-size: 1.375rem;
+  margin-top: calc(var(--base) * 6);
+}
+
+.more-articles__list {
+  list-style: none;
+  padding-left: 0;
+
+  li {
+    margin: calc(var(--base) * 1.5) 0;
+  }
+
+  a {
+    font-weight: var(--bold);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 .related-links {

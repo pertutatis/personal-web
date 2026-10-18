@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar">
-    <h3>🚀 Estación de Contacto</h3>
+    <h2>🚀 Estación de Contacto</h2>
     <ul class="contact-info">
       <li>
         <div class="contact-info__icon">🔗</div>
@@ -13,7 +13,7 @@
     </ul>
     <div class="skills">
       <div class="skill__category">
-        <h4>🎯 Core Skills</h4>
+        <h3>🎯 Core Skills</h3>
         <div class="skills__list">
           <span class="skill__tag">Liderazgo</span>
           <span class="skill__tag">Gestión equipos</span>
@@ -24,7 +24,7 @@
         </div>
       </div>
       <div class="skill__category">
-        <h4>🌐 Idiomas</h4>
+        <h3>🌐 Idiomas</h3>
         <div class="skills__list">
           <span class="skill__tag">Español</span>
           <span class="skill__tag">Francés</span>
@@ -32,7 +32,7 @@
         </div>
       </div>
       <div class="skill__category">
-        <h4>🎓 Formación</h4>
+        <h3>🎓 Formación</h3>
         <div class="skills__list">
           <span class="skill__tag">IGNITE Program</span>
           <span class="skill__tag">ID3 Postgraduate</span>
@@ -66,7 +66,7 @@
   }
 }
 
-.sidebar h3 {
+.sidebar h2 {
   font-family: var(--primary-font);
   color: var(--secondary-accent-1-color);
   margin-bottom: 1.5rem;
@@ -107,7 +107,7 @@
   margin-bottom: 1.5rem;
 }
 
-.skill__category h4 {
+.skill__category h3 {
   color: var(--secondary-accent-3-color);
   font-size: 1rem;
   margin-bottom: 0.8rem;

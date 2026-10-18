@@ -69,8 +69,7 @@ function hasArticles() {
             <span v-if="article.serie" class="excerpt__cat">
               {{ article.serie?.title }}
             </span>
-            <h2 v-if="index == 0" class="excerpt__title">{{ article.title }}</h2>
-            <h3 v-else class="excerpt__title">{{ article.title }}</h3>
+            <h2 class="excerpt__title">{{ article.title }}</h2>
             <p class="excerpt__meta">
               <time :datetime="article.date">{{ formattedDate }}</time>
               · {{ readingMinutes }} min de lectura
@@ -178,7 +177,9 @@ function hasArticles() {
   }
 }
 
+/* Every listed article is an h2; the featured one is just bigger */
 .excerpt__title {
+  font-size: 1.5rem;
   margin-bottom: var(--base);
   background: var(--title);
   -webkit-background-clip: text;
@@ -195,6 +196,14 @@ function hasArticles() {
   letter-spacing: 1px;
   opacity: 0.75;
   margin-bottom: calc(var(--base) * 2);
+}
+
+.is-first .excerpt__title {
+  font-size: 1.75rem;
+
+  @media (min-width: 1024px) {
+    font-size: 2rem;
+  }
 }
 
 .excerpt__cat {

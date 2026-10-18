@@ -7,7 +7,7 @@ const props = defineProps<{ period: string; title: string; company: string }>();
     <div class="timeline__node"></div>
     <div class="timeline__content job">
       <div class="job__period">{{ props.period }}</div>
-      <h3 class="job__title">{{ props.title }}</h3>
+      <h2 class="job__title">{{ props.title }}</h2>
       <p class="job__company">{{ props.company }}</p>
       <div class="job__description">
         <slot />

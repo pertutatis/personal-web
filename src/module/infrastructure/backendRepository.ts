@@ -44,6 +44,7 @@ function toArticle(response: articleResponse): Article {
     slug: response.slug,
     excerpt: response.excerpt,
     date: response.publishedAt,
+    modifiedDate: response.updatedAt,
     books: response.books.map((book) => ({
       id: book.id,
       title: book.title,

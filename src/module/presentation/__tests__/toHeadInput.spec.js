@@ -13,6 +13,7 @@ const articleMeta = {
   canonicalUrl: "https://diegopertusa.com/blog/career-conversations/",
   type: "article",
   publishedTime: "2025-08-16T10:00:00.000Z",
+  modifiedTime: "2025-08-24T10:00:00.000Z",
   structuredData: { "@type": "BlogPosting", headline: "Career conversations" },
 };
 
@@ -54,6 +55,7 @@ describe("toHeadInput", () => {
 
     expect(metaContent(head, "og:type")).toBe("article");
     expect(metaContent(head, "article:published_time")).toBe("2025-08-16T10:00:00.000Z");
+    expect(metaContent(head, "article:modified_time")).toBe("2025-08-24T10:00:00.000Z");
     expect(head.script).toEqual([
       {
         type: "application/ld+json",

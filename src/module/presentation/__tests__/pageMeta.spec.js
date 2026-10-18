@@ -11,6 +11,7 @@ const article = {
   title: "Career conversations",
   excerpt: "Descubre cómo las conversaciones de carrera pueden transformar tu equipo.",
   date: "2025-08-16T10:00:00.000Z",
+  modifiedDate: "2025-08-24T10:00:00.000Z",
   content: "Content",
   books: [],
   relatedLinks: [],
@@ -75,6 +76,19 @@ describe("buildArticleMeta", () => {
     expect(meta.canonicalUrl).toBe("https://diegopertusa.com/blog/career-conversations/");
     expect(meta.type).toBe("article");
     expect(meta.publishedTime).toBe("2025-08-16T10:00:00.000Z");
+    expect(meta.modifiedTime).toBe("2025-08-24T10:00:00.000Z");
+  });
+
+  it("drops the site name from titles that would be longer than 60 characters", () => {
+    const longTitle = "Los pilares de un Engineering Manager: cómo crear un equipo de alto rendimiento";
+
+    expect(buildArticleMeta({ ...article, title: longTitle }).title).toBe(longTitle);
+  });
+
+  it("keeps the site name when the title stays within 60 characters", () => {
+    expect(buildArticleMeta({ ...article, title: "Cómo evaluar sin sesgos y con propósito" }).title).toBe(
+      "Cómo evaluar sin sesgos y con propósito · Diego Pertusa"
+    );
   });
 
   it("describes the article as a BlogPosting for search engines", () => {
@@ -86,6 +100,7 @@ describe("buildArticleMeta", () => {
       headline: "Career conversations",
       description: article.excerpt,
       datePublished: "2025-08-16T10:00:00.000Z",
+      dateModified: "2025-08-24T10:00:00.000Z",
       inLanguage: "es",
       url: "https://diegopertusa.com/blog/career-conversations/",
       mainEntityOfPage: "https://diegopertusa.com/blog/career-conversations/",
@@ -102,6 +117,31 @@ describe("buildArticleMeta", () => {
 
     expect(meta.publishedTime).toBeUndefined();
     expect(meta.structuredData).not.toHaveProperty("datePublished");
+  });
+
+  it("omits the modified time when the article has no modification date", () => {
+    const meta = buildArticleMeta({ ...article, modifiedDate: undefined });
+
+    expect(meta.modifiedTime).toBeUndefined();
+    expect(meta.structuredData).not.toHaveProperty("dateModified");
+  });
+});
+
+describe("home structured data", () => {
+  it("describes Diego as a Person with his profiles", () => {
+    expect(buildStaticPageMeta("home").structuredData).toEqual({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      name: "Diego Pertusa Irles",
+      jobTitle: "Engineering Manager",
+      worksFor: { "@type": "Organization", name: "Seedtag" },
+      url: "https://diegopertusa.com/",
+      sameAs: ["https://www.linkedin.com/in/diego-pertusa/", "https://github.com/pertutatis"],
+    });
+  });
+
+  it("adds no structured data to other static pages", () => {
+    expect(buildStaticPageMeta("blog").structuredData).toBeUndefined();
   });
 });
 

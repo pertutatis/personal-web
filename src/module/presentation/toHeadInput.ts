@@ -41,6 +41,10 @@ export default function toHeadInput(meta: PageMeta): HeadInput {
     tags.push({ property: 'article:published_time', content: meta.publishedTime });
   }
 
+  if (meta.modifiedTime) {
+    tags.push({ property: 'article:modified_time', content: meta.modifiedTime });
+  }
+
   return {
     title: meta.title,
     htmlAttrs: { lang: SITE_LANGUAGE },

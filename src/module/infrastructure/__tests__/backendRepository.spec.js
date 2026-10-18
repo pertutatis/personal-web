@@ -8,7 +8,7 @@ const articleResponse = {
   excerpt: "Excerpt",
   createdAt: "2025-08-01T00:00:00.000Z",
   publishedAt: "2025-08-16T00:00:00.000Z",
-  updatedAt: "2025-08-16T00:00:00.000Z",
+  updatedAt: "2025-08-24T00:00:00.000Z",
   relatedLinks: [{ text: "Link", url: "https://example.com" }],
   books: [
     {
@@ -46,6 +46,7 @@ describe("BackendRepository", () => {
 
     expect(article?.title).toBe("Career conversations");
     expect(article?.date).toBe("2025-08-16T00:00:00.000Z");
+    expect(article?.modifiedDate).toBe("2025-08-24T00:00:00.000Z");
     expect(article?.books[0]).toEqual({
       id: "book-1",
       title: "Radical Candor",

@@ -7,6 +7,7 @@ type CreateArticleParams = {
   slug: string;
   excerpt: string;
   date: string;
+  modifiedDate?: string;
   books: Array<Book>;
   category: String;
   relatedLinks: { text: string; link: string }[];
@@ -19,17 +20,19 @@ export default class Article {
   slug: string;
   excerpt: string;
   date: string;
+  modifiedDate?: string;
   books: Array<Book>;
   category: String;
   relatedLinks: { text: string; link: string }[];
   serie: Serie | undefined;
-  
+
   constructor(content: CreateArticleParams) {
     this.title = content.title;
     this.content = content.content;
     this.slug = content.slug;
     this.excerpt = content.excerpt;
     this.date = content.date;
+    this.modifiedDate = content.modifiedDate;
     this.books = content.books;
     this.category = content.category;
     this.relatedLinks = content.relatedLinks;

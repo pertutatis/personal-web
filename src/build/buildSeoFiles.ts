@@ -24,7 +24,10 @@ export default function buildSeoFiles(
     'robots.txt': buildRobotsTxt(deployedSiteUrl),
     'sitemap.xml': buildSitemap([
       ...STATIC_PATHS.map((path) => ({ url: getCanonicalUrl(path) })),
-      ...articles.map((article) => ({ url: articleUrl(article), lastModified: article.date })),
+      ...articles.map((article) => ({
+        url: articleUrl(article),
+        lastModified: article.modifiedDate || article.date,
+      })),
     ]),
     'rss.xml': buildRssFeed(
       {
