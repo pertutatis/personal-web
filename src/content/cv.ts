@@ -42,7 +42,7 @@ export const cvMetrics: CvMetric[] = [
   { value: '4', label: 'autonomous squads' },
   { value: '45%', label: 'of company revenue' },
   { value: '−66%', label: 'cycle time' },
-  { value: '1', label: 'voluntary departure in 4 years' },
+  { value: '<5%', label: 'yearly voluntary churn' },
   { value: '180B', label: 'events per day' },
 ];
 
@@ -75,7 +75,7 @@ export const cvRoles: CvRole[] = [
           },
           {
             title: 'Retention & culture',
-            text: 'One voluntary departure in four years of hypergrowth, with a high-performance, results-oriented culture.',
+            text: 'Two voluntary departures in four years of hypergrowth (under 5% yearly churn), with a high-performance, results-oriented culture.',
           },
           {
             title: 'Talent development',
