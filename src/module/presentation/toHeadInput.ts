@@ -1,5 +1,7 @@
-import type { PageMeta } from './pageMeta';
-import { SITE_LANGUAGE, SITE_LOCALE, SITE_NAME } from './pageMeta';
+import type { PageLanguage, PageMeta } from './pageMeta';
+import { SITE_LANGUAGE, SITE_NAME } from './pageMeta';
+
+const LOCALES: Record<PageLanguage, string> = { es: 'es_ES', en: 'en_US' };
 
 type MetaTag = { name: string; content: string } | { property: string; content: string };
 
@@ -17,13 +19,14 @@ function serializeStructuredData(data: Record<string, unknown>): string {
 }
 
 export default function toHeadInput(meta: PageMeta): HeadInput {
+  const language = meta.language ?? SITE_LANGUAGE;
   const tags: MetaTag[] = [
     { name: 'description', content: meta.description },
     { property: 'og:type', content: meta.type },
     { property: 'og:title', content: meta.title },
     { property: 'og:description', content: meta.description },
     { property: 'og:site_name', content: SITE_NAME },
-    { property: 'og:locale', content: SITE_LOCALE },
+    { property: 'og:locale', content: LOCALES[language] },
     { name: 'twitter:card', content: 'summary' },
     { name: 'twitter:title', content: meta.title },
     { name: 'twitter:description', content: meta.description },
@@ -47,7 +50,7 @@ export default function toHeadInput(meta: PageMeta): HeadInput {
 
   return {
     title: meta.title,
-    htmlAttrs: { lang: SITE_LANGUAGE },
+    htmlAttrs: { lang: language },
     link: meta.canonicalUrl ? [{ rel: 'canonical', href: meta.canonicalUrl }] : [],
     meta: tags,
     script: meta.structuredData

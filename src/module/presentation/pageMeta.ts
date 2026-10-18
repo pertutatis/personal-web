@@ -2,8 +2,9 @@ import type Article from '../domain/Article';
 
 export const SITE_URL = 'https://diegopertusa.com';
 export const SITE_NAME = 'Diego Pertusa';
-export const SITE_LANGUAGE = 'es';
-export const SITE_LOCALE = 'es_ES';
+export type PageLanguage = 'es' | 'en';
+
+export const SITE_LANGUAGE: PageLanguage = 'es';
 const AUTHOR_NAME = 'Diego Pertusa Irles';
 const AUTHOR_PROFILES = ['https://www.linkedin.com/in/diego-pertusa/', 'https://github.com/pertutatis'];
 const MAX_DESCRIPTION_LENGTH = 160;
@@ -17,13 +18,18 @@ export type PageMeta = {
   description: string;
   canonicalUrl?: string;
   type: 'website' | 'article';
+  // Only set when the page is not in the site language
+  language?: PageLanguage;
   noIndex?: boolean;
   publishedTime?: string;
   modifiedTime?: string;
   structuredData?: Record<string, unknown>;
 };
 
-const STATIC_PAGES: Record<StaticPage, Omit<PageMeta, 'canonicalUrl' | 'type'> & { path: string }> = {
+const STATIC_PAGES: Record<
+  StaticPage,
+  Omit<PageMeta, 'canonicalUrl' | 'type'> & { path: string }
+> = {
   home: {
     path: '/',
     title: `${SITE_NAME} · Engineering Manager`,
@@ -40,7 +46,8 @@ const STATIC_PAGES: Record<StaticPage, Omit<PageMeta, 'canonicalUrl' | 'type'> &
     path: '/cv/',
     title: `CV · ${SITE_NAME}`,
     description:
-      'Trayectoria profesional de Diego Pertusa Irles: Engineering Manager en Seedtag, liderazgo de equipos y experiencia en producto y frontend.',
+      'Diego Pertusa Irles, Engineering Leader at Seedtag: scaling engineering organizations from 5 to 23+ people, org design and managing managers.',
+    language: 'en',
   },
 };
 
@@ -76,8 +83,14 @@ function buildPersonStructuredData(): Record<string, unknown> {
 }
 
 export function buildStaticPageMeta(page: StaticPage): PageMeta {
-  const { path, title, description } = STATIC_PAGES[page];
-  const meta: PageMeta = { title, description, canonicalUrl: getCanonicalUrl(path), type: 'website' };
+  const { path, title, description, language } = STATIC_PAGES[page];
+  const meta: PageMeta = {
+    title,
+    description,
+    canonicalUrl: getCanonicalUrl(path),
+    type: 'website',
+    ...(language ? { language } : {}),
+  };
 
   return page === 'home' ? { ...meta, structuredData: buildPersonStructuredData() } : meta;
 }

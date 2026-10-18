@@ -92,4 +92,11 @@ describe("toHeadInput", () => {
   it("does not add a robots tag to indexable pages", () => {
     expect(metaContent(toHeadInput(websiteMeta), "robots")).toBeUndefined();
   });
+
+  it("uses the page language and locale when the page sets one", () => {
+    const head = toHeadInput({ ...websiteMeta, language: "en" });
+
+    expect(head.htmlAttrs).toEqual({ lang: "en" });
+    expect(metaContent(head, "og:locale")).toBe("en_US");
+  });
 });

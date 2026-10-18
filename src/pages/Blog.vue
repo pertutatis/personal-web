@@ -37,20 +37,17 @@ function hasArticles() {
   <main class="section blog">
     <div class="section__wrapper">
       <header class="blog__header">
-        <h1 class="blog__title">Hola! 👋🏻 Bienvenido a mi blog</h1>
+        <h1 class="blog__title">Notas de un engineering manager</h1>
         <p>
-          Quiero agradecer que le dediques unos minutos este es un espacio, donde quiero
-          compartir con vosotros mis retos y como los soluciono. No esperéis una
-          periodicidad marcada por el calendario. El objetivo último es poder reflexionar
-          públicamente sobre cómo afronto mi día a día y así poder aprender de mis errores
-          y asentar mis aciertos.
+          Escribo sobre lo que me encuentro liderando equipos de ingeniería: contratar, dar
+          contexto, construir cultura, acompañar el crecimiento de las personas… y los
+          errores que cometo por el camino.
         </p>
         <p>
-          Publico mis ideas no con la esperanza de ser leído por los demás pero espero
-          poder ayudarte por el camino. Todo feedback es un regalo, así que si tienes algo
-          que decirme, no dudes en contactarme por
-          <a href="https://www.linkedin.com/in/diego-pertusa/" target="_blank" rel="noopener">Linkedin</a
-          >.
+          No publico con calendario: escribo cuando algo me ha hecho pensar lo bastante como
+          para ordenarlo por escrito. Si algo te resuena, o no estás de acuerdo, escríbeme por
+          <a href="https://www.linkedin.com/in/diego-pertusa/" target="_blank" rel="noopener">LinkedIn</a
+          >. Todo feedback es un regalo.
         </p>
       </header>
 

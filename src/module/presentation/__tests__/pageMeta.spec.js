@@ -145,6 +145,19 @@ describe("home structured data", () => {
   });
 });
 
+describe("CV page language", () => {
+  it("marks the CV as an English page with an English description", () => {
+    const meta = buildStaticPageMeta("cv");
+
+    expect(meta.language).toBe("en");
+    expect(meta.description).toMatch(/^Diego Pertusa Irles, Engineering Leader/);
+  });
+
+  it("keeps the other static pages in the site language", () => {
+    expect(buildStaticPageMeta("blog").language).toBeUndefined();
+  });
+});
+
 describe("buildNotFoundMeta", () => {
   it("asks search engines not to index the page and has no canonical url", () => {
     const meta = buildNotFoundMeta();
