@@ -12,7 +12,7 @@ const bookLinkDomain = computed(() => getLinkDomain(props.book.url));
   <div class="book">
     <img
       class="book__image"
-      :src="'/imgs/' + props.book.image + '.jpg'"
+      :src="'/imgs/' + props.book.image + '.webp'"
       :alt="props.book.title"
       loading="lazy"
       decoding="async"
@@ -43,11 +43,15 @@ const bookLinkDomain = computed(() => getLinkDomain(props.book.url));
   }
 }
 
+/* Fixed width and natural height: as a flex item the cover was stretched to the text height */
 .book__image {
-  width: 20%;
-  min-width: 150px;
+  flex: 0 0 auto;
+  align-self: flex-start;
+  width: 150px;
+  height: auto;
   margin: 0 auto calc(var(--base) * 2);
-  
+  border-radius: 4px;
+
   @media (min-width: 768px) {
     margin-left: 0;
     margin-right: calc(var(--base) * 4);

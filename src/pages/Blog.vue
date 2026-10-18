@@ -34,7 +34,7 @@ function hasArticles() {
 <template>
   <Header />
 
-  <section class="section blog">
+  <main class="section blog">
     <div class="section__wrapper">
       <header class="blog__header">
         <h1 class="blog__title">Hola! 👋🏻 Bienvenido a mi blog</h1>
@@ -49,7 +49,7 @@ function hasArticles() {
           Publico mis ideas no con la esperanza de ser leído por los demás pero espero
           poder ayudarte por el camino. Todo feedback es un regalo, así que si tienes algo
           que decirme, no dudes en contactarme por
-          <a href="https://www.linkedin.com/in/diego-pertusa/" target="_blank">Linkedin</a
+          <a href="https://www.linkedin.com/in/diego-pertusa/" target="_blank" rel="noopener">Linkedin</a
           >.
         </p>
       </header>
@@ -85,7 +85,7 @@ function hasArticles() {
         </div>
       </div>
     </div>
-  </section>
+  </main>
 
   <Footer />
 </template>

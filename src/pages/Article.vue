@@ -74,92 +74,94 @@ const presentedRelatedLinks = computed(() =>
 
   <Header />
 
-  <articleHeader
-    v-show="!isLoading"
-    :title="title"
-    :slug="slug"
-    :excerpt="excerpt"
-    :date="date"
-    :serie="serie"
-    :readingMinutes="readingMinutes"
-  />
+  <main>
+    <articleHeader
+      v-show="!isLoading"
+      :title="title"
+      :slug="slug"
+      :excerpt="excerpt"
+      :date="date"
+      :serie="serie"
+      :readingMinutes="readingMinutes"
+    />
 
-  <section class="section" id="article-start">
-    <div class="section__wrapper">
-      <div class="article" ref="articleElement">
-        <aside
-          v-if="!isLoading && renderedArticle.tableOfContentsHtml"
-          class="article__sidebar"
-          aria-label="Índice del artículo"
-        >
-          <p class="article__sidebar-title">En este artículo</p>
-          <div v-html="renderedArticle.tableOfContentsHtml" />
-        </aside>
+    <section class="section" id="article-start">
+      <div class="section__wrapper">
+        <div class="article" ref="articleElement">
+          <aside
+            v-if="!isLoading && renderedArticle.tableOfContentsHtml"
+            class="article__sidebar"
+            aria-label="Índice del artículo"
+          >
+            <p class="article__sidebar-title">En este artículo</p>
+            <div v-html="renderedArticle.tableOfContentsHtml" />
+          </aside>
 
-        <div class="article__body">
-          <articlePlaceholder v-if="isLoading" :count="1" :long="10" />
+          <div class="article__body">
+            <articlePlaceholder v-if="isLoading" :count="1" :long="10" />
 
-          <template v-else>
-            <aside class="article__serie" v-if="serie">
-              <strong>Sobre esta serie</strong>
-              <p>{{ serie.description }}</p>
-            </aside>
+            <template v-else>
+              <aside class="article__serie" v-if="serie">
+                <strong>Sobre esta serie</strong>
+                <p>{{ serie.description }}</p>
+              </aside>
 
-            <div class="article__markdown" v-html="renderedArticle.html" />
+              <div class="article__markdown" v-html="renderedArticle.html" />
 
-            <template v-if="books.length">
-              <hr class="article__division" />
+              <template v-if="books.length">
+                <hr class="article__division" />
 
-              <h3>Profundiza en el tema</h3>
-              <p>
-                ¿Te ha interesado el tema? A continuación te dejo algunos libros donde
-                seguir profundizando en el tema que te cuento más arriba. Algunos de ellos
-                son la inspiración a mi enfoque del problema.
-              </p>
-              <BookComponent v-for="book in books" :key="book.id" :book="book" />
+                <h3>Profundiza en el tema</h3>
+                <p>
+                  ¿Te ha interesado el tema? A continuación te dejo algunos libros donde
+                  seguir profundizando en el tema que te cuento más arriba. Algunos de ellos
+                  son la inspiración a mi enfoque del problema.
+                </p>
+                <BookComponent v-for="book in books" :key="book.id" :book="book" />
+              </template>
+
+              <template v-if="relatedLinks.length">
+                <h4>Más artículos de interés</h4>
+                <p>
+                  Puede que profundizar en el tema con un libro no sea la forma más rápida
+                  para avanzar. Si quieres expandir tu conocimiento antes, o simplemente
+                  complementar los libros de arriba, te dejo estos enlaces.
+                </p>
+                <ul class="related-links">
+                  <li v-for="relatedLink in presentedRelatedLinks" :key="relatedLink.url">
+                    <a :href="relatedLink.url" target="_blank" rel="noopener">{{
+                      relatedLink.title
+                    }}</a>
+                    <span v-if="relatedLink.domain" class="related-links__domain">
+                      · {{ relatedLink.domain }}</span
+                    >
+                  </li>
+                </ul>
+              </template>
+
+              <SeriesNavigation
+                v-if="serie && hasSeriesNeighbours"
+                :serieTitle="serie.title"
+                :previous="seriesNeighbours.previous"
+                :next="seriesNeighbours.next"
+              />
+
+              <footer class="article__closing">
+                <p>
+                  Gracias por leer hasta aquí. Todo feedback es un regalo: si quieres
+                  comentar algo de este artículo, escríbeme por
+                  <a href="https://www.linkedin.com/in/diego-pertusa/" target="_blank" rel="noopener"
+                    >LinkedIn</a
+                  >.
+                </p>
+                <router-link class="article__back" to="/blog/">← Volver al blog</router-link>
+              </footer>
             </template>
-
-            <template v-if="relatedLinks.length">
-              <h4>Más artículos de interés</h4>
-              <p>
-                Puede que profundizar en el tema con un libro no sea la forma más rápida
-                para avanzar. Si quieres expandir tu conocimiento antes, o simplemente
-                complementar los libros de arriba, te dejo estos enlaces.
-              </p>
-              <ul class="related-links">
-                <li v-for="relatedLink in presentedRelatedLinks" :key="relatedLink.url">
-                  <a :href="relatedLink.url" target="_blank" rel="noopener">{{
-                    relatedLink.title
-                  }}</a>
-                  <span v-if="relatedLink.domain" class="related-links__domain">
-                    · {{ relatedLink.domain }}</span
-                  >
-                </li>
-              </ul>
-            </template>
-
-            <SeriesNavigation
-              v-if="serie && hasSeriesNeighbours"
-              :serieTitle="serie.title"
-              :previous="seriesNeighbours.previous"
-              :next="seriesNeighbours.next"
-            />
-
-            <footer class="article__closing">
-              <p>
-                Gracias por leer hasta aquí. Todo feedback es un regalo: si quieres
-                comentar algo de este artículo, escríbeme por
-                <a href="https://www.linkedin.com/in/diego-pertusa/" target="_blank" rel="noopener"
-                  >LinkedIn</a
-                >.
-              </p>
-              <router-link class="article__back" to="/blog/">← Volver al blog</router-link>
-            </footer>
-          </template>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
   <Footer />
 </template>

@@ -9,12 +9,18 @@ import Rover from "./rover.vue";
   <footer class="section footer">
     <div class="section__wrapper footer__wrapper">
       <nav class="footer__nav nav">
-        <a href="https://github.com/pertutatis" target="_blank" class="nav__item">
+        <a
+          href="https://github.com/pertutatis"
+          target="_blank"
+          rel="noopener"
+          class="nav__item"
+        >
           <Github
         /></a>
         <a
           href="https://www.linkedin.com/in/diego-pertusa/"
           target="_blank"
+          rel="noopener"
           class="nav__item"
         >
           <Linkedin

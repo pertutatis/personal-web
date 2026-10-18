@@ -1,0 +1,4 @@
+# Article images referenced as .png in the blog API content are served as WebP.
+# Remove these rules once the content points to the .webp files.
+/imgs/niveles-de-engagement.png      /imgs/niveles-de-engagement.webp      200!
+/imgs/team-commitment-evolution.png  /imgs/team-commitment-evolution.webp  200!

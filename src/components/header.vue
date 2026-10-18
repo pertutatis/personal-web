@@ -79,6 +79,9 @@ import Brand from "./Brand.vue";
   font-weight: 400;
   transition: all 0.3s ease;
   position: relative;
+  /* at least 24px tall touch target */
+  display: inline-block;
+  padding: calc(var(--base) * 0.5) 0;
 }
 
 .nav__item:hover {
@@ -88,7 +91,7 @@ import Brand from "./Brand.vue";
 .nav__item::after {
   content: "";
   position: absolute;
-  bottom: -5px;
+  bottom: -1px;
   left: 0;
   width: 0;
   height: 2px;

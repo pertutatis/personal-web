@@ -47,21 +47,28 @@ const dynamicComponent = computed(
 </script>
 
 <template>
-  <component :is="dynamicComponent" v-if="dynamicComponent">
-    <article-header-content
-      :title="props.title"
-      :excerpt="props.excerpt"
-      :date="props.date"
-      :serieName="props.serie?.title"
-      :readingMinutes="props.readingMinutes"
-    />
-    <a class="read-cue" href="#article-start">
-      Leer <span class="read-cue__arrow" aria-hidden="true">↓</span>
-    </a>
-  </component>
+  <!-- Reserves the full screen height before the lazy header chunk and its styles arrive -->
+  <div class="article-header-frame">
+    <component :is="dynamicComponent" v-if="dynamicComponent">
+      <article-header-content
+        :title="props.title"
+        :excerpt="props.excerpt"
+        :date="props.date"
+        :serieName="props.serie?.title"
+        :readingMinutes="props.readingMinutes"
+      />
+      <a class="read-cue" href="#article-start">
+        Leer <span class="read-cue__arrow" aria-hidden="true">↓</span>
+      </a>
+    </component>
+  </div>
 </template>
 
 <style lang="postcss" scoped>
+.article-header-frame {
+  min-height: 100vh;
+}
+
 .read-cue {
   position: absolute;
   /* the 100vh header starts below the fixed header spacer (base * 9) */

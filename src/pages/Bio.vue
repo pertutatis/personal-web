@@ -9,13 +9,13 @@ usePageMeta(() => buildStaticPageMeta("home"));
 </script>
 
 <template>
-  <div class="home-wrapper">
+  <main class="home-wrapper">
     <section class="section">
       <div class="bio section__wrapper">
         <img
           class="portrait"
           src="../assets/foto.webp"
-          alt="Picture about me"
+          alt="Diego Pertusa"
           width="200"
           height="200"
         />
@@ -33,6 +33,7 @@ usePageMeta(() => buildStaticPageMeta("home"));
             <a
               href="https://github.com/pertutatis"
               target="_blank"
+              rel="noopener"
               class="link-collection__item--reduced"
             >
               <Github
@@ -40,6 +41,7 @@ usePageMeta(() => buildStaticPageMeta("home"));
             <a
               href="https://www.linkedin.com/in/diego-pertusa/"
               target="_blank"
+              rel="noopener"
               class="link-collection__item--reduced"
             >
               <Linkedin
@@ -48,7 +50,7 @@ usePageMeta(() => buildStaticPageMeta("home"));
         </div>
       </div>
     </section>
-  </div>
+  </main>
 </template>
 
 <style lang="postcss" scoped>
@@ -113,6 +115,12 @@ usePageMeta(() => buildStaticPageMeta("home"));
   &:last-child {
     margin-bottom: 0;
   }
+}
+
+.link-collection__item {
+  /* at least 24px tall touch target; the 24px gap between links covers the width */
+  display: inline-block;
+  padding: calc(var(--base) * 0.5) 0;
 }
 
 .link-collection__item + .link-collection__item {
