@@ -77,8 +77,8 @@ const dynamicComponent = computed(
   transform: translateX(-50%);
   z-index: 10;
   font-family: var(--secondary-font);
-  font-size: 0.9rem;
-  letter-spacing: 2px;
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
   color: var(--text-color);
   text-decoration: none;
   opacity: 0.8;

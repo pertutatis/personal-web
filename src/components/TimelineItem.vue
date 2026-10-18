@@ -145,24 +145,27 @@ const props = defineProps<{ period: string; title: string; company: string }>();
   color: rgb(var(--dark-color));
   padding: 0.5rem 1rem;
   border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 500;
+  font-family: var(--secondary-font);
+  font-size: var(--text-xs);
+  font-weight: var(--regular);
+  letter-spacing: var(--tracking-label);
   margin-bottom: 1rem;
 }
 
 .job__title {
   font-family: var(--primary-font);
-  font-size: 1.4rem;
-  font-weight: 600;
+  font-size: var(--text-lg);
+  font-weight: var(--semibold);
   color: var(--text-color);
   margin-bottom: 0.5rem;
 }
 
 .job__company {
-  font-size: 1.1rem;
+  font-family: var(--secondary-font);
+  font-size: var(--text-base);
   color: var(--accent-text-color);
   margin-bottom: 1rem;
-  font-weight: 500;
+  font-weight: var(--regular);
 }
 
 .job__description {
@@ -207,7 +210,7 @@ const props = defineProps<{ period: string; title: string; company: string }>();
   }
 
   .job__title {
-    font-size: 1.2rem;
+    font-size: var(--text-base);
   }
 }
 </style>

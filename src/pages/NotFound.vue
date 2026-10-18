@@ -47,10 +47,14 @@ if (import.meta.env.SSR) {
 
 .not-found__code {
   font-family: var(--secondary-font);
-  font-size: 0.9rem;
-  letter-spacing: 2px;
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
   color: var(--accent-text-color);
   margin-bottom: var(--base);
+}
+
+.not-found p {
+  max-width: 42rem;
 }
 
 .not-found__title {
@@ -61,5 +65,6 @@ if (import.meta.env.SSR) {
   display: flex;
   gap: calc(var(--base) * 3);
   font-family: var(--secondary-font);
+  font-size: var(--text-sm);
 }
 </style>

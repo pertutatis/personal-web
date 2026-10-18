@@ -76,7 +76,7 @@ import Brand from "./Brand.vue";
   font-family: var(--primary-font);
   color: var(--text-color);
   text-decoration: none;
-  font-weight: 400;
+  font-weight: var(--regular);
   transition: all 0.3s ease;
   position: relative;
   /* at least 24px tall touch target */

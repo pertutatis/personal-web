@@ -57,13 +57,14 @@ usePageMeta(() => buildStaticPageMeta("home"));
 .big-title {
   font-family: var(--primary-font);
   font-weight: var(--bold);
-  font-size: calc(var(--base) * 5);
+  font-size: var(--text-display);
   color: var(--title-color);
   margin-bottom: 0;
 }
 
 .subtitle {
-  font-size: 20px;
+  font-family: var(--secondary-font);
+  font-size: var(--text-base);
 }
 
 .home-wrapper {

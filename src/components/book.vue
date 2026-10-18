@@ -61,13 +61,13 @@ const bookLinkDomain = computed(() => getLinkDomain(props.book.url));
 
 .book__link {
   font-family: var(--secondary-font);
-  font-size: 0.9rem;
+  font-size: var(--text-sm);
   text-decoration: none;
 }
 
 .book__title {
   margin-top: 0;
-  font-size: 1.125rem;
+  font-size: var(--text-base);
   line-height: 1.3;
   margin-bottom: calc(var(--base) * 1);
 }

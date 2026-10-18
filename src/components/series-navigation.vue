@@ -39,8 +39,8 @@ const props = defineProps<{
 
 .series-navigation__label {
   font-family: var(--secondary-font);
-  font-size: 0.9rem;
-  letter-spacing: 1px;
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
   margin-bottom: calc(var(--base) * 2);
   opacity: 0.8;
 }
@@ -82,7 +82,7 @@ const props = defineProps<{
 .series-navigation__direction {
   display: block;
   font-family: var(--secondary-font);
-  font-size: 0.85rem;
+  font-size: var(--text-xs);
   color: var(--accent-text-color);
   margin-bottom: var(--base);
 }

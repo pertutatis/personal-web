@@ -28,9 +28,26 @@ import BackgroundStars from "./components/background-stars.vue";
   /* scheme */
   --base: 8px;
   --bold: 700;
-  --medium: 500;
+  --semibold: 600;
   --regular: 400;
-  --light: 300;
+  --light: 300; /* Roboto Mono only: article excerpts */
+
+  /* Type scale: every font size in the site comes from here */
+  --text-xs: 0.8125rem; /* 13px  labels, dates, tags */
+  --text-sm: 0.875rem; /* 14px  secondary UI, tables, sidebar */
+  --text-base: 1.125rem; /* 18px  body text */
+  --text-lg: 1.375rem; /* 22px  h3, intros, card titles */
+  --text-xl: 1.75rem; /* 28px  h2 */
+  --text-2xl: 2.25rem; /* 36px  featured titles, page h1 on mobile */
+  --text-3xl: 3rem; /* 48px  page h1 */
+  --text-display: clamp(2.5rem, 5vw, 3.5rem); /* hero titles */
+
+  --leading-tight: 1.2;
+  --leading-normal: 1.6;
+  --leading-relaxed: 1.75;
+
+  /* Monospaced labels: dates, categories, small navigation */
+  --tracking-label: 1.5px;
 
   --main-transition: 0.3s ease;
 
@@ -194,9 +211,9 @@ body,
 body {
   min-height: 100vh;
   background-color: var(--background-color);
-  font-family: var(--secondary-font);
-  font-size: calc(var(--base) * 2.25);
-  font-weight: var(--light);
+  font-family: var(--primary-font);
+  font-size: var(--text-base);
+  font-weight: var(--regular);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--text-color);
@@ -252,8 +269,6 @@ h6 {
 }
 
 a {
-  /* font-family: var(--primary-font); */
-  /* font-weight: var(--medium); */
   color: var(--accent-text-color);
   text-decoration: underline;
   transition: color var(--main-transition);
@@ -268,8 +283,8 @@ ul,
 ol,
 table {
   margin-bottom: calc(var(--base) * 4);
-  font-size: 1.1rem;
-  line-height: 1.6;
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
 }
 
 strong,
@@ -314,51 +329,37 @@ ul li::marker {
   color: var(--accent-text-color);
 }
 
-h1 {
-  font-family: var(--primary-font);
-  font-style: normal;
-  font-weight: var(--bold);
-  font-size: 32px;
-  /* line-height: 46px; */
-
-  @media (min-width: 1024px) {
-    font-size: 38px;
-  }
-}
-
-h2 {
-  font-family: var(--primary-font);
-  font-style: normal;
-  font-weight: var(--bold);
-  font-size: 28px;
-  /* line-height: 39px; */
-
-  @media (min-width: 1024px) {
-    font-size: 32px;
-  }
-}
-
-h3 {
-  font-family: var(--primary-font);
-  font-style: normal;
-  font-weight: var(--bold);
-  font-size: 24px;
-  /* line-height: 29px; */
-}
-
-h4 {
-  font-family: var(--primary-font);
-  font-style: normal;
-  font-weight: var(--bold);
-  font-size: 20px;
-  /* line-height: 24px; */
-}
-
+h1,
+h2,
+h3,
+h4,
 h5 {
   font-family: var(--primary-font);
   font-style: normal;
   font-weight: var(--bold);
-  font-size: 18px;
+  line-height: var(--leading-tight);
+}
+
+/* Page title; hero titles (home, article header) use --text-display */
+h1 {
+  font-size: var(--text-2xl);
+
+  @media (min-width: 1024px) {
+    font-size: var(--text-3xl);
+  }
+}
+
+h2 {
+  font-size: var(--text-xl);
+}
+
+h3 {
+  font-size: var(--text-lg);
+}
+
+h4,
+h5 {
+  font-size: var(--text-base);
 }
 
 </style>

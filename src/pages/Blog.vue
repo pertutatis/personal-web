@@ -108,24 +108,22 @@ function hasArticles() {
   }
 }
 
+.blog__header p {
+  max-width: 42rem;
+}
+
 .blog__title {
   margin-bottom: calc(var(--base) * 2);
 }
 
 .blog__flag {
-  font-family: var(--primary-font);
+  font-family: var(--secondary-font);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
   color: var(--accent-text-color);
-  font-size: 1.1rem;
-  margin-bottom: 30px;
-  opacity: 0.9;
-  font-weight: 300;
-  letter-spacing: 2px;
   width: 100%;
   margin-bottom: calc(var(--base) * 1);
-
-  @media (min-width: 768px) {
-    font-size: 1.3rem;
-  }
 }
 
 .excerpt {
@@ -179,7 +177,7 @@ function hasArticles() {
 
 /* Every listed article is an h2; the featured one is just bigger */
 .excerpt__title {
-  font-size: 1.5rem;
+  font-size: var(--text-lg);
   margin-bottom: var(--base);
   background: var(--title);
   -webkit-background-clip: text;
@@ -192,18 +190,24 @@ function hasArticles() {
 
 .excerpt__meta {
   font-family: var(--secondary-font);
-  font-size: 0.85rem;
-  letter-spacing: 1px;
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
   opacity: 0.75;
   margin-bottom: calc(var(--base) * 2);
 }
 
 .is-first .excerpt__title {
-  font-size: 1.75rem;
+  font-size: var(--text-xl);
 
   @media (min-width: 1024px) {
-    font-size: 2rem;
+    font-size: var(--text-2xl);
   }
+}
+
+/* Excerpts keep the light monospaced voice of the site */
+.excerpt__text {
+  font-family: var(--secondary-font);
+  font-weight: var(--light);
 }
 
 .excerpt__cat {
@@ -212,7 +216,8 @@ function hasArticles() {
   color: var(--accent-text-color);
   padding: 0.3rem 0.8rem;
   border-radius: 15px;
-  font-size: 0.8rem;
+  font-family: var(--secondary-font);
+  font-size: var(--text-xs);
   margin: 0.3rem 0.3rem 0.3rem 0;
   border: 1px solid var(--accent-color-03);
   margin-bottom: 20px;
@@ -222,15 +227,6 @@ function hasArticles() {
   white-space: nowrap;
 }
 
-.excerpt__serie {
-  font-family: var(--primary-font);
-  font-size: 1.1rem;
-  margin-bottom: 30px;
-  opacity: 0.9;
-  font-weight: 300;
-  letter-spacing: 2px;
-}
-
 .excerpt__link {
   color: var(--text-color);
   text-decoration: none;
@@ -238,6 +234,8 @@ function hasArticles() {
 }
 
 .excerpt__more {
+  font-family: var(--secondary-font);
+  font-size: var(--text-sm);
   color: var(--accent-text-color);
 
   &:after {

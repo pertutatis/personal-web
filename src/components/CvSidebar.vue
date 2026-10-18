@@ -71,7 +71,7 @@
   color: var(--secondary-accent-1-color);
   margin-bottom: 1.5rem;
   text-align: center;
-  font-size: 1.2rem;
+  font-size: var(--text-lg);
 }
 
 .contact-info {
@@ -84,7 +84,7 @@
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  font-size: 0.9rem;
+  font-size: var(--text-sm);
 }
 
 .contact-info__icon {
@@ -95,7 +95,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.8rem;
+  font-size: var(--text-xs);
   color: rgb(var(--dark-color));
 }
 
@@ -109,7 +109,7 @@
 
 .skill__category h3 {
   color: var(--secondary-accent-3-color);
-  font-size: 1rem;
+  font-size: var(--text-base);
   margin-bottom: 0.8rem;
   font-family: var(--primary-font);
 }
@@ -121,11 +121,12 @@
 }
 
 .skill__tag {
+  font-family: var(--secondary-font);
   background: rgba(116, 185, 255, 0.1);
   color: var(--secondary-accent-1-color);
   padding: 0.4rem 0.8rem;
   border-radius: 15px;
-  font-size: 0.8rem;
+  font-size: var(--text-xs);
   border: 1px solid rgba(116, 185, 255, 0.3);
   transition: all 0.3s ease;
 

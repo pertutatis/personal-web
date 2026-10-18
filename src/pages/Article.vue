@@ -230,8 +230,8 @@ const presentedRelatedLinks = computed(() =>
 
   p,
   li {
-    font-size: 1.125rem;
-    line-height: 1.75;
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
   }
 
   h2,
@@ -244,20 +244,20 @@ const presentedRelatedLinks = computed(() =>
 
   h2 {
     color: var(--accent-heading-color);
-    font-size: 1.75rem;
+    font-size: var(--text-xl);
     margin-top: calc(var(--base) * 8);
   }
 
   h3 {
     color: var(--title-color);
-    font-size: 1.375rem;
+    font-size: var(--text-lg);
     margin-top: calc(var(--base) * 5);
   }
 
   h4,
   h5 {
     color: var(--title-color);
-    font-size: 1.125rem;
+    font-size: var(--text-base);
     margin-top: calc(var(--base) * 4);
   }
 
@@ -281,7 +281,7 @@ const presentedRelatedLinks = computed(() =>
     overflow-y: auto;
     margin: 0;
     padding: 0 calc(var(--base) * 1);
-    font-size: 0.875rem;
+    font-size: var(--text-sm);
     line-height: 1.5;
   }
 
@@ -300,8 +300,8 @@ const presentedRelatedLinks = computed(() =>
 .article__sidebar-title,
 .article__body nav.table-of-contents::before {
   font-family: var(--secondary-font);
-  font-size: 0.8rem;
-  letter-spacing: 2px;
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: var(--accent-text-color);
   margin-bottom: calc(var(--base) * 2);
@@ -310,7 +310,7 @@ const presentedRelatedLinks = computed(() =>
 /* End matter sections are h2 for the outline but keep a quieter look than content sections */
 .article__body .article__endmatter-title {
   color: var(--title-color);
-  font-size: 1.375rem;
+  font-size: var(--text-lg);
   margin-top: calc(var(--base) * 6);
 }
 
@@ -343,7 +343,7 @@ const presentedRelatedLinks = computed(() =>
 
 .related-links__domain {
   font-family: var(--secondary-font);
-  font-size: 0.85rem;
+  font-size: var(--text-xs);
   opacity: 0.7;
 }
 
@@ -368,15 +368,15 @@ const presentedRelatedLinks = computed(() =>
     display: block;
     margin-bottom: var(--base);
     font-family: var(--secondary-font);
-    font-size: 0.8rem;
+    font-size: var(--text-xs);
     font-weight: var(--regular);
-    letter-spacing: 2px;
+    letter-spacing: var(--tracking-label);
     text-transform: uppercase;
     color: var(--accent-text-color);
   }
 
   p {
-    font-size: 0.95rem;
+    font-size: var(--text-sm);
     line-height: 1.6;
   }
 }
@@ -408,8 +408,8 @@ const presentedRelatedLinks = computed(() =>
   border-left: 3px solid rgb(var(--experience-rgb));
   border-radius: 0 var(--block-radius) var(--block-radius) 0;
   /* notes written without blank lines are not wrapped in <p> */
-  font-size: 1.125rem;
-  line-height: 1.75;
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
 }
 
 .article__body aside {
@@ -424,7 +424,7 @@ const presentedRelatedLinks = computed(() =>
   margin: calc(var(--base) * 6) 0;
   padding: calc(var(--base) * 1) 0 calc(var(--base) * 1) calc(var(--base) * 3);
   border-left: 3px solid var(--accent-color);
-  font-size: 1.25rem;
+  font-size: var(--text-lg);
   line-height: 1.6;
   font-style: italic;
 
@@ -456,7 +456,7 @@ const presentedRelatedLinks = computed(() =>
     display: block;
     margin-top: calc(var(--base) * 2);
     font-family: var(--secondary-font);
-    font-size: 0.9rem;
+    font-size: var(--text-xs);
     font-style: normal;
     opacity: 0.85;
 
@@ -487,7 +487,7 @@ const presentedRelatedLinks = computed(() =>
   min-width: 36rem;
   margin: 0;
   border-collapse: collapse;
-  font-size: 0.95rem;
+  font-size: var(--text-sm);
   line-height: 1.5;
 
   thead {
@@ -518,8 +518,11 @@ const presentedRelatedLinks = computed(() =>
   }
 }
 
-/* Table of contents: same list style inline (mobile) and in the sidebar (desktop) */
+/* Table of contents: same list style inline (mobile) and in the sidebar (desktop),
+   monospaced like the rest of the site navigation labels */
 nav.table-of-contents {
+  font-family: var(--secondary-font);
+
   ol {
     list-style: none;
     padding-left: 0;
@@ -555,7 +558,7 @@ nav.table-of-contents {
   padding: calc(var(--base) * 3) 0;
   border-top: 1px solid var(--accent-color-03);
   border-bottom: 1px solid var(--accent-color-03);
-  font-size: 0.95rem;
+  font-size: var(--text-sm);
   line-height: 1.5;
 
   &::before {
@@ -577,7 +580,7 @@ hr {
 figcaption {
   margin-top: calc(var(--base) * -2);
   margin-bottom: calc(var(--base) * 3);
-  font-size: 16px;
+  font-size: var(--text-sm);
   font-style: italic;
 }
 </style>

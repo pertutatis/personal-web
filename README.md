@@ -80,6 +80,9 @@ The build also writes, from `src/build/`:
 
 ## Design notes
 
+- Typography uses tokens in `src/App.vue`: a single scale (`--text-xs` 13px to `--text-3xl` 48px, plus `--text-display` for hero titles), `--leading-*` line heights and `--tracking-label`. Do not hardcode font sizes.
+- Montserrat is used for headings and running text; Roboto Mono for labels, dates, navigation and the light (300) article excerpts. Only the loaded weights are used: Montserrat 400/600/700 and 400 italic, Roboto Mono 300/400.
+
 - Colours are CSS custom properties in `src/App.vue`, with light and dark themes from `prefers-color-scheme`.
 - In the light theme, accent text uses darker shades of the brand red (`--accent-text-color`, `--accent-heading-color`) to meet WCAG AA contrast; the brand red stays for decoration.
 - Animations respect `prefers-reduced-motion`.

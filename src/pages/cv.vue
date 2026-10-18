@@ -384,7 +384,8 @@ onBeforeUnmount(() => {
 
 .cv-header__title {
   font-family: var(--primary-font);
-  font-weight: 700;
+  font-weight: var(--bold);
+  /* Hero title of the CV, intentionally larger than the type scale */
   font-size: 2.5rem;
   background: linear-gradient(
     135deg,
@@ -417,15 +418,14 @@ onBeforeUnmount(() => {
 .cv-header__subtitle {
   font-family: var(--primary-font);
   line-height: normal;
-  font-size: 1.1rem;
+  font-size: var(--text-base);
   margin-bottom: 30px;
   opacity: 0.9;
-  font-weight: 300;
-  letter-spacing: 2px;
+  font-weight: var(--regular);
 
   /* Responsive */
   @media (min-width: 768px) {
-    font-size: 1.3rem;
+    font-size: var(--text-lg);
   }
 }
 
@@ -476,6 +476,7 @@ onBeforeUnmount(() => {
 }
 
 .achievement-badge {
+  font-family: var(--secondary-font);
   display: inline-block;
   background: var(--accent-color-01);
   color: var(--secondary-accent-1-color);
@@ -483,7 +484,7 @@ onBeforeUnmount(() => {
   color: var(--accent-text-color);
   padding: 0.3rem 0.8rem;
   border-radius: 15px;
-  font-size: 0.8rem;
+  font-size: var(--text-xs);
   margin: 0.3rem 0.3rem 0.3rem 0;
   border: 1px solid var(--accent-color-03);
 }

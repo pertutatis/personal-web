@@ -29,7 +29,7 @@ defineProps({
 .blog__loader {
   text-align: center;
   padding: 2rem 0;
-  font-size: 1.2rem;
+  font-size: var(--text-lg);
   color: var(--accent-text-color);
   opacity: 0.2;
 }
